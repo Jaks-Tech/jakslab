@@ -48,6 +48,14 @@ export default function PortfolioClient({
     }
   };
 
+  const handleSelectChange = (value: string) => {
+    if (!value) {
+      router.push("/portfolio");
+    } else {
+      router.push(`/portfolio?category=${encodeURIComponent(value)}`);
+    }
+  };
+
   const getCategoryClasses = (category: Category) => {
     const theme = getCategoryTheme(category);
 
@@ -86,36 +94,65 @@ export default function PortfolioClient({
 
   return (
     <>
-      {/* CATEGORY FILTER */}
-      <div className="flex flex-wrap gap-4 mb-14">
-        <button
-          onClick={() => handleCategoryChange(null)}
-          className={`px-5 py-2 rounded-full text-sm font-medium border transition ${
-            !activeCategory
-              ? "bg-slate-900 text-white border-slate-900 shadow"
-              : "bg-white border-slate-200 text-slate-800 hover:bg-slate-50"
-          }`}
-        >
-          All
-        </button>
+      {/* FILTER SECTION */}
+      <div className="mb-14">
 
-        {CATEGORIES.map((cat) => {
-          const isActive = activeCategory === cat.name;
+        {/* 🔹 MOBILE DROPDOWN */}
+        <div className="md:hidden">
+          <select
+            value={activeCategory ?? ""}
+            onChange={(e) => handleSelectChange(e.target.value)}
+            className="w-full appearance-none bg-white border border-slate-300 rounded-2xl px-5 py-3 text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+          >
+            <option value="">All Categories</option>
+            {CATEGORIES.map((cat) => (
+              <option key={cat.name} value={cat.name}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          return (
-            <button
-              key={cat.name}
-              onClick={() => handleCategoryChange(cat.name)}
-              className={`px-5 py-2 rounded-full text-sm font-medium border transition ${
-                isActive
-                  ? `${getActiveCategoryClasses(cat.name)} shadow`
-                  : `${getCategoryClasses(cat.name)} hover:opacity-80`
-              }`}
-            >
-              {cat.name}
-            </button>
-          );
-        })}
+        {/* 🔹 DESKTOP BUTTONS */}
+        <div className="hidden md:flex flex-wrap gap-4">
+          <button
+            onClick={() => handleCategoryChange(null)}
+            className={`px-5 py-2 rounded-full text-sm font-medium border transition ${
+              !activeCategory
+                ? "bg-slate-900 text-white border-slate-900 shadow"
+                : "bg-white border-slate-200 text-slate-800 hover:bg-slate-50"
+            }`}
+          >
+            All
+          </button>
+
+          {CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.name;
+
+            return (
+              <button
+                key={cat.name}
+                onClick={() => handleCategoryChange(cat.name)}
+                className={`px-5 py-2 rounded-full text-sm font-medium border transition ${
+                  isActive
+                    ? `${getActiveCategoryClasses(cat.name)} shadow`
+                    : `${getCategoryClasses(cat.name)} hover:opacity-80`
+                }`}
+              >
+                {cat.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* RESULTS COUNT */}
+        <div className="mt-6 text-sm text-slate-600">
+          Showing{" "}
+          <span className="font-semibold text-slate-900">
+            {filteredArticles.length}
+          </span>{" "}
+          article{filteredArticles.length !== 1 && "s"}
+        </div>
       </div>
 
       {/* ARTICLES GRID */}
@@ -126,7 +163,6 @@ export default function PortfolioClient({
             href={`/portfolio/${article.slug}`}
             className="group p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
           >
-            {/* Category Badge */}
             <span
               className={`inline-flex items-center text-xs font-medium px-3 py-1 rounded-full border ${getCategoryClasses(
                 article.category
@@ -135,31 +171,27 @@ export default function PortfolioClient({
               {article.category}
             </span>
 
-            {/* Title */}
             <h2 className="text-xl font-semibold mt-4 text-slate-900 group-hover:text-blue-600 transition">
               {article.title}
             </h2>
-                {/* Metadata with Icons */}
-                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 mt-3">
-                <div className="flex items-center gap-1.5">
-                    <User size={16} className="opacity-70" />
-                    <span>
-                    <span className="font-medium text-slate-700"></span> {article.author}
-                    </span>
-                </div>
 
-                <div className="flex items-center gap-1.5">
-                    <Calendar size={16} className="opacity-70" />
-                    <span>{article.date}</span>
-                </div>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 mt-3">
+              <div className="flex items-center gap-1.5">
+                <User size={16} className="opacity-70" />
+                <span>{article.author}</span>
+              </div>
 
-                <div className="flex items-center gap-1.5">
-                    <Clock size={16} className="opacity-70" />
-                    <span>{article.readTime}</span>
-                </div>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <Calendar size={16} className="opacity-70" />
+                <span>{article.date}</span>
+              </div>
 
-            {/* Excerpt */}
+              <div className="flex items-center gap-1.5">
+                <Clock size={16} className="opacity-70" />
+                <span>{article.readTime}</span>
+              </div>
+            </div>
+
             {article.excerpt && (
               <p className="text-slate-800 mt-4 text-sm line-clamp-3">
                 {article.excerpt}

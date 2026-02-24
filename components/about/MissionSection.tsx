@@ -2,7 +2,7 @@ import { CheckCircle } from "lucide-react";
 
 export function MissionSection() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+    <section className="relative py-5 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
       
       {/* Decorative Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />

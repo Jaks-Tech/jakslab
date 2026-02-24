@@ -1,28 +1,45 @@
-export default function Pagination() {
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { Category } from "@/lib/categories";
+
+export default function ResultsInfo({
+  total,
+}: {
+  total: number;
+}) {
+  const searchParams = useSearchParams();
+  const activeCategory =
+    (searchParams.get("category") as Category | null) ?? null;
+
   return (
-    <div className="flex justify-center items-center gap-4 mt-20">
+    <div className="mt-20 flex flex-col md:flex-row items-center justify-between gap-6 bg-white border border-slate-200 rounded-3xl px-8 py-6 shadow-sm">
+      
+      {/* Results Info */}
+      <div className="text-slate-700 text-sm md:text-base">
+        {activeCategory ? (
+          <>
+            Showing <span className="font-semibold">{total}</span> articles in{" "}
+            <span className="font-semibold text-blue-600">
+              {activeCategory}
+            </span>
+          </>
+        ) : (
+          <>
+            Showing <span className="font-semibold">{total}</span> total articles
+          </>
+        )}
+      </div>
 
-      <button className="px-4 py-2 text-sm text-slate-600 hover:text-blue-600">
-        Previous
-      </button>
-
-      {[1, 2, 3].map((page) => (
-        <button
-          key={page}
-          className={`w-10 h-10 rounded-xl ${
-            page === 2
-              ? "bg-blue-600 text-white"
-              : "bg-white border border-slate-200 text-slate-700"
-          }`}
+      {/* Clear Filter */}
+      {activeCategory && (
+        <a
+          href="/portfolio"
+          className="text-sm font-medium text-blue-600 hover:underline"
         >
-          {page}
-        </button>
-      ))}
-
-      <button className="px-4 py-2 text-sm text-slate-600 hover:text-blue-600">
-        Next
-      </button>
-
+          Clear Filter
+        </a>
+      )}
     </div>
   );
 }

@@ -66,7 +66,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="py-24 px-6">
+    <section className="py-5 px-6">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Header */}

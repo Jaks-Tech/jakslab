@@ -94,9 +94,10 @@ const colorStyles: any = {
 
 export default function ServicesPreview() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-5 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
 
+        {/* Section Header */}
         <div className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
             Our Core Services
@@ -106,6 +107,7 @@ export default function ServicesPreview() {
           </p>
         </div>
 
+        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((s, i) => {
             const style = colorStyles[s.color];
@@ -113,35 +115,47 @@ export default function ServicesPreview() {
             return (
               <div
                 key={i}
-                className={`group p-8 rounded-3xl border ${style.border} ${style.bg} hover:shadow-xl hover:-translate-y-2 transition-all duration-300`}
+                className={`group p-8 rounded-3xl border ${style.border} ${style.bg} 
+                           hover:shadow-xl hover:-translate-y-2 transition-all duration-300 
+                           text-center flex flex-col items-center`}
               >
-                <div className={`w-12 h-12 ${style.iconBg} rounded-xl flex items-center justify-center mb-6`}>
+                {/* Icon */}
+                <div
+                  className={`w-12 h-12 ${style.iconBg} rounded-xl 
+                             flex items-center justify-center mb-6`}
+                >
                   <s.icon className={`w-6 h-6 ${style.text}`} />
                 </div>
 
+                {/* Title */}
                 <h4 className="text-lg font-semibold text-slate-900">
                   {s.title}
                 </h4>
 
-                <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                {/* Description */}
+                <p className="text-sm text-slate-600 mt-2 leading-relaxed max-w-xs">
                   {s.desc}
                 </p>
 
-                <div className="mt-6 flex items-center justify-between">
+                {/* Price */}
+                <div className="mt-6">
                   <span className={`font-semibold ${style.text}`}>
                     {s.price}
                   </span>
-
                 </div>
               </div>
             );
           })}
         </div>
 
+        {/* CTA */}
         <div className="mt-20 text-center">
           <Link
             href="/services"
-            className="inline-block px-10 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition"
+            className="inline-block px-10 py-4 rounded-2xl 
+                       bg-gradient-to-r from-blue-600 to-indigo-600 
+                       text-white font-semibold shadow-lg 
+                       hover:shadow-xl hover:scale-[1.02] transition"
           >
             View All Services
           </Link>

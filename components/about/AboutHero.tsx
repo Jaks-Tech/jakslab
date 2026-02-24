@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Send } from "lucide-react";
 export function AboutHero() {
   return (
-    <section className="relative pt-30 pb-28 bg-gradient-to-b from-blue-50/60 to-white overflow-hidden">
+    <section className="relative pt-30 pb-20 bg-gradient-to-b from-blue-50/60 to-white overflow-hidden">
       
       {/* Background Glow */}
       <div className="absolute inset-0 flex justify-center pointer-events-none">
@@ -27,7 +27,7 @@ export function AboutHero() {
         {/* Description */}
         <p className="mt-8 text-xl text-slate-600 leading-relaxed">
           Your trusted partner in academic excellence and advanced technical
-          innovation — delivering precision-driven solutions with integrity,
+          innovation - delivering precision-driven solutions with integrity,
           expertise, and measurable impact.
         </p>
 

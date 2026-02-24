@@ -42,33 +42,33 @@ const techServices = [
 
 export function TechServices() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-slate-50 to-white">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
+    <section className="relative py-16 bg-gradient-to-b from-slate-50 to-white">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
-            {/* Section Header */}
-            <div className="mb-16 max-w-3xl mx-auto text-center">
-            <div className="inline-block px-4 py-1 mb-4 text-sm font-medium text-indigo-600 bg-indigo-100 rounded-full">
-                Technical Expertise
-            </div>
+        {/* Section Header */}
+        <div className="mb-16 max-w-3xl mx-auto text-center">
+          <div className="inline-flex justify-center px-4 py-1 mb-4 text-sm font-medium text-indigo-600 bg-indigo-100 rounded-full">
+            Technical Expertise
+          </div>
 
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                High-Quality Technical Services
-            </h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
+            High-Quality Technical Services
+          </h2>
 
-            <p className="mt-4 text-slate-600 text-lg">
-                From academic programming to advanced AI systems, we deliver 
-                reliable, scalable, and professionally engineered solutions.
-            </p>
-            </div>
+          <p className="mt-4 text-slate-600 text-lg">
+            From academic programming to advanced AI systems, we deliver 
+            reliable, scalable, and professionally engineered solutions.
+          </p>
+        </div>
 
         {/* Services Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {techServices.map((service, i) => (
             <div
               key={i}
               className="group bg-white p-8 rounded-3xl border border-slate-200 
                          shadow-sm hover:shadow-2xl hover:-translate-y-3 
-                         transition-all duration-300"
+                         transition-all duration-300 text-center flex flex-col items-center"
             >
               {/* Icon */}
               <div className="w-14 h-14 rounded-2xl 
@@ -84,12 +84,12 @@ export function TechServices() {
               </h4>
 
               {/* Description */}
-              <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+              <p className="text-sm text-slate-600 mt-3 leading-relaxed max-w-xs">
                 {service.desc}
               </p>
 
               {/* Price + CTA */}
-              <div className="mt-6 flex items-center justify-between">
+              <div className="mt-6 flex flex-col items-center gap-2">
                 <span className="text-indigo-600 font-semibold">
                   {service.price}
                 </span>

@@ -7,7 +7,7 @@ export default function Statistics() {
   ];
 
   return (
-    <section className="py-24 px-6 relative">
+    <section className="py-5 sm:py-16 lg:py-20 px-4 sm:px-6 relative">
       
       {/* Background Accent */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-indigo-50/40 to-white -z-10" />
@@ -15,17 +15,17 @@ export default function Statistics() {
       <div className="max-w-[1400px] mx-auto">
 
         {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900">
             Proven Performance
           </h2>
-          <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
             Numbers that reflect our consistency, reliability, and commitment to excellence.
           </p>
         </div>
 
         {/* Premium Gradient Card */}
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl">
           
           {/* Main Gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600" />
@@ -34,22 +34,23 @@ export default function Statistics() {
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm" />
 
           {/* Content */}
-          <div className="relative px-10 py-16 md:px-20 md:py-20 text-white">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 text-center">
+          <div className="relative px-6 sm:px-10 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 lg:py-20 text-white">
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-14 text-center">
 
               {stats.map((stat, i) => (
                 <div key={i} className="relative">
                   
                   {/* Value */}
-                  <div className="text-5xl md:text-6xl font-bold tracking-tight">
+                  <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
                     {stat.val}
                   </div>
 
                   {/* Divider Line */}
-                  <div className="w-12 h-[2px] bg-white/30 mx-auto my-4" />
+                  <div className="w-10 sm:w-12 h-[2px] bg-white/30 mx-auto my-3 sm:my-4" />
 
                   {/* Label */}
-                  <div className="text-sm uppercase tracking-widest text-white/80">
+                  <div className="text-xs sm:text-sm uppercase tracking-widest text-white/80">
                     {stat.label}
                   </div>
 
@@ -57,6 +58,7 @@ export default function Statistics() {
               ))}
 
             </div>
+
           </div>
 
         </div>

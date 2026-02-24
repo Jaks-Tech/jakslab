@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function ServicesFlexibilityNotice() {
   return (
-    <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+    <section className="relative py-5 bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
       
       {/* Decorative Glow */}
       <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl"></div>

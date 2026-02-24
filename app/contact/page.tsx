@@ -12,7 +12,7 @@ export default function ContactPage() {
 
         <ContactHero />
 
-        <ContactInfoCards />
+        
 
         <div className="grid lg:grid-cols-2 gap-10 mt-16">
           <ContactForm />
@@ -21,7 +21,7 @@ export default function ContactPage() {
             <ContactWhatsAppCard />
           </div>
         </div>
-
+        <ContactInfoCards />
         <ContactBusinessHours />
 
       </div>

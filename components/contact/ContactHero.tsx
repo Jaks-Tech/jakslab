@@ -1,6 +1,6 @@
 export function ContactHero() {
   return (
-    <section className="relative pt-20 pb-28 px-6 text-center overflow-hidden">
+    <section className="relative pt-15 pb-15 px-6 text-center overflow-hidden">
 
       {/* Background Gradients */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 -z-10" />

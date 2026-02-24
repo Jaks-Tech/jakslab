@@ -70,16 +70,16 @@ const services = [
 
 export function AcademicServices() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-slate-50">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
+    <section className="relative py-16 bg-gradient-to-b from-white to-slate-50">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
 
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-block px-4 py-1 mb-4 text-sm font-medium text-blue-600 bg-blue-100 rounded-full">
+          <div className="inline-flex justify-center px-4 py-1 mb-4 text-sm font-medium text-blue-600 bg-blue-100 rounded-full">
             Academic Support
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">
             Professional Academic Services
           </h2>
 
@@ -90,13 +90,13 @@ export function AcademicServices() {
         </div>
 
         {/* Services Grid */}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-10">
           {services.map((service, i) => (
             <div
               key={i}
               className="group bg-white p-8 rounded-3xl border border-slate-200 
                          shadow-sm hover:shadow-2xl hover:-translate-y-3 
-                         transition-all duration-300"
+                         transition-all duration-300 text-center flex flex-col items-center"
             >
               {/* Icon */}
               <div className="w-14 h-14 rounded-2xl 
@@ -112,12 +112,12 @@ export function AcademicServices() {
               </h4>
 
               {/* Description */}
-              <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+              <p className="text-sm text-slate-600 mt-3 leading-relaxed max-w-xs">
                 {service.desc}
               </p>
 
-              {/* Price + Micro CTA */}
-              <div className="mt-6 flex items-center justify-between">
+              {/* Price + CTA */}
+              <div className="mt-6 flex flex-col items-center gap-2">
                 <span className="text-blue-600 font-semibold">
                   {service.price}
                 </span>

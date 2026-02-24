@@ -38,7 +38,7 @@ export function HowItWorks() {
   }, []);
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+    <section className="relative py-5 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
 
         {/* Header */}

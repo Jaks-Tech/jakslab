@@ -1,13 +1,13 @@
 import { Send } from "lucide-react";
 export function ContactForm() {
   return (
-    <div className="relative flex items-center justify-center py-20 px-6 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+    <div className="relative flex items-center justify-center py-15 px-6 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
       
       {/* Background Glow Effects */}
       <div className="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-3xl" />
       <div className="absolute bottom-[-120px] right-[-120px] w-[300px] h-[300px] bg-indigo-500/20 rounded-full blur-3xl" />
 
-      <div className="relative w-full max-w-2xl p-10 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-2xl">
+      <div className="relative w-full max-w-2xl p-5 rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-2xl">
 
         <h3 className="text-3xl font-bold text-slate-800 mb-2 text-center">
           Get in Touch

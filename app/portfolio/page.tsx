@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getAllArticles } from "@/lib/articles";
 import ArticlesHero from "@/components/portfolio/ArticlesHero";
 import PortfolioClient from "@/components/portfolio/PortfolioClient";
-import Pagination from "@/components/portfolio/Pagination";
+import ResultsInfo from "@/components/portfolio/Pagination";
 
 export default function PortfolioPage() {
   const articles = getAllArticles();
@@ -17,7 +17,7 @@ export default function PortfolioPage() {
           <PortfolioClient articles={articles} />
         </Suspense>
 
-        <Pagination />
+        <ResultsInfo total={articles.length} />
 
       </div>
     </main>
