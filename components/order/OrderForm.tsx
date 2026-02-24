@@ -9,7 +9,7 @@ export function OrderForm() {
 
   if (submitted) {
     return (
-      <div className="p-14 bg-white rounded-3xl border border-slate-200 shadow-2xl text-center">
+      <div className="p-10 sm:p-14 bg-white rounded-3xl border border-slate-200 shadow-2xl text-center">
         <div className="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-8">
           <Check className="w-10 h-10 text-green-600" />
         </div>
@@ -39,7 +39,7 @@ export function OrderForm() {
   }
 
   return (
-    <div className="p-8 sm:p-12 bg-white rounded-3xl border border-slate-200 shadow-2xl">
+    <div className="p-6 sm:p-12 bg-white rounded-3xl border border-slate-200 shadow-2xl">
 
       {/* Header */}
       <div className="mb-12 text-center">
@@ -57,8 +57,8 @@ export function OrderForm() {
       >
         {/* LEFT COLUMN */}
         <div className="space-y-10">
-          
-          {/* Personal Info */}
+
+          {/* Personal Information */}
           <div>
             <h3 className="text-center font-semibold text-slate-900 mb-6 text-lg">
               Personal Information
@@ -70,6 +70,8 @@ export function OrderForm() {
                 placeholder="Full Name"
                 required
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                           text-slate-900 
+                           placeholder:text-slate-600 placeholder:opacity-100
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
 
@@ -78,6 +80,8 @@ export function OrderForm() {
                 placeholder="Email Address"
                 required
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                           text-slate-900 
+                           placeholder:text-slate-600 placeholder:opacity-100
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
 
@@ -85,6 +89,8 @@ export function OrderForm() {
                 type="text"
                 placeholder="WhatsApp Number (Optional)"
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                           text-slate-900 
+                           placeholder:text-slate-600 placeholder:opacity-100
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
             </div>
@@ -101,6 +107,8 @@ export function OrderForm() {
               rows={6}
               required
               className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                         text-slate-900 
+                         placeholder:text-slate-600 placeholder:opacity-100
                          focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
             />
           </div>
@@ -127,6 +135,7 @@ export function OrderForm() {
                   onChange={(e) => setProjectType(e.target.value)}
                   required
                   className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                             text-slate-900
                              focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
                 >
                   <option value="">Select Project Type</option>
@@ -152,7 +161,9 @@ export function OrderForm() {
                     placeholder="Describe your custom project..."
                     required
                     className="w-full px-5 py-3 rounded-xl border border-blue-400 
-                               bg-blue-50 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                               bg-blue-50 text-slate-900 
+                               placeholder:text-slate-600 placeholder:opacity-100
+                               focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
                   />
                 </div>
               )}
@@ -166,6 +177,7 @@ export function OrderForm() {
                   type="date"
                   required
                   className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                             text-slate-900
                              focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
                 />
 

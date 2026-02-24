@@ -1,57 +1,60 @@
 import Link from "next/link";
-import {
-  GraduationCap,
-  Mail,
-  Phone,
-  Clock,
-  Building2,
-  Sparkles,
-} from "lucide-react";
+import Image from "next/image";
+import { Building2, Mail, Phone, Clock } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="relative bg-slate-950 text-slate-300 overflow-hidden">
 
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-indigo-900/20 pointer-events-none" />
+      {/* Ambient Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/25 via-transparent to-indigo-900/25 pointer-events-none" />
+      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-indigo-600/10 blur-[160px] rounded-full pointer-events-none" />
 
-      <div className="relative max-w-[1400px] mx-auto px-8 lg:px-12 py-24">
+      <div className="relative max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12 py-20">
 
-        {/* Card Grid */}
-        <div className="grid md:grid-cols-3 gap-10">
+        {/* Grid */}
+        <div className="grid gap-16 md:grid-cols-3 text-center md:text-left">
 
-          {/* JaksLab Card */}
-          <div className="group relative p-8 rounded-3xl bg-slate-900/60 backdrop-blur border border-slate-800 hover:border-blue-500/40 transition-all duration-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]">
+          {/* Brand Section */}
+          <div className="space-y-6">
 
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
-                <GraduationCap className="w-6 h-6 text-white" />
+            <div className="flex items-center justify-center md:justify-start gap-4">
+              
+              {/* Rounded Glowing Logo */}
+              <div className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-500/40 shadow-[0_0_25px_rgba(59,130,246,0.35)]">
+                <Image
+                  src="/jakslab.png"
+                  alt="JaksLab Logo"
+                  fill
+                  className="object-cover"
+                />
               </div>
+
               <h3 className="text-white font-bold text-2xl tracking-tight">
                 JaksLab
               </h3>
             </div>
 
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-slate-400 leading-relaxed max-w-sm mx-auto md:mx-0">
               Precision-driven academic and technical solutions engineered
               for excellence, confidentiality, and reliability.
             </p>
 
-            {/* Soft Glow Overlay */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/0 to-indigo-600/0 group-hover:from-blue-600/5 group-hover:to-indigo-600/10 transition duration-500 pointer-events-none" />
+            <div className="h-px w-24 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto md:mx-0" />
           </div>
 
-          {/* Company Card */}
-          <div className="group relative p-8 rounded-3xl bg-slate-900/60 backdrop-blur border border-slate-800 hover:border-indigo-500/40 transition-all duration-500 hover:shadow-[0_0_40px_rgba(99,102,241,0.15)]">
+          {/* Company */}
+          <div className="space-y-6">
 
-            <div className="flex items-center gap-3 mb-6">
-              <Building2 className="w-6 h-6 text-indigo-400" />
-              <h3 className="text-white font-semibold text-xl">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-white">
+              <Building2 className="w-5 h-5 text-indigo-400" />
+              <h4 className="font-semibold tracking-wide uppercase text-sm">
                 Company
-              </h3>
+              </h4>
             </div>
 
-            <ul className="space-y-3">
+            <ul className="space-y-3 text-slate-400">
               <li>
                 <Link href="/about" className="hover:text-white transition">
                   About
@@ -59,7 +62,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/portfolio" className="hover:text-white transition">
-                  Portfolio
+                  Blog
                 </Link>
               </li>
               <li>
@@ -68,51 +71,45 @@ export function Footer() {
                 </Link>
               </li>
             </ul>
-
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-indigo-600/0 to-purple-600/0 group-hover:from-indigo-600/5 group-hover:to-purple-600/10 transition duration-500 pointer-events-none" />
           </div>
 
-          {/* Contact Card */}
-          <div className="group relative p-8 rounded-3xl bg-slate-900/60 backdrop-blur border border-slate-800 hover:border-blue-500/40 transition-all duration-500 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]">
+          {/* Contact */}
+          <div className="space-y-6">
 
-            <div className="flex items-center gap-3 mb-6">
-              <Sparkles className="w-6 h-6 text-blue-400" />
-              <h3 className="text-white font-semibold text-xl">
-                Contact
-              </h3>
-            </div>
+            <h4 className="text-white font-semibold tracking-wide uppercase text-sm text-center md:text-left">
+              Contact
+            </h4>
 
-            
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-blue-400" />
+            <div className="space-y-4 text-slate-400">
+
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                <Mail className="w-4 h-4 text-blue-400" />
                 <span>jakslab.services@gmail.com</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-blue-400" />
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                <Phone className="w-4 h-4 text-blue-400" />
                 <span>+254 (113) 178-912</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-blue-400" />
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                <Clock className="w-4 h-4 text-blue-400" />
                 <span>Open 24 Hours, 7 Days a Week</span>
               </div>
-            </div>
 
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-600/0 to-indigo-600/0 group-hover:from-blue-600/5 group-hover:to-indigo-600/10 transition duration-500 pointer-events-none" />
+            </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-slate-800 mt-20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+        {/* Bottom Section */}
+        <div className="mt-20 border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between gap-6 text-sm text-slate-500 text-center md:text-left">
 
-          <span>
+          <p>
             © {new Date().getFullYear()} JaksLab. All rights reserved.
-          </span>
+          </p>
 
-          <div className="flex gap-6">
+          <div className="flex gap-8">
             <Link href="#" className="hover:text-white transition">
               Privacy Policy
             </Link>
