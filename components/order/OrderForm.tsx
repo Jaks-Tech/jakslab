@@ -39,7 +39,7 @@ export function OrderForm() {
   }
 
   return (
-    <div className="p-12 bg-white rounded-3xl border border-slate-200 shadow-2xl">
+    <div className="p-8 sm:p-12 bg-white rounded-3xl border border-slate-200 shadow-2xl">
 
       {/* Header */}
       <div className="mb-12 text-center">
@@ -57,6 +57,8 @@ export function OrderForm() {
       >
         {/* LEFT COLUMN */}
         <div className="space-y-10">
+          
+          {/* Personal Info */}
           <div>
             <h3 className="text-center font-semibold text-slate-900 mb-6 text-lg">
               Personal Information
@@ -68,7 +70,6 @@ export function OrderForm() {
                 placeholder="Full Name"
                 required
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                           bg-white text-slate-900 placeholder:text-slate-500
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
 
@@ -77,7 +78,6 @@ export function OrderForm() {
                 placeholder="Email Address"
                 required
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                           bg-white text-slate-900 placeholder:text-slate-500
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
 
@@ -85,12 +85,12 @@ export function OrderForm() {
                 type="text"
                 placeholder="WhatsApp Number (Optional)"
                 className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                           bg-white text-slate-900 placeholder:text-slate-500
                            focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
               />
             </div>
           </div>
 
+          {/* Project Description */}
           <div>
             <h3 className="text-center font-semibold text-slate-900 mb-6 text-lg">
               Project Description
@@ -101,7 +101,6 @@ export function OrderForm() {
               rows={6}
               required
               className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                         bg-white text-slate-900 placeholder:text-slate-500
                          focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
             />
           </div>
@@ -109,51 +108,76 @@ export function OrderForm() {
 
         {/* RIGHT COLUMN */}
         <div className="space-y-10">
+
+          {/* Project Details */}
           <div>
             <h3 className="text-center font-semibold text-slate-900 mb-6 text-lg">
-              Project Type
+              Project Details
             </h3>
 
-            <div className="space-y-4">
-              <select
-                value={projectType}
-                onChange={(e) => setProjectType(e.target.value)}
-                required
-                className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                           bg-white text-slate-900
-                           focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-              >
-                <option value="">Select Project Type</option>
-                <option>Essay Writing</option>
-                <option>Research Papers</option>
-                <option>Thesis / Dissertation</option>
-                <option>Machine Learning</option>
-                <option>Model Training</option>
-                <option>Web Development</option>
-                <option>Programming Assignment</option>
-                <option>Custom Project</option>
-              </select>
+            <div className="space-y-6">
+
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-2">
+                  Project Type
+                </label>
+
+                <select
+                  value={projectType}
+                  onChange={(e) => setProjectType(e.target.value)}
+                  required
+                  className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                             focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                >
+                  <option value="">Select Project Type</option>
+                  <option>Essay Writing</option>
+                  <option>Research Papers</option>
+                  <option>Thesis / Dissertation</option>
+                  <option>Machine Learning</option>
+                  <option>Model Training</option>
+                  <option>Web Development</option>
+                  <option>Programming Assignment</option>
+                  <option>Custom Project</option>
+                </select>
+              </div>
 
               {projectType === "Custom Project" && (
-                <input
-                  type="text"
-                  placeholder="Please specify your custom project type..."
-                  required
-                  className="w-full px-5 py-3 rounded-xl border border-blue-400 
-                             bg-blue-50 text-slate-900 placeholder:text-slate-500
-                             focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                />
+                <div>
+                  <label className="block text-sm font-medium text-slate-600 mb-2">
+                    Specify Project Type
+                  </label>
+
+                  <input
+                    type="text"
+                    placeholder="Describe your custom project..."
+                    required
+                    className="w-full px-5 py-3 rounded-xl border border-blue-400 
+                               bg-blue-50 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                  />
+                </div>
               )}
 
-              <input
-                type="date"
-                className="w-full px-5 py-3 rounded-xl border border-slate-300 
-                           bg-white text-slate-900
-                           focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-              />
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-2">
+                  Project Deadline
+                </label>
+
+                <input
+                  type="date"
+                  required
+                  className="w-full px-5 py-3 rounded-xl border border-slate-300 
+                             focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+                />
+
+                <p className="mt-1 text-xs text-slate-500">
+                  Select your preferred submission date.
+                </p>
+              </div>
+
             </div>
           </div>
 
+          {/* File Upload */}
           <div>
             <h3 className="text-center font-semibold text-slate-900 mb-6 text-lg">
               File Upload
@@ -173,6 +197,7 @@ export function OrderForm() {
               <input type="file" className="hidden" />
             </label>
           </div>
+
         </div>
 
         {/* FULL WIDTH SUBMIT */}
@@ -195,6 +220,7 @@ export function OrderForm() {
             By submitting, you agree to our Terms of Service and Privacy Policy.
           </p>
         </div>
+
       </form>
     </div>
   );
