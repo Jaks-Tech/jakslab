@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Suspense } from "react";
 import { getAllArticles } from "@/lib/articles";
 import ArticlesHero from "@/components/portfolio/ArticlesHero";
@@ -15,9 +17,8 @@ export default function PortfolioPage() {
 
         <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
           <PortfolioClient articles={articles} />
+          <ResultsInfo total={articles.length} />
         </Suspense>
-
-        <ResultsInfo total={articles.length} />
 
       </div>
     </main>
