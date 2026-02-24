@@ -1,5 +1,6 @@
 import { Star, ThumbsUp, Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import HeroCTA from "./HeroCTA";
 
 export default function Hero() {
   return (
@@ -40,44 +41,11 @@ export default function Hero() {
         delivered on time, confidentially, and with uncompromising quality.
         </p>
 
-        {/* CTA Buttons */}
-        <div className="mt-10 sm:mt-14 
-                        flex flex-col sm:flex-row 
-                        items-center justify-center 
-                        gap-4 sm:gap-6">
-
-        <Link
-            href="/contact"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl 
-                    bg-slate-900 text-white font-semibold 
-                    hover:bg-slate-800 transition-all duration-200 text-center"
-        >
-            Request a Quote
-        </Link>
-
-        <Link
-            href="/services"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl 
-                    border border-slate-300 text-slate-700 font-semibold 
-                    hover:bg-slate-50 transition-all duration-200 text-center"
-        >
-            Explore Services
-        </Link>
-
-        <Link
-            href="/order"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl 
-                    bg-gradient-to-r from-blue-600 to-indigo-600 
-                    text-white font-semibold shadow-lg 
-                    hover:shadow-xl hover:scale-[1.02] 
-                    transition-all duration-200 
-                    flex items-center justify-center gap-2"
-        >
-            Submit Your Project
-            <ArrowRight className="w-4 h-4" />
-        </Link>
-
-        </div>
+        {/* CTA Section */}
+        
+            <HeroCTA />
+      
+        
 
 
     </div>
