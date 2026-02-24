@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getAllArticles } from "@/lib/articles";
 import ArticlesHero from "@/components/portfolio/ArticlesHero";
 import PortfolioClient from "@/components/portfolio/PortfolioClient";
@@ -12,8 +13,9 @@ export default function PortfolioPage() {
 
         <ArticlesHero />
 
-        {/* Category Filter + Grid */}
-        <PortfolioClient articles={articles} />
+        <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+          <PortfolioClient articles={articles} />
+        </Suspense>
 
         <Pagination />
 
