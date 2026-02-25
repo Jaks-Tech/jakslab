@@ -6,7 +6,7 @@ import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
   return (
-    <main className="flex-1 pt-16 bg-white">
+    <main className="flex-1 bg-white">
       <Hero />
 
       <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-24">

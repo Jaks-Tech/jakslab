@@ -32,13 +32,13 @@ export function Header() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-slate-900 shadow-xl border-b border-slate-800"
-          : "bg-slate-900"
-      }`}
-    >
+        <header
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            isScrolled
+              ? "bg-slate-900/95 backdrop-blur-md shadow-xl border-b border-slate-800"
+              : "bg-slate-900/70 backdrop-blur-md"
+          }`}
+        >
       <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
         <div className="flex items-center justify-between h-20">
 

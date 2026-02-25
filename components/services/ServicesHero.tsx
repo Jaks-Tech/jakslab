@@ -5,29 +5,36 @@ import { Send } from "lucide-react";
 
 export function ServicesHero() {
   return (
-    <section className="relative pt-30 pb-28 text-center overflow-hidden 
-                        bg-gradient-to-b from-blue-50 via-white to-white">
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center text-center overflow-hidden px-8">
+      
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/services-bg.png')" }}
+      />
 
-      {/* Background Glow */}
-      <div className="absolute -top-24 left-1/2 -translate-x-1/2 
-                      w-[500px] h-[500px] bg-blue-400/20 
-                      rounded-full blur-3xl"></div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/60" />
 
-      <div className="relative max-w-4xl mx-auto px-8">
+      <div className="relative z-10 max-w-4xl mx-auto">
 
         {/* Badge */}
         <div className="inline-block px-4 py-1 mb-6 text-sm font-medium 
-                        text-blue-600 bg-blue-100 rounded-full">
+                        bg-white/10 text-white border border-white/20 
+                        backdrop-blur-md rounded-full">
           Academic & Technical Solutions
         </div>
 
         {/* Headline */}
-        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
-          Our Services
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-lg">
+          Our{" "}
+          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            Services
+          </span>
         </h1>
 
         {/* Supporting Text */}
-        <p className="mt-6 text-lg md:text-xl text-slate-700 
+        <p className="mt-6 text-lg md:text-xl text-slate-200 
                       max-w-2xl mx-auto leading-relaxed">
           Comprehensive academic and technical solutions crafted with precision,
           professionalism, and a commitment to outstanding results.
@@ -39,9 +46,9 @@ export function ServicesHero() {
             href="/order"
             className="inline-flex items-center justify-center gap-3
                        px-10 py-4 rounded-full
-                       bg-gradient-to-r from-blue-600 to-indigo-600
+                       bg-gradient-to-r from-cyan-500 to-indigo-500
                        text-white font-semibold text-lg
-                       shadow-lg hover:shadow-2xl
+                       shadow-lg hover:shadow-cyan-500/40
                        hover:-translate-y-1 active:translate-y-0
                        transition-all duration-300"
           >

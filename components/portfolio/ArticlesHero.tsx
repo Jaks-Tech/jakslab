@@ -3,13 +3,18 @@ import SearchBar from "./SearchBar";
 
 export default function ArticlesHero() {
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50 px-8 py-20 lg:px-16 shadow-sm">
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center text-center overflow-hidden px-8">
       
-      {/* Soft Background Glow */}
-      <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl" />
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/blog-bg.png')" }}
+      />
 
-      <div className="relative mx-auto max-w-3xl text-center flex flex-col items-center">
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/60" />
+
+      <div className="relative z-10 mx-auto max-w-3xl flex flex-col items-center">
 
         {/* Logo */}
         <div className="mb-6">
@@ -25,18 +30,23 @@ export default function ArticlesHero() {
         </div>
 
         {/* Badge */}
-        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/70 backdrop-blur border border-slate-200 text-sm font-medium text-slate-700 shadow-sm">
+        <div className="inline-flex items-center px-4 py-1.5 rounded-full 
+                        bg-white/10 backdrop-blur-md 
+                        border border-white/20 
+                        text-sm font-medium text-white shadow-sm">
           Academic & Technology Blog
         </div>
 
         {/* Heading */}
-        <h1 className="mt-6 text-4xl lg:text-5xl font-bold text-slate-900 leading-tight tracking-tight">
+        <h1 className="mt-6 text-4xl lg:text-5xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
           Explore Academic &
-          <span className="text-blue-600"> Tech Insights</span>
+          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            {" "}Tech Insights
+          </span>
         </h1>
 
         {/* Description */}
-        <p className="mt-6 text-lg text-slate-700 leading-relaxed max-w-2xl">
+        <p className="mt-6 text-lg text-slate-200 leading-relaxed max-w-2xl">
           Discover professional, research-driven articles crafted by experts
           to expand your knowledge in academia and emerging technologies.
         </p>

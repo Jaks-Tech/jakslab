@@ -14,11 +14,8 @@ export default function RootLayout({
         {/* Global Header */}
         <Header />
 
-        {/* 
-          pt-16 prevents content from hiding behind fixed header 
-          flex-1 pushes footer to bottom
-        */}
-        <main className="flex-1 pt-16 bg-white">
+        {/* Removed bg-white */}
+        <main className="flex-1 pt-20">
           {children}
         </main>
 

@@ -11,9 +11,12 @@ export default function PortfolioPage() {
 
   return (
     <main className="bg-slate-50 min-h-screen">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 py-24">
 
-        <ArticlesHero />
+      {/* ✅ Full Width Hero */}
+      <ArticlesHero />
+
+      {/* ✅ Wrapped Content Only */}
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 py-24">
 
         <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
           <PortfolioClient articles={articles} />

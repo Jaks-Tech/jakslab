@@ -7,20 +7,22 @@ import { ContactBusinessHours } from "@/components/contact/ContactBusinessHours"
 
 export default function ContactPage() {
   return (
-    <main className="pt-24 pb-32 bg-white">
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12">
+    <main className="bg-white">
+      
+      {/* ✅ Full Width Hero */}
+      <ContactHero />
 
-        <ContactHero />
+      {/* ✅ Constrained Content Section */}
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pt-24 pb-32">
 
-        
-
-        <div className="grid lg:grid-cols-2 gap-10 mt-16">
+        <div className="grid lg:grid-cols-2 gap-10">
           <ContactForm />
           <div className="space-y-6">
             <ContactFAQ />
             <ContactWhatsAppCard />
           </div>
         </div>
+
         <ContactInfoCards />
         <ContactBusinessHours />
 
