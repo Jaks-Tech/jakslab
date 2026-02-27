@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   CATEGORIES,
   Category,
-  getCategoryTheme,
+  getCategoryStyles,
 } from "@/lib/categories";
 import { ChevronDown } from "lucide-react";
 
@@ -23,7 +23,6 @@ export default function CategoryTabs({ onSelect }: Props) {
     setOpen(false);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -39,100 +38,70 @@ export default function CategoryTabs({ onSelect }: Props) {
   }, []);
 
   /* ===============================
-     CATEGORY STYLE HELPERS
+      DARK GLASS CATEGORY HELPERS
   =============================== */
 
-  const getCategoryClasses = (category: Category) => {
-    const theme = getCategoryTheme(category);
+  const getCategoryClasses = () =>
+    "bg-white/5 text-slate-300 border border-white/10 hover:border-blue-500/40 hover:text-white";
 
-    if (theme === "blue")
-      return "bg-blue-50 text-blue-600 border-blue-200";
-    if (theme === "indigo")
-      return "bg-indigo-50 text-indigo-600 border-indigo-200";
-    if (theme === "emerald")
-      return "bg-emerald-50 text-emerald-600 border-emerald-200";
-    if (theme === "purple")
-      return "bg-purple-50 text-purple-600 border-purple-200";
-    if (theme === "orange")
-      return "bg-orange-50 text-orange-600 border-orange-200";
-    if (theme === "pink")
-      return "bg-pink-50 text-pink-600 border-pink-200";
-
-    return "bg-slate-100 text-slate-700 border-slate-200";
-  };
-
-  const getActiveCategoryClasses = (category: Category) => {
-    const theme = getCategoryTheme(category);
-
-    if (theme === "blue")
-      return "bg-blue-600 text-white";
-    if (theme === "indigo")
-      return "bg-indigo-600 text-white";
-    if (theme === "emerald")
-      return "bg-emerald-600 text-white";
-    if (theme === "purple")
-      return "bg-purple-600 text-white";
-    if (theme === "orange")
-      return "bg-orange-600 text-white";
-    if (theme === "pink")
-      return "bg-pink-600 text-white";
-
-    return "bg-slate-900 text-white";
-  };
+  const getActiveAllClasses = () =>
+    "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border border-transparent shadow-[0_0_20px_rgba(59,130,246,0.35)]";
 
   return (
     <>
       {/* ===============================
-         MOBILE DROPDOWN
+           MOBILE DROPDOWN
       =============================== */}
-      <div className="mt-10 md:hidden" ref={dropdownRef}>
+      <div className="mt-10 md:hidden relative" ref={dropdownRef}>
         <button
           onClick={() => setOpen(!open)}
-          className="w-full flex items-center justify-between px-5 py-3 rounded-xl border border-slate-300 bg-white shadow-sm text-slate-700"
+          className="w-full flex items-center justify-between px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-white transition-all duration-300 hover:border-blue-500/40 outline-none select-none"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <span className="font-medium">
+          <span className="font-bold text-white text-lg tracking-tight">
             {active ?? "All Categories"}
           </span>
 
           <ChevronDown
-            size={20}
-            className={`transition-transform duration-300 ${
-              open ? "rotate-180 text-slate-900" : "text-slate-500"
+            size={22}
+            className={`transition-transform duration-500 ${
+              open ? "rotate-180 text-blue-400" : "text-white"
             }`}
           />
         </button>
 
-        {/* Animated Dropdown */}
         <div
-          className={`mt-2 overflow-hidden transition-all duration-300 ${
-            open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          className={`absolute left-0 right-0 mt-2 z-50 overflow-hidden transition-all duration-300 rounded-xl border border-white/10 bg-[#0a0f1d] shadow-2xl ${
+            open ? "max-h-96 opacity-100 p-3" : "max-h-0 opacity-0 p-0 pointer-events-none"
           }`}
         >
-          <div className="flex flex-col gap-2 p-2 rounded-xl border border-slate-200 bg-white shadow-lg">
+          <div className="flex flex-col gap-2">
             <button
               onClick={() => handleSelect(null)}
-              className={`px-4 py-2 rounded-lg text-left text-sm font-medium ${
+              className={`px-4 py-3 rounded-lg text-left text-sm font-semibold transition-all ${
                 !active
-                  ? "bg-slate-900 text-white"
-                  : "hover:bg-slate-100 text-slate-700"
+                  ? getActiveAllClasses()
+                  : "text-slate-300 hover:bg-white/10 hover:text-white"
               }`}
             >
-              All
+              All Categories
             </button>
 
             {CATEGORIES.map((cat) => {
               const isActive = active === cat.name;
+              const styles = getCategoryStyles(cat.name);
 
               return (
                 <button
                   key={cat.name}
                   onClick={() => handleSelect(cat.name)}
-                  className={`px-4 py-2 rounded-lg text-left text-sm font-medium transition ${
+                  className={`px-4 py-3 rounded-lg text-left text-sm font-semibold transition-all flex items-center gap-3 ${
                     isActive
-                      ? `${getActiveCategoryClasses(cat.name)}`
-                      : "hover:bg-slate-100 text-slate-700"
+                      ? `${styles.badge} border-transparent text-white` // Apply category specific color when active
+                      : `text-slate-300 hover:bg-white/10 hover:text-white`
                   }`}
                 >
+                  <span className={`w-1.5 h-1.5 rounded-full ${styles.dot} bg-current ${isActive ? 'animate-pulse' : ''}`} />
                   {cat.name}
                 </button>
               );
@@ -142,15 +111,15 @@ export default function CategoryTabs({ onSelect }: Props) {
       </div>
 
       {/* ===============================
-         DESKTOP TABS
+           DESKTOP TABS
       =============================== */}
       <div className="hidden md:flex flex-wrap gap-4 mt-10">
         <button
           onClick={() => handleSelect(null)}
-          className={`px-5 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+          className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
             !active
-              ? "bg-slate-900 text-white border-slate-900 shadow"
-              : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50"
+              ? getActiveAllClasses()
+              : `${getCategoryClasses()}`
           }`}
         >
           All
@@ -158,17 +127,19 @@ export default function CategoryTabs({ onSelect }: Props) {
 
         {CATEGORIES.map((cat) => {
           const isActive = active === cat.name;
+          const styles = getCategoryStyles(cat.name);
 
           return (
             <button
               key={cat.name}
               onClick={() => handleSelect(cat.name)}
-              className={`px-5 py-2 rounded-full text-sm font-medium border transition-all duration-200 ${
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border flex items-center gap-2 ${
                 isActive
-                  ? `${getActiveCategoryClasses(cat.name)} shadow`
-                  : `${getCategoryClasses(cat.name)} hover:opacity-80`
+                  ? `${styles.badge} border-transparent text-white font-bold` // Use dynamic styles
+                  : `${getCategoryClasses()}`
               }`}
             >
+              {isActive && <span className={`w-1.5 h-1.5 rounded-full ${styles.dot} bg-current animate-pulse`} />}
               {cat.name}
             </button>
           );

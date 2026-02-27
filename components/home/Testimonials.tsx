@@ -61,20 +61,20 @@ export default function Testimonials() {
     };
 
     const animation = requestAnimationFrame(animate);
-
     return () => cancelAnimationFrame(animation);
   }, []);
 
   return (
-    <section className="py-5 px-6">
+    <section className="py-24 px-6 bg-transparent relative">
       <div className="max-w-[1400px] mx-auto">
 
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
             What Our Clients Say
           </h2>
-          <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
+
+          <p className="mt-6 text-slate-400 max-w-2xl mx-auto">
             Trusted by students and professionals across disciplines.
           </p>
         </div>
@@ -88,7 +88,13 @@ export default function Testimonials() {
             {[...reviews, ...reviews].map((review, i) => (
               <div
                 key={i}
-                className="min-w-[320px] md:min-w-[380px] lg:min-w-[420px] bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300"
+                className="min-w-[320px] md:min-w-[380px] lg:min-w-[420px] 
+                           bg-white/5 backdrop-blur-xl
+                           border border-white/10
+                           hover:border-blue-500/40
+                           hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]
+                           p-8 rounded-3xl
+                           transition-all duration-500"
               >
                 {/* Stars */}
                 <div className="flex text-yellow-400 mb-4 gap-1">
@@ -98,7 +104,7 @@ export default function Testimonials() {
                 </div>
 
                 {/* Text */}
-                <p className="text-slate-600 italic text-sm leading-relaxed">
+                <p className="text-slate-300 italic text-sm leading-relaxed">
                   "{review.content}"
                 </p>
 
@@ -111,10 +117,10 @@ export default function Testimonials() {
                   </div>
 
                   <div>
-                    <p className="font-semibold text-slate-800 text-sm">
+                    <p className="font-semibold text-white text-sm">
                       {review.name}
                     </p>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                       {review.role}
                     </p>
                   </div>
@@ -123,9 +129,9 @@ export default function Testimonials() {
             ))}
           </div>
 
-          {/* Soft Fade Edges */}
-          <div className="absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-white to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-white to-transparent pointer-events-none" />
+          {/* Dark Fade Edges */}
+          <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent pointer-events-none" />
         </div>
 
       </div>

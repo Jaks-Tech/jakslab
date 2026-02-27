@@ -5,50 +5,42 @@ import { Send } from "lucide-react";
 
 export function ServicesHero() {
   return (
-    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center text-center overflow-hidden px-8">
-      
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/services-bg.png')" }}
-      />
+    /* 1. Removed 'bg-white' and solid gradients. 
+       2. Kept 'relative' and 'z-10' to ensure it sits above the 3D canvas. */
+    <section className="relative pt-30 pb-28 text-center overflow-hidden bg-transparent">
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+      {/* Optional: Keeping the blur glow but reducing opacity for a subtle 3D depth effect */}
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 
+                      w-[500px] h-[500px] bg-blue-500/10 
+                      rounded-full blur-3xl -z-10"></div>
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative max-w-4xl mx-auto px-8 z-10">
 
-        {/* Badge */}
+        {/* Adjusted badge: Lowered background opacity for a 'glass' look */}
         <div className="inline-block px-4 py-1 mb-6 text-sm font-medium 
-                        bg-white/10 text-white border border-white/20 
-                        backdrop-blur-md rounded-full">
+                        text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
           Academic & Technical Solutions
         </div>
 
-        {/* Headline */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight drop-shadow-lg">
-          Our{" "}
-          <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-            Services
-          </span>
+        {/* Text color changed to white/slate-100 for visibility on dark bg */}
+        <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+          Our Services
         </h1>
 
-        {/* Supporting Text */}
-        <p className="mt-6 text-lg md:text-xl text-slate-200 
+        <p className="mt-6 text-lg md:text-xl text-slate-300 
                       max-w-2xl mx-auto leading-relaxed">
           Comprehensive academic and technical solutions crafted with precision,
           professionalism, and a commitment to outstanding results.
         </p>
 
-        {/* CTA Button */}
         <div className="mt-10">
           <Link
             href="/order"
             className="inline-flex items-center justify-center gap-3
                        px-10 py-4 rounded-full
-                       bg-gradient-to-r from-cyan-500 to-indigo-500
+                       bg-gradient-to-r from-blue-600 to-indigo-600
                        text-white font-semibold text-lg
-                       shadow-lg hover:shadow-cyan-500/40
+                       shadow-lg hover:shadow-blue-500/25
                        hover:-translate-y-1 active:translate-y-0
                        transition-all duration-300"
           >

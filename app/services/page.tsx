@@ -7,7 +7,10 @@ import { ServicesFlexibilityNotice } from "@/components/services/ServicesFlexibi
 
 export default function ServicesPage() {
   return (
-    <main className="bg-white">
+    /* 1. Changed 'bg-white' to 'bg-transparent' to show the 3D stars.
+       2. Added 'text-white' as a base so all text is readable on the dark 3D bg.
+    */
+    <main className="bg-transparent text-white min-h-screen">
       <ServicesHero />
       <AcademicServices />
       <TechServices />

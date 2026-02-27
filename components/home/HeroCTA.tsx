@@ -7,7 +7,6 @@ import { ArrowRight, X } from "lucide-react";
 export default function HeroCTA() {
   const [open, setOpen] = useState(false);
 
-  // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
@@ -20,9 +19,11 @@ export default function HeroCTA() {
           onClick={() => setOpen(true)}
           className="px-10 py-4 rounded-2xl 
                      bg-gradient-to-r from-blue-600 to-indigo-600 
-                     text-white font-semibold shadow-lg 
-                     hover:shadow-xl hover:scale-[1.02] 
-                     transition-all duration-200 
+                     text-white font-semibold 
+                     shadow-lg shadow-blue-600/20
+                     hover:shadow-blue-600/40 
+                     hover:scale-[1.03] 
+                     transition-all duration-300 
                      flex items-center gap-2"
         >
           Get Started
@@ -30,41 +31,52 @@ export default function HeroCTA() {
         </button>
       </div>
 
-      {/* Floating Pop-Up */}
+      {/* Modal */}
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-          
-          {/* Background Overlay */}
+
+          {/* Dark Overlay */}
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={() => setOpen(false)}
           />
 
-          {/* Modal Card */}
-          <div className="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 animate-in fade-in zoom-in-95 duration-200">
+          {/* Glass Modal Card */}
+          <div className="relative w-full max-w-md rounded-3xl
+                          bg-white/5 backdrop-blur-xl
+                          border border-white/10
+                          shadow-[0_0_60px_rgba(59,130,246,0.15)]
+                          p-8
+                          animate-in fade-in zoom-in-95 duration-200">
 
-            {/* Close Button */}
+            {/* Close */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition"
+              className="absolute top-4 right-4 text-slate-400 hover:text-white transition"
             >
               <X className="w-5 h-5" />
             </button>
 
-                <div className="flex flex-col items-center mb-6">
+            {/* Logo + Title */}
+            <div className="flex flex-col items-center mb-8">
 
-                <img
-                    src="/jakslab.png"
-                    alt="JaksLab Logo"
-                    className="w-16 h-16 sm:w-20 sm:h-20 object-contain mb-4"
-                />
+              <img
+                src="/jakslab.png"
+                alt="JaksLab Logo"
+                className="w-16 h-16 sm:w-20 sm:h-20 object-contain mb-4"
+              />
 
-                <h3 className="text-2xl font-bold text-slate-900 text-center">
-                    Jakslabs Here...
-                </h3>
+              <h3 className="text-2xl font-bold text-white text-center">
+                JaksLab Here...
+              </h3>
 
-                </div>
+              <p className="text-slate-400 text-sm mt-2 text-center">
+                Choose how you'd like to proceed
+              </p>
 
+            </div>
+
+            {/* Buttons */}
             <div className="flex flex-col gap-4">
 
               <Link
@@ -72,7 +84,9 @@ export default function HeroCTA() {
                 className="px-6 py-4 rounded-xl 
                            bg-gradient-to-r from-blue-600 to-indigo-600 
                            text-white text-center font-semibold 
-                           hover:shadow-lg transition"
+                           shadow-lg shadow-blue-600/20
+                           hover:shadow-blue-600/40
+                           transition-all duration-300"
                 onClick={() => setOpen(false)}
               >
                 Hire a Service
@@ -81,8 +95,11 @@ export default function HeroCTA() {
               <Link
                 href="/contact"
                 className="px-6 py-4 rounded-xl 
-                           bg-slate-900 text-white text-center font-semibold 
-                           hover:bg-slate-800 transition"
+                           bg-white/10 backdrop-blur
+                           border border-white/10
+                           text-white text-center font-semibold 
+                           hover:border-blue-500/40
+                           transition-all duration-300"
                 onClick={() => setOpen(false)}
               >
                 Request a Quote
@@ -91,9 +108,12 @@ export default function HeroCTA() {
               <Link
                 href="/services"
                 className="px-6 py-4 rounded-xl 
-                           border border-slate-300 text-slate-700 
+                           bg-white/5
+                           border border-white/10 
+                           text-slate-300 
                            text-center font-semibold 
-                           hover:bg-slate-50 transition"
+                           hover:text-white hover:border-blue-500/40
+                           transition-all duration-300"
                 onClick={() => setOpen(false)}
               >
                 Explore Services

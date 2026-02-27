@@ -7,7 +7,7 @@ import { StatsStrip } from "@/components/about/StatsStrip";
 
 export default function AboutPage() {
   return (
-    <main className="bg-white">
+    <main className="bg-transparent min-h-screen pb-32 text-white">
       <AboutHero />
       <MissionSection />
       <CoreValues />

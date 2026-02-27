@@ -2,41 +2,43 @@ import { MessageCircle } from "lucide-react";
 
 export function ContactWhatsAppCard() {
   return (
-    <div className="relative p-10 rounded-3xl bg-gradient-to-br from-green-600 via-emerald-600 to-green-700 text-white shadow-2xl overflow-hidden">
+    <div className="relative w-full max-w-4xl p-10 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:border-blue-500/40 transition-all duration-500 overflow-hidden text-center flex flex-col items-center">
+      {/* Ambient Background Glow */}
+      <div className="absolute inset-0 flex justify-center -z-10 pointer-events-none">
+        <div className="w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full" />
+      </div>
 
-      {/* Glow Effects */}
-      <div className="absolute -top-16 -right-16 w-56 h-56 bg-white/20 rounded-full blur-3xl" />
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-md" />
-
-      <div className="relative z-10">
-
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
-            <MessageCircle size={24} />
-          </div>
-          <h4 className="text-2xl font-bold">
-            Prefer WhatsApp?
-          </h4>
+      <div className="relative z-10 flex flex-col items-center">
+        {/* Centered Icon Container */}
+        <div className="mb-6 p-4 bg-white/10 border border-white/20 rounded-2xl inline-flex items-center justify-center">
+          <MessageCircle size={28} className="text-blue-400" />
         </div>
 
-        <p className="text-white/90 text-base leading-relaxed max-w-sm">
-          Chat with us instantly for faster responses and real-time support.
+        {/* Centered Heading */}
+        <h4 className="text-3xl font-bold text-white mb-4">
+          Prefer WhatsApp?
+        </h4>
+
+        {/* Centered Description */}
+        <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
+          Chat with us instantly for faster responses and real-time support. Our team is available to help you with your project requirements.
         </p>
 
-        <a
-          href="https://wa.me/254113178912?text=Hello%20I%20would%20like%20to%20inquire%20about%20your%20services"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-8 inline-flex items-center gap-3 bg-white text-green-600 px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-2xl hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
-        >
-          <span>Chat on WhatsApp</span>
-
-          <MessageCircle
-            size={18}
-            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-          />
-        </a>
-
+        {/* Centered Button */}
+        <div className="mt-10">
+          <a
+            href="https://wa.me/254113178912?text=Hello%20I%20would%20like%20to%20inquire%20about%20your%20services"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] active:scale-[0.98]"
+          >
+            <span>Chat on WhatsApp</span>
+            <MessageCircle
+              size={20}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </a>
+        </div>
       </div>
     </div>
   );

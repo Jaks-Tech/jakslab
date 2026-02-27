@@ -25,41 +25,28 @@ const info = [
 
 export function ContactInfoCards() {
   return (
-    <section className="relative py-14 sm:py-16 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 w-full">
+      {info.map((item, i) => (
+        <div
+          key={i}
+          className="group flex flex-col items-center text-center p-8 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:border-blue-500/40 transition-all duration-500"
+        >
+          {/* Icon */}
+          <div className="mb-4 inline-flex p-4 rounded-2xl bg-white/10 border border-white/20 text-blue-400 transition-all duration-300 group-hover:border-blue-500/40 group-hover:scale-105">
+            <item.icon size={22} />
+          </div>
 
-      {/* Background Glow Effects */}
-      <div className="absolute -top-24 -left-24 w-60 sm:w-72 h-60 sm:h-72 bg-blue-500/20 rounded-full blur-3xl" />
-      <div className="absolute -bottom-24 -right-24 w-60 sm:w-72 h-60 sm:h-72 bg-indigo-500/20 rounded-full blur-3xl" />
+          {/* Title */}
+          <h4 className="text-lg font-semibold text-white">
+            {item.title}
+          </h4>
 
-      <div className="relative max-w-7xl mx-auto">
-
-        {/* Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-
-          {info.map((item, i) => (
-            <div
-              key={i}
-              className="group flex flex-col items-center text-center p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/70 backdrop-blur-xl border border-white/40 shadow-md hover:shadow-xl lg:hover:shadow-2xl lg:hover:-translate-y-2 transition-all duration-300"
-            >
-              {/* Icon */}
-              <div className="mb-4 inline-flex p-4 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-md group-hover:scale-105 lg:group-hover:scale-110 transition-transform duration-300">
-                <item.icon size={22} />
-              </div>
-
-              {/* Title */}
-              <h4 className="text-base sm:text-lg font-semibold text-slate-900">
-                {item.title}
-              </h4>
-
-              {/* Value */}
-              <p className="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed break-words max-w-xs">
-                {item.value}
-              </p>
-            </div>
-          ))}
-
+          {/* Value */}
+          <p className="mt-2 text-sm sm:text-base text-slate-400 leading-relaxed break-words max-w-xs">
+            {item.value}
+          </p>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
   );
 }

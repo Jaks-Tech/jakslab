@@ -4,10 +4,9 @@ import { Search } from "lucide-react";
 
 export default function SearchBar() {
   return (
-    <div className="relative w-full max-w-xl group">
-
+    <div className="relative w-full group">
       {/* Icon */}
-      <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors group-focus-within:text-blue-600" />
+      <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5 transition-colors duration-300 group-focus-within:text-blue-400" />
 
       {/* Input */}
       <input
@@ -17,19 +16,17 @@ export default function SearchBar() {
           w-full
           pl-14 pr-5 py-4
           rounded-2xl
-          border border-slate-200
-          bg-white/80 backdrop-blur
-          shadow-sm
-          text-slate-800
-          placeholder:text-slate-400
+          bg-white/5
+          backdrop-blur-xl
+          border border-white/10
+          text-white
+          placeholder:text-slate-500
           transition-all duration-300
           focus:outline-none
-          focus:border-blue-500
-          focus:ring-4 focus:ring-blue-100
-          hover:shadow-md
+          focus:border-blue-500/40
+          hover:border-blue-500/40
         "
       />
-
     </div>
   );
 }

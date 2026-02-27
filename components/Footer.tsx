@@ -1,25 +1,36 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Building2, Mail, Phone, Clock, ShieldCheck } from "lucide-react";
+import { Mail, Phone, ShieldCheck } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 
 export function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="relative bg-slate-950 text-slate-300 overflow-hidden">
+    <footer className="relative pt-32 text-slate-400 overflow-hidden w-full">
 
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-indigo-900/20 pointer-events-none" />
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-blue-600/10 blur-[160px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-indigo-600/10 blur-[160px] rounded-full pointer-events-none" />
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-black to-black" />
 
-      <div className="relative max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12 py-20">
+      {/* Center Glow */}
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/20 blur-[140px] rounded-full pointer-events-none" />
 
-        {/* 4 Cards */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 text-center md:text-left">
+      {/* Subtle Grid Overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:24px_24px] opacity-20 pointer-events-none" />
 
-          {/* Brand Card */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-8 space-y-6 shadow-lg">
-            <div className="flex items-center justify-center md:justify-start gap-4">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-500/40 shadow-[0_0_25px_rgba(59,130,246,0.35)]">
+      {/* Accent Line */}
+      <div className="relative h-[2px] w-full bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+
+      <div className="relative max-w-6xl mx-auto px-6 py-20">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
+          {/* LEFT SIDE */}
+          <div className="space-y-6">
+
+            {/* Logo + Brand */}
+            <div className="flex items-center gap-4">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500/40 shadow-[0_0_25px_rgba(59,130,246,0.35)]">
                 <Image
                   src="/jakslab.png"
                   alt="JaksLab Logo"
@@ -27,94 +38,99 @@ export function Footer() {
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-white font-bold text-xl tracking-tight">
+
+              <h3 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-300 to-slate-500 bg-clip-text text-transparent">
                 JaksLab
               </h3>
             </div>
 
-            <p className="text-slate-400 leading-relaxed text-sm">
+            {/* Description */}
+            <p className="text-sm text-slate-500 max-w-md leading-relaxed">
               Precision-driven academic and technical solutions engineered
               for excellence, confidentiality, and reliability.
             </p>
-          </div>
 
-          {/* Company Card */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-8 space-y-6 shadow-lg">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-white">
-              <Building2 className="w-5 h-5 text-indigo-400" />
-              <h4 className="font-semibold uppercase text-sm tracking-wide">
-                Company
-              </h4>
-            </div>
+            {/* Service Notice */}
+            <div className="flex gap-4 items-start max-w-md bg-white/5 backdrop-blur-xl p-5 rounded-2xl border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.15)] transition-all duration-500 hover:border-blue-500/50">
+              <ShieldCheck className="text-blue-400 shrink-0" size={20} />
 
-            <ul className="space-y-3 text-slate-400 text-sm">
-              <li>
-                <Link href="/about" className="hover:text-white transition">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/portfolio" className="hover:text-white transition">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-white transition">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Card */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-8 space-y-6 shadow-lg">
-            <h4 className="text-white font-semibold uppercase text-sm tracking-wide text-center md:text-left">
-              Contact
-            </h4>
-
-            <div className="space-y-4 text-slate-400 text-sm">
-              <div className="flex items-center justify-center md:justify-start gap-3">
-                <Mail className="w-4 h-4 text-blue-400" />
-                <span>jakslab.services@gmail.com</span>
-              </div>
-
-              <div className="flex items-center justify-center md:justify-start gap-3">
-                <Phone className="w-4 h-4 text-blue-400" />
-                <span>+254 (113) 178-912</span>
-              </div>
-
-              <div className="flex items-center justify-center md:justify-start gap-3">
-                <Clock className="w-4 h-4 text-blue-400" />
-                <span>Open 24 Hours, 7 Days a Week</span>
+              <div className="text-xs leading-relaxed italic">
+                <span className="text-slate-200 font-semibold block mb-2 tracking-wide">
+                  Service Notice
+                </span>
+                All consultations and academic services are handled with strict confidentiality.
               </div>
             </div>
+
           </div>
 
-          {/* Legal Card */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-8 space-y-6 shadow-lg">
-            <div className="flex items-center justify-center md:justify-start gap-2 text-white">
-              <ShieldCheck className="w-5 h-5 text-emerald-400" />
-              <h4 className="font-semibold uppercase text-sm tracking-wide">
-                Legal
-              </h4>
+          {/* RIGHT SIDE */}
+          <div className="flex flex-col md:items-end gap-8">
+
+            {/* Icons */}
+            <div className="flex gap-6 items-center">
+              <a
+                href="https://github.com/Jaks-Tech"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all"
+              >
+                <FaGithub size={20} className="hover:text-blue-400 transition-colors" />
+              </a>
+
+              <a
+                href="mailto:jakslab.services@gmail.com"
+                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all"
+              >
+                <Mail size={20} className="hover:text-blue-400 transition-colors" />
+              </a>
+
+              <a
+                href="tel:+254113178912"
+                className="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 transition-all"
+              >
+                <Phone size={20} className="hover:text-blue-400 transition-colors" />
+              </a>
             </div>
 
-            <div className="space-y-3 text-slate-400 text-sm">
-              <Link href="#" className="block hover:text-white transition">
-                Privacy Policy
+            {/* Navigation Links */}
+            <div className="flex gap-8 uppercase tracking-wide text-xs font-medium text-slate-500">
+              <Link href="/about" className="hover:text-white transition-colors">
+                About
               </Link>
-
-              <Link href="#" className="block hover:text-white transition">
-                Terms of Service
+              <Link href="/blog" className="hover:text-white transition-colors">
+                Blog
+              </Link>
+              <Link href="/contact" className="hover:text-white transition-colors">
+                Contact
               </Link>
             </div>
+
+            {/* Tagline */}
+            <p className="text-[11px] tracking-[0.35em] uppercase text-slate-600 font-semibold">
+              Engineered for Excellence
+            </p>
           </div>
 
         </div>
 
-        {/* Centered Copyright Below Cards */}
-        <div className="mt-16 text-center text-sm text-slate-500">
-          © {new Date().getFullYear()} JaksLab. All rights reserved.
+        {/* Bottom Strip */}
+        <div className="mt-20 pt-10 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-6 text-xs">
+
+          <p className="text-slate-500">
+            © {currentYear}{" "}
+            <span className="text-slate-300 font-medium">JaksLab</span>. All rights reserved.
+          </p>
+
+          <div className="flex gap-8 uppercase tracking-wide font-medium text-slate-500">
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+          </div>
+
         </div>
 
       </div>

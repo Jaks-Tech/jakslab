@@ -12,7 +12,7 @@ interface Props {
 
 export default function ArticlesGrid({ articles }: Props) {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+    <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
       {articles.map((article) => (
         <ArticleCard key={article.slug} {...article} />
       ))}

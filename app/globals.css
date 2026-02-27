@@ -3,6 +3,8 @@
 
 /* Theme tokens */
 :root {
+  /* We keep these for text and UI elements, but we'll handle the 
+     actual page background via the 3D Canvas and the body's 'bg-transparent' class */
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -17,15 +19,22 @@
 
 /* Base body styling */
 body {
-  background-color: var(--background);
+  /* CHANGED: We remove the solid background-color so the 3D scene shows through.
+     The layout.tsx 'bg-transparent' class handles the rest. */
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Prevents 3D particles from causing accidental horizontal scroll */
 }
 
-/* Optional prose overrides */
+/* Optional prose overrides - updated for better contrast on animated backgrounds */
 .prose {
-  --tw-prose-body: #0f172a;
-  --tw-prose-headings: #0f172a;
-  --tw-prose-bold: #0f172a;
-  --tw-prose-bullets: #0f172a;
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-bullets: #3b82f6; /* Matching your blue 3D stars */
+}
+
+/* Ensures the 3D Canvas container doesn't interfere with mouse clicks on buttons */
+canvas {
+  pointer-events: none;
 }

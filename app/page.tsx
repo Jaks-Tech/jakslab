@@ -6,15 +6,17 @@ import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
   return (
-    <main className="flex-1 bg-white">
+    <main className="flex-1 bg-transparent text-white relative">
+
       <Hero />
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-24">
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-24 space-y-32">
         <ServicesPreview />
         <WhyChooseUs />
         <Statistics />
         <Testimonials />
       </div>
+
     </main>
   );
 }
