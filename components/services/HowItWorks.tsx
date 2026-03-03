@@ -1,149 +1,144 @@
 "use client";
 
+import { MessageSquare, Settings, ShieldCheck, Rocket, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
+const steps = [
+  {
+    icon: MessageSquare,
+    title: "1. Consultation",
+    desc: "Share your project requirements via our secure enquiry form. We discuss your goals, technical constraints, and academic standards to align perfectly.",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
+  },
+  {
+    icon: Settings,
+    title: "2. Strategic Planning",
+    desc: "Our experts draft a roadmap including technical architecture or research methodology, clear timelines, and a transparent quote tailored to your budget.",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/10",
+  },
+  {
+    icon: ShieldCheck,
+    title: "3. Precision Execution",
+    desc: "Work begins with iterative updates. Every line of code or paragraph of research undergoes rigorous quality checks and plagiarism scanning.",
+    color: "text-purple-400",
+    bg: "bg-purple-500/10",
+  },
+  {
+    icon: Rocket,
+    title: "4. Final Delivery",
+    desc: "Receive your polished, high-performance solution. We provide a full walkthrough and support to ensure you are 100% satisfied with the results.",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+  },
+];
+
 export function HowItWorks() {
-  const steps = [
-    {
-      title: "Submit Request",
-      description: "Tell us about your project requirements and goals through our contact form.",
-    },
-    {
-      title: "Receive Quote",
-      description: "We review your request and provide a clear timeline and pricing.",
-    },
-    {
-      title: "Work Begins",
-      description: "Our team starts building your solution with regular updates.",
-    },
-    {
-      title: "Project Delivery",
-      description: "Receive the completed project, polished and ready to use.",
-    },
-  ];
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const [active, setActive] = useState(0);
+  const nextStep = () => setActiveIndex((prev) => (prev + 1) % steps.length);
+  const prevStep = () => setActiveIndex((prev) => (prev - 1 + steps.length) % steps.length);
 
+  // Auto-transition logic: Switches cards every 4 seconds
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % steps.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [steps.length]);
+    const autoPlay = setInterval(() => {
+      nextStep();
+    }, 4000);
+    return () => clearInterval(autoPlay);
+  }, [activeIndex]);
 
   return (
-    /* CHANGED: Switched bg-gradient to bg-transparent */
-    <section className="relative py-20 bg-transparent overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-8">
-
-        {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-block px-4 py-1 mb-5 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
-            Simple Process
-          </div>
-
-          <h2 className="text-4xl font-bold text-white">
-            How It Works
-          </h2>
-
-          <p className="mt-5 text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            A streamlined process designed to deliver quality, clarity, and speed.
-          </p>
+    <section id="how-it-works" className="relative scroll-mt-20 pt-2 pb-2 overflow-hidden">
+      {/* Header */}
+      <div className="flex flex-col items-center text-center px-4 mb-12 md:mb-16">
+        <div className="inline-flex px-4 py-1 mb-4 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
+          The Process
         </div>
+        <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+          How We Bring Your Vision to Life
+        </h2>
+      </div>
 
-        {/* DESKTOP GRID */}
-        <div className="hidden md:grid relative grid-cols-4 gap-10">
-
-          {/* Connector Line: Changed to semi-transparent white */}
-          <div className="absolute top-16 left-0 w-full h-[1px] bg-white/10"></div>
-
-          {steps.map((step, i) => {
-            const isActive = active === i;
-
-            return (
-              <div
-                key={i}
-                /* CHANGED: 
-                   - bg-white -> bg-white/5 
-                   - Added backdrop-blur-md 
-                   - border-slate-200 -> border-white/10
-                */
-                className={`relative bg-white/5 backdrop-blur-md rounded-2xl p-8 text-center border
-                  transition-all duration-500
-                  ${
-                    isActive
-                      ? "shadow-[0_0_30px_rgba(59,130,246,0.2)] -translate-y-3 scale-105 border-blue-500/50"
-                      : "shadow-md border-white/10"
-                  }`}
-              >
-                <div
-                  className={`relative z-10 mx-auto w-16 h-16 rounded-full 
-                  flex items-center justify-center font-semibold text-lg shadow-md
-                  transition-all duration-500
-                  ${
-                    isActive
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white scale-110"
-                      : "bg-white/10 text-slate-300 border border-white/10"
-                  }`}
-                >
-                  {i + 1}
-                </div>
-
-                <h3 className={`mt-6 text-lg font-semibold transition-colors duration-500 ${isActive ? 'text-white' : 'text-slate-200'}`}>
-                  {step.title}
-                </h3>
-
-                <p className="mt-4 text-sm text-slate-400 leading-relaxed">
-                  {step.description}
-                </p>
+      {/* Desktop Layout (Standard Grid) */}
+      <div className="hidden lg:grid relative w-full max-w-6xl mx-auto px-6 grid-cols-4 gap-8">
+        {steps.map((step, i) => {
+          const Icon = step.icon;
+          return (
+            <div key={i} className="flex flex-col items-center text-center">
+              <div className={`w-20 h-20 rounded-2xl ${step.bg} border border-white/10 flex items-center justify-center mb-6`}>
+                <Icon className={`w-8 h-8 ${step.color}`} />
               </div>
-            );
-          })}
+              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Mobile & Tablet Layout (Auto-Transitioning Cards) */}
+      <div className="lg:hidden relative w-full px-4 flex flex-col items-center">
+        <div className="relative w-full min-h-[420px] flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="w-full max-w-sm bg-white/[0.03] backdrop-blur-md border border-white/10 p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center"
+            >
+              {/* Icon Circle */}
+              <div className={`w-20 h-20 rounded-2xl ${steps[activeIndex].bg} border border-white/10 flex items-center justify-center mb-6 shadow-lg`}>
+                {(() => {
+                  const StepIcon = steps[activeIndex].icon;
+                  return <StepIcon className={`w-10 h-10 ${steps[activeIndex].color}`} />;
+                })()}
+              </div>
+
+              {/* Text Content */}
+              <h3 className="text-2xl font-bold text-white mb-4">
+                {steps[activeIndex].title}
+              </h3>
+              
+              <p className="text-slate-400 text-base leading-relaxed">
+                {steps[activeIndex].desc}
+              </p>
+
+              <div className="mt-6 text-[10px] font-bold tracking-widest text-blue-500/40 uppercase">
+                Step {activeIndex + 1} of {steps.length}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* MOBILE SLIDER */}
-        <div className="md:hidden mt-10">
-          <div
-            className="flex transition-transform duration-700 ease-in-out"
-            style={{ transform: `translateX(-${active * 100}%)` }}
+        {/* Navigation Controls */}
+        <div className="flex items-center gap-6 mt-8">
+          <button 
+            onClick={prevStep}
+            className="p-3 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all active:scale-95"
           >
-            {steps.map((step, i) => (
-              <div key={i} className="min-w-full px-2">
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 
-                                text-white p-10 rounded-3xl shadow-2xl text-center">
-
-                  <div className="mx-auto w-16 h-16 rounded-full 
-                                  bg-blue-600 flex items-center justify-center 
-                                  font-semibold text-lg mb-6 shadow-lg shadow-blue-500/30">
-                    {i + 1}
-                  </div>
-
-                  <h3 className="text-xl font-bold">
-                    {step.title}
-                  </h3>
-
-                  <p className="mt-4 text-slate-300 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 gap-3">
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          
+          <div className="flex gap-2">
             {steps.map((_, i) => (
-              <div
-                key={i}
-                className={`w-3 h-3 rounded-full transition-all duration-300
-                  ${
-                    active === i
-                      ? "bg-blue-500 w-8"
-                      : "bg-white/20"
-                  }`}
+              <div 
+                key={i} 
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === activeIndex ? "w-8 bg-blue-600" : "w-2 bg-white/20"
+                }`}
               />
             ))}
           </div>
+
+          <button 
+            onClick={nextStep}
+            className="p-3 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all active:scale-95"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
         </div>
       </div>
     </section>

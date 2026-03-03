@@ -10,7 +10,7 @@ export default function Home() {
 
       <Hero />
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-24 space-y-32">
+      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-2 space-y-2">
         <ServicesPreview />
         <WhyChooseUs />
         <Statistics />

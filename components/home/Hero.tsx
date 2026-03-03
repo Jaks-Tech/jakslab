@@ -4,7 +4,7 @@ import HeroCTA from "./HeroCTA";
 
 export default function Hero() {
   return (
-    <section className="relative pt-16 sm:pt-20 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden bg-transparent">
+    <section className="relative pt-20 sm:pt-10 pb-10 sm:pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden bg-transparent">
 
       <div className="max-w-7xl mx-auto text-center">
 

@@ -1,53 +1,75 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export function ServicesCTA() {
   return (
-    /* CHANGED: 
-       - Switched from solid gradient to a glass panel (bg-white/5 + backdrop-blur)
-       - Kept rounded-t-3xl for the 'footer-up' design feel
-       - Added a subtle top border to define the section transition
-    */
-    <section className="relative py-24 bg-white/5 backdrop-blur-xl border-t border-white/10 text-white overflow-hidden rounded-t-[3rem]">
-      
-      {/* Background Glow Effects - Reduced opacity to blend with the 3D stars */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-[100px]"></div>
-      <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-indigo-500/10 rounded-full blur-[100px]"></div>
+    <>
+      {/* Soft Animated Radial Glow */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute left-1/2 top-1/2 w-[1000px] h-[1000px]
+                     -translate-x-1/2 -translate-y-1/2
+                     bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-purple-600/20
+                     blur-[160px] opacity-60 animate-pulse"
+        />
+      </div>
 
-      <div className="relative max-w-4xl mx-auto px-8 text-center z-10">
-        
-        <h2 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        viewport={{ once: true }}
+        /* 1. Removed 'max-w-4xl mx-auto' and 'py-28'
+           2. Added 'pt-20' for top spacing
+           3. Added 'flex flex-col items-center' to keep heading & content centered 
+        */
+        className="relative z-10 pt-2 flex flex-col items-center text-center px-4"
+      >
+        <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
           Ready to Bring Your Project to Life?
         </h2>
 
-        <p className="mt-6 text-slate-300 max-w-2xl mx-auto text-lg md:text-xl">
-          Let’s turn your idea into a polished, professional solution. 
+        <p className="mt-6 text-slate-400 max-w-2xl text-lg md:text-xl leading-relaxed">
+          Let’s turn your idea into a polished, professional solution.
           Get a clear quote, timeline, and expert support from day one.
         </p>
 
         <div className="mt-12">
           <Link
             href="/contact"
-            /* CHANGED: 
-               - Switched button to a gradient for higher 'Call to Action' priority
-               - Added shadow-blue to make it pop against the dark 3D scene
-            */
-            className="inline-flex items-center gap-2 px-12 py-5 
+            className="group relative inline-flex items-center gap-2
+                       px-12 py-5 rounded-full
                        bg-gradient-to-r from-blue-600 to-indigo-600
-                       text-white font-bold text-lg 
-                       rounded-full shadow-[0_10px_40px_-10px_rgba(37,99,235,0.4)]
-                       hover:shadow-[0_15px_50px_-10px_rgba(37,99,235,0.6)]
-                       hover:-translate-y-1.5
-                       active:translate-y-0 
-                       transition-all duration-400"
+                       text-white font-bold text-lg
+                       overflow-hidden
+                       transition-all duration-300
+                       hover:-translate-y-1"
           >
-            Request a Quote
-            <span className="text-xl">→</span>
+            {/* Hover Glow */}
+            <span className="absolute inset-0 rounded-full
+                             bg-gradient-to-r from-blue-500 to-indigo-500
+                             blur-xl opacity-0
+                             group-hover:opacity-40
+                             transition-opacity duration-500" />
+
+            {/* Shimmer Sweep */}
+            <span className="absolute inset-0
+                             bg-gradient-to-r from-transparent via-white/30 to-transparent
+                             -translate-x-full
+                             group-hover:translate-x-full
+                             transition-transform duration-1000 ease-out" />
+
+            <span className="relative z-10 flex items-center gap-2">
+              Request a Quote
+              <span className="text-xl transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </span>
           </Link>
         </div>
-
-      </div>
-    </section>
+      </motion.div>
+    </>
   );
 }

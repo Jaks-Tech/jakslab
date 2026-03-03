@@ -1,7 +1,7 @@
 "use client";
 
 import { Star } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 const reviews = [
   {
@@ -42,98 +42,79 @@ const reviews = [
 ];
 
 export default function Testimonials() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % reviews.length);
+    }, 4000); // change every 4 seconds
 
-    let scrollAmount = 0;
-    const speed = 0.5;
-
-    const animate = () => {
-      scrollAmount += speed;
-      if (scrollAmount >= container.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
-      container.scrollLeft = scrollAmount;
-      requestAnimationFrame(animate);
-    };
-
-    const animation = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animation);
+    return () => clearInterval(interval);
   }, []);
 
+  const review = reviews[activeIndex];
+
   return (
-    <section className="py-24 px-6 bg-transparent relative">
-      <div className="max-w-[1400px] mx-auto">
-
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            What Our Clients Say
-          </h2>
-
-          <p className="mt-6 text-slate-400 max-w-2xl mx-auto">
-            Trusted by students and professionals across disciplines.
-          </p>
+    <section className="relative pt-20 pb-24 px-4">
+      {/* Header */}
+      <div className="flex flex-col items-center text-center mb-16">
+        <div className="inline-flex px-4 py-1 mb-4 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
+          Testimonials
         </div>
 
-        {/* Carousel */}
-        <div className="overflow-hidden relative">
-          <div
-            ref={scrollRef}
-            className="flex gap-8 overflow-x-hidden"
-          >
-            {[...reviews, ...reviews].map((review, i) => (
-              <div
-                key={i}
-                className="min-w-[320px] md:min-w-[380px] lg:min-w-[420px] 
-                           bg-white/5 backdrop-blur-xl
-                           border border-white/10
-                           hover:border-blue-500/40
-                           hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]
-                           p-8 rounded-3xl
-                           transition-all duration-500"
-              >
-                {/* Stars */}
-                <div className="flex text-yellow-400 mb-4 gap-1">
-                  {[...Array(5)].map((_, index) => (
-                    <Star key={index} size={16} fill="currentColor" />
-                  ))}
-                </div>
+        <h2 className="text-2xl md:text-5xl font-bold text-white leading-tight">
+          What Our Clients Say
+        </h2>
 
-                {/* Text */}
-                <p className="text-slate-300 italic text-sm leading-relaxed">
-                  "{review.content}"
-                </p>
+      </div>
 
-                {/* Profile */}
-                <div className="mt-6 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full overflow-hidden">
-                    <div
-                      className={`w-full h-full bg-gradient-to-br ${review.color}`}
-                    />
-                  </div>
-
-                  <div>
-                    <p className="font-semibold text-white text-sm">
-                      {review.name}
-                    </p>
-                    <p className="text-xs text-slate-400">
-                      {review.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
+      {/* Slider */}
+      <div className="relative max-w-3xl mx-auto transition-opacity duration-700 ease-in-out">
+        <div className="text-center">
+          {/* Stars */}
+          <div className="flex justify-center text-yellow-400 mb-6 gap-1">
+            {[...Array(5)].map((_, index) => (
+              <Star key={index} size={18} fill="currentColor" />
             ))}
           </div>
 
-          {/* Dark Fade Edges */}
-          <div className="absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-black to-transparent pointer-events-none" />
-        </div>
+          {/* Content */}
+          <p className="text-slate-300 italic text-lg leading-relaxed mb-8">
+            "{review.content}"
+          </p>
 
+          {/* Author */}
+          <div className="flex justify-center items-center gap-4">
+            <div className="w-12 h-12 rounded-full overflow-hidden">
+              <div
+                className={`w-full h-full bg-gradient-to-br ${review.color}`}
+              />
+            </div>
+
+            <div className="text-left">
+              <p className="font-semibold text-white">
+                {review.name}
+              </p>
+              <p className="text-sm text-slate-400">
+                {review.role}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Dots Indicator */}
+      <div className="flex justify-center mt-10 gap-3">
+        {reviews.map((_, index) => (
+          <div
+            key={index}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === activeIndex
+                ? "w-6 bg-blue-500"
+                : "w-2 bg-slate-600"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );

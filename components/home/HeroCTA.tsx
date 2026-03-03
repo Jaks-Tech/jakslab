@@ -4,7 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
 
-export default function HeroCTA() {
+interface HeroCTAProps {
+  spacing?: string;       // controls top margin
+  modalPadding?: string;  // controls modal inner padding
+}
+
+export default function HeroCTA({
+  spacing = "mt-10 sm:mt-14",
+  modalPadding = "p-8",
+}: HeroCTAProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -14,7 +22,7 @@ export default function HeroCTA() {
   return (
     <>
       {/* Main CTA Button */}
-      <div className="mt-10 sm:mt-14 flex justify-center">
+      <div className={`${spacing} flex justify-center`}>
         <button
           onClick={() => setOpen(true)}
           className="px-10 py-4 rounded-2xl 
@@ -35,20 +43,21 @@ export default function HeroCTA() {
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
 
-          {/* Dark Overlay */}
+          {/* Overlay */}
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={() => setOpen(false)}
           />
 
-          {/* Glass Modal Card */}
-          <div className="relative w-full max-w-md rounded-3xl
-                          bg-white/5 backdrop-blur-xl
-                          border border-white/10
-                          shadow-[0_0_60px_rgba(59,130,246,0.15)]
-                          p-8
-                          animate-in fade-in zoom-in-95 duration-200">
-
+          {/* Modal Card */}
+          <div
+            className={`relative w-full max-w-md rounded-3xl
+                        bg-white/5 backdrop-blur-xl
+                        border border-white/10
+                        shadow-[0_0_60px_rgba(59,130,246,0.15)]
+                        ${modalPadding}
+                        animate-in fade-in zoom-in-95 duration-200`}
+          >
             {/* Close */}
             <button
               onClick={() => setOpen(false)}
@@ -59,7 +68,6 @@ export default function HeroCTA() {
 
             {/* Logo + Title */}
             <div className="flex flex-col items-center mb-8">
-
               <img
                 src="/jakslab.png"
                 alt="JaksLab Logo"
@@ -73,12 +81,10 @@ export default function HeroCTA() {
               <p className="text-slate-400 text-sm mt-2 text-center">
                 Choose how you'd like to proceed
               </p>
-
             </div>
 
             {/* Buttons */}
             <div className="flex flex-col gap-4">
-
               <Link
                 href="/order"
                 className="px-6 py-4 rounded-xl 
@@ -118,7 +124,6 @@ export default function HeroCTA() {
               >
                 Explore Services
               </Link>
-
             </div>
           </div>
         </div>
