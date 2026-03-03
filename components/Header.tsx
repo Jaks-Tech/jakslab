@@ -92,7 +92,7 @@ export function Header() {
               href="/order"
               className="relative px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full shadow-md hover:shadow-blue-500/30 hover:scale-[1.05] transition-all duration-300"
             >
-              Submit Assignment
+              Create Task
             </Link>
           </div>
 
