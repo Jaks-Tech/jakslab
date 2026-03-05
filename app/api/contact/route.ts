@@ -34,7 +34,7 @@ async function sendContactEmail(data: ContactData) {
     await resend.emails.send({
       // Change 'onboarding@resend.dev' once you verify jakslab.work in Resend
       from: "JaksLab Contact <onboarding@resend.dev>",
-      to: "jakslab.services@gmail.com",
+      to: "hello@jakslab.work",
       subject: `📩 New Inquiry: ${data.subject}`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
