@@ -131,7 +131,7 @@ export function Header() {
                 onClick={() => setIsOpen(false)}
                 className="px-4 py-3 mt-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-center"
               >
-                Submit Assignment
+               Create Task
               </Link>
             </div>
           </div>
