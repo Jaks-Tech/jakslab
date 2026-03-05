@@ -109,7 +109,7 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
 
   const embed = {
     title: "🔔 New Request",
-    description: `A new order has been placed on the Jakslab dashboard.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
+    description: `You have received a new client request.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
     url: orderUrl,
     color: 0x2563eb, // Matches your brand blue
     thumbnail: {

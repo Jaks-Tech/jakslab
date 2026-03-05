@@ -6,6 +6,7 @@ import { Send, Check } from "lucide-react";
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -19,15 +20,17 @@ export function ContactForm() {
       ...prev,
       [field]: value,
     }));
+    // Clear error if user starts typing again
+    if (error) setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setLoading(true);
+    setError(null);
 
     try {
-      await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,16 +38,24 @@ export function ContactForm() {
         body: JSON.stringify(formData),
       });
 
-      setSubmitted(true);
-    } catch (err) {
-      console.error(err);
-    }
+      const result = await response.json();
 
-    setLoading(false);
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setError(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const resetForm = () => {
     setSubmitted(false);
+    setError(null);
     setFormData({
       name: "",
       email: "",
@@ -60,10 +71,7 @@ export function ContactForm() {
           <Check className="text-white" />
         </div>
 
-        <h3 className="text-2xl font-bold text-white mb-2">
-          Message Sent!
-        </h3>
-
+        <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
         <p className="text-slate-400 mb-6">
           Thank you for contacting us. We'll reply shortly.
         </p>
@@ -80,18 +88,12 @@ export function ContactForm() {
 
   return (
     <div className="relative w-full p-10 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:border-blue-500/40 transition-all duration-500">
-
-      <h3 className="text-3xl font-bold text-white mb-2 text-center">
-        Get in Touch
-      </h3>
-
+      <h3 className="text-3xl font-bold text-white mb-2 text-center">Get in Touch</h3>
       <p className="text-slate-400 text-center mb-10">
         We'd love to hear from you. Fill out the form below.
       </p>
 
       <form className="space-y-8" onSubmit={handleSubmit}>
-
-        {/* Full Name */}
         <FloatingInput
           label="Full Name"
           type="text"
@@ -99,7 +101,6 @@ export function ContactForm() {
           onChange={(v) => handleChange("name", v)}
         />
 
-        {/* Email */}
         <FloatingInput
           label="Email Address"
           type="email"
@@ -107,7 +108,6 @@ export function ContactForm() {
           onChange={(v) => handleChange("email", v)}
         />
 
-        {/* Subject */}
         <FloatingInput
           label="Subject"
           type="text"
@@ -115,36 +115,40 @@ export function ContactForm() {
           onChange={(v) => handleChange("subject", v)}
         />
 
-        {/* Message */}
         <FloatingTextarea
           label="Message"
           value={formData.message}
           onChange={(v) => handleChange("message", v)}
         />
 
-        {/* Submit Button */}
+        {error && (
+          <p className="text-red-400 text-sm text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">
+            {error}
+          </p>
+        )}
+
         <button
           disabled={loading}
           type="submit"
-          className="group w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] active:scale-[0.99]"
+          className="group w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Sending..." : "Send Message"}
-
-          <Send
-            size={20}
-            className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-          />
+          {!loading && (
+            <Send
+              size={20}
+              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          )}
         </button>
 
-        {/* Trust note */}
         <p className="text-xs text-slate-500 text-center">
           🔒 Your information is kept private and secure.
         </p>
-
       </form>
     </div>
   );
 }
+
 
 /* ---------- Reusable Components ---------- */
 
