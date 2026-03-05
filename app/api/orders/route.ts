@@ -4,6 +4,10 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Constants for your new brand
+const PRODUCTION_DOMAIN = "https://www.jakslab.work";
+const LOGO_URL = `${PRODUCTION_DOMAIN}/jakslab.png`;
+
 type Attachment = {
   filePath: string;
   fileUrl: string;
@@ -28,10 +32,9 @@ type OrderPayload = {
  * Robust helper to get the site URL
  */
 const getBaseUrl = () => {
-  // Use the env variable you set in Vercel first
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  // If not set, use Vercel's automatic system variable
-  if (process.env.VERCEL_URL) return `https://jakslab.vercel.app`; 
+  // If in production Vercel, use your custom domain
+  if (process.env.NODE_ENV === "production") return PRODUCTION_DOMAIN;
   return "http://localhost:3000";
 };
 
@@ -42,12 +45,10 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
   try {
     const baseUrl = getBaseUrl();
     const orderUrl = `${baseUrl}/order/${orderId}`;
-    
-    // Explicitly using the known working URL for the logo in production
-    const logoUrl = "https://jakslab.vercel.app/jakslab.png";
 
     await resend.emails.send({
-      from: "Jakslab <onboarding@resend.dev>",
+      // TIP: Once you verify your domain in Resend, change this to hello@jakslab.work
+      from: "JaksLab <onboarding@resend.dev>", 
       to: "jakslab.services@gmail.com",
       subject: `🔔 New Request: ${order.fullName} - ${order.projectType}`,
       html: `
@@ -55,13 +56,13 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
           
           <div style="text-align: center; margin-bottom: 20px;">
             <img 
-              src="${logoUrl}?v=1" 
-              alt="Jakslab Logo" 
+              src="${LOGO_URL}" 
+              alt="JaksLab Logo" 
               width="80" 
               height="80" 
               style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #2563eb; display: inline-block;" 
             />
-            <h2 style="color: #2563eb; margin-top: 10px;">Jakslab</h2>
+            <h2 style="color: #2563eb; margin-top: 10px;">JaksLab</h2>
           </div>
 
           <h3 style="border-bottom: 2px solid #f4f4f4; padding-bottom: 10px; color: #333;">New Project Request Received</h3>
@@ -86,7 +87,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
           </div>
           
           <p style="font-size: 11px; color: #aaa; margin-top: 40px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-            Jakslab Services
+            JaksLab Services • Engineered Excellence
           </p>
         </div>
       `,
@@ -97,7 +98,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
 }
 
 /**
- * Sends Detailed Discord Notification (Matches Email Format)
+ * Sends Detailed Discord Notification
  */
 async function sendDiscordNotification(order: OrderPayload, orderId: string) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
@@ -105,19 +106,16 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
 
   const baseUrl = getBaseUrl();
   const orderUrl = `${baseUrl}/order/${orderId}`;
-  const logoUrl = "https://jakslab.vercel.app/jakslab.png";
 
   const embed = {
-    title: "🔔 New Request",
-    description: `You have received a new client request.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
+    title: "🔔 New Request Received",
+    description: `A new client has submitted a task via **jakslab.work**.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
     url: orderUrl,
-    color: 0x2563eb, // Matches your brand blue
-    thumbnail: {
-      url: logoUrl, // This puts your logo in the top right corner of the embed
-    },
+    color: 0x2563eb,
+    thumbnail: { url: LOGO_URL },
     author: {
-      name: "Jakslab Services",
-      icon_url: logoUrl,
+      name: "JaksLab Services",
+      icon_url: LOGO_URL,
     },
     fields: [
       { name: "👤 Client Name", value: order.fullName, inline: true },
@@ -131,7 +129,7 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
       { name: "📅 Deadline", value: order.deadline, inline: true },
       { 
         name: "📝 Description", 
-        value: order.description.length > 1000 ? order.description.substring(0, 1000) + "..." : order.description 
+        value: order.description.length > 500 ? order.description.substring(0, 500) + "..." : order.description 
       },
       { 
         name: "📎 Attachments", 
@@ -140,7 +138,7 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
       }
     ],
     footer: {
-      text: `Order ID: ${orderId} • Jakslab Services`,
+      text: `ID: ${orderId} • Sent from jakslab.work`,
     },
     timestamp: new Date().toISOString(),
   };
@@ -150,8 +148,8 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: "Jakslab Orders",
-        avatar_url: logoUrl, // This changes the bot's profile picture
+        username: "JaksLab Orders",
+        avatar_url: LOGO_URL,
         embeds: [embed] 
       }),
     });
@@ -159,6 +157,7 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
     console.error("Discord notification failed:", err);
   }
 }
+
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as OrderPayload;
@@ -189,7 +188,8 @@ export async function POST(req: Request) {
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    await Promise.all([
+    // Run notifications in parallel
+    await Promise.allSettled([
       sendDiscordNotification(body, data.id),
       sendEmailNotifications(body, data.id)
     ]);

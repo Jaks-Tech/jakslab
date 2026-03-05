@@ -42,7 +42,7 @@ export default function RefundPolicy() {
           {/* Intro Section */}
           <section className="space-y-4 relative z-10">
             <p className="leading-relaxed text-slate-400">
-              JaksLab assures its users of high-quality solutions tailored to their specific academic, programming, and web development needs. If, for any valid reason that can be proven, you are not satisfied with our services or the final delivered project, please contact us immediately at <strong>jakslab.services@gmail.com</strong>.
+              JaksLab assures its users of high-quality solutions tailored to their specific academic, programming, and web development needs. If, for any valid reason that can be proven, you are not satisfied with our services or the final delivered project, please contact us immediately at <strong>hello@jakslab.work</strong>.
             </p>
             <p className="leading-relaxed text-slate-400">
               You can also request a revision or open a refund claim directly by replying to your project delivery email. All refunds are at the sole discretion of the Quality Assurance Department of JaksLab.
@@ -149,10 +149,10 @@ export default function RefundPolicy() {
             </p>
             <div className="pt-4">
               <a 
-                href="mailto:jakslab.services@gmail.com"
+                href="mailto:hello@jakslab.work"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold transition-colors"
               >
-                jakslab.services@gmail.com
+                hello@jakslab.work
               </a>
             </div>
             <p className="text-sm text-slate-500 mt-4">

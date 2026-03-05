@@ -4,7 +4,7 @@ const info = [
   {
     icon: Mail,
     title: "Email",
-    value: "jakslab.services@gmail.com",
+    value: "hello@jakslab.work",
   },
   {
     icon: Phone,

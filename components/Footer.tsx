@@ -54,7 +54,7 @@ export function Footer() {
 
             <div className="flex gap-4 items-center pt-2">
               <SocialIcon href="https://github.com/Jaks-Tech" icon={<FaGithub size={18} />} />
-              <SocialIcon href="mailto:jakslab.services@gmail.com" icon={<Mail size={18} />} />
+              <SocialIcon href="mailto:hello@jakslab.work" icon={<Mail size={18} />} />
               <SocialIcon href="tel:+254113178912" icon={<Phone size={18} />} />
             </div>
           </div>

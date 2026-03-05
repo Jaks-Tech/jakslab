@@ -4,6 +4,10 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Centralized Branding Constants
+const PRODUCTION_DOMAIN = "https://www.jakslab.work";
+const LOGO_URL = `${PRODUCTION_DOMAIN}/jakslab.png`;
+
 interface ContactData {
   name: string;
   email: string;
@@ -13,10 +17,12 @@ interface ContactData {
   message: string;
 }
 
-// Helper to get the correct URL for branding
+/**
+ * Robust helper to get the site URL
+ */
 const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  if (process.env.VERCEL_URL) return `https://jakslab.vercel.app`; 
+  if (process.env.NODE_ENV === "production") return PRODUCTION_DOMAIN;
   return "http://localhost:3000";
 };
 
@@ -25,16 +31,15 @@ const getBaseUrl = () => {
  */
 async function sendContactEmail(data: ContactData) {
   try {
-    const logoUrl = "https://jakslab.vercel.app/jakslab.png";
-
     await resend.emails.send({
-      from: "Jakslab Contact <onboarding@resend.dev>",
+      // Change 'onboarding@resend.dev' once you verify jakslab.work in Resend
+      from: "JaksLab Contact <onboarding@resend.dev>",
       to: "jakslab.services@gmail.com",
       subject: `📩 New Inquiry: ${data.subject}`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
           <div style="text-align: center; margin-bottom: 20px;">
-            <img src="${logoUrl}" alt="Jakslab Logo" width="70" height="70" style="border-radius: 50%; border: 2px solid #2563eb;" />
+            <img src="${LOGO_URL}" alt="JaksLab Logo" width="70" height="70" style="border-radius: 50%; border: 2px solid #2563eb; object-fit: cover;" />
             <h2 style="color: #2563eb; margin-top: 10px;">New Message Received</h2>
           </div>
 
@@ -51,7 +56,7 @@ async function sendContactEmail(data: ContactData) {
           </div>
           
           <p style="font-size: 11px; color: #aaa; margin-top: 40px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-            Jakslab Contact System
+            JaksLab Contact System • Engineered Excellence
           </p>
         </div>
       `,
@@ -68,19 +73,20 @@ async function sendContactDiscord(data: ContactData) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
   if (!webhookUrl) return;
 
-  const logoUrl = "https://jakslab.vercel.app/jakslab.png";
-
   const embed = {
     title: `📩 New Contact Message: ${data.subject}`,
-    color: 0x3b82f6, // Blue
-    thumbnail: { url: logoUrl },
+    color: 0x3b82f6, 
+    thumbnail: { url: LOGO_URL },
     fields: [
       { name: "👤 Name", value: data.name, inline: true },
       { name: "✉️ Email", value: data.email, inline: true },
       { name: "📱 Phone", value: `+${data.phone}\n(${data.platform})`, inline: true },
-      { name: "📝 Message", value: data.message.length > 1000 ? data.message.substring(0, 1000) + "..." : data.message }
+      { 
+        name: "📝 Message", 
+        value: data.message.length > 1000 ? data.message.substring(0, 1000) + "..." : data.message 
+      }
     ],
-    footer: { text: "Jakslab Inquiries" },
+    footer: { text: "JaksLab Inquiries • jakslab.work" },
     timestamp: new Date().toISOString(),
   };
 
@@ -89,8 +95,8 @@ async function sendContactDiscord(data: ContactData) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: "Jakslab Inquiries",
-        avatar_url: logoUrl,
+        username: "JaksLab Inquiries",
+        avatar_url: LOGO_URL,
         embeds: [embed]
       }),
     });
@@ -103,12 +109,12 @@ export async function POST(req: Request) {
   try {
     const body: ContactData = await req.json();
 
-    // Basic validation (updated to include the new fields, assuming they are required)
+    // Basic validation
     if (!body.name || !body.email || !body.subject || !body.message || !body.phone) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. Save to Supabase (Table name must be contact_messages)
+    // 1. Save to Supabase
     const { error: dbError } = await supabase
       .from("contact_messages")
       .insert([
@@ -124,11 +130,10 @@ export async function POST(req: Request) {
 
     if (dbError) {
       console.error("Supabase Database Error:", dbError);
-      throw dbError;
+      return NextResponse.json({ error: "Database error occurred." }, { status: 500 });
     }
 
-    // 2. Parallel Notifications (doesn't block response)
-    // Using allSettled so one failure doesn't stop the other
+    // 2. Parallel Notifications (allSettled ensures one failure doesn't stop the other)
     await Promise.allSettled([
       sendContactEmail(body),
       sendContactDiscord(body)

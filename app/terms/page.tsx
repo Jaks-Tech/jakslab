@@ -76,7 +76,7 @@ export default function TermsOfService() {
                 When you visit JaksLab or send us e-mails, you are communicating with us through electronic media. You consent to receive communications from us electronically. We will communicate with you by e-mails, chats, or by posting notices on the website. You agree that all agreements, notices, disclosures, and other communications that we provide to you electronically satisfy any legal requirement that such communications be in writing.
               </p>
               <p className="leading-relaxed text-slate-400">
-                JaksLab may change, revise, or modify any of the Terms at any time by posting them on the Site. Changes shall automatically be effective upon posting; however, material changes to the Terms will be communicated via email from <strong>jakslab.services@gmail.com</strong>. Your continued use of the Service will signify your acceptance of the changes.
+                JaksLab may change, revise, or modify any of the Terms at any time by posting them on the Site. Changes shall automatically be effective upon posting; however, material changes to the Terms will be communicated via email from <strong>hello@jakslab.work</strong>. Your continued use of the Service will signify your acceptance of the changes.
               </p>
             </div>
           </section>
@@ -167,7 +167,7 @@ export default function TermsOfService() {
                 10. Refund Policy
               </h3>
               <p className="leading-relaxed text-slate-400">
-                JaksLab assures its users high-quality solutions tailored to match their needs. If you are not satisfied with our technical or academic services, please contact us at <strong>jakslab.services@gmail.com</strong>. All refunds are at the sole discretion of the JaksLab Quality Assurance Department.
+                JaksLab assures its users high-quality solutions tailored to match their needs. If you are not satisfied with our technical or academic services, please contact us at <strong>hello@jakslab.work</strong>. All refunds are at the sole discretion of the JaksLab Quality Assurance Department.
               </p>
               <p className="leading-relaxed text-slate-400 mt-2">Refunds may be requested if:</p>
               <ul className="list-disc pl-6 space-y-2 text-slate-400">
@@ -206,7 +206,7 @@ export default function TermsOfService() {
                   <strong className="text-white">Limitation of Liabilities:</strong> IN NO EVENT SHALL JAKSLAB OR ITS PROPRIETORS BE LIABLE FOR ANY INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES. IN NO EVENT WILL OUR LIABILITY TO YOU EXCEED THE AMOUNT OF FEES YOU PAID TO JAKSLAB FOR THE SPECIFIC PROJECT GIVING RISE TO LIABILITY.
                 </li>
                 <li>
-                  <strong className="text-white">Choice of Law and Forum:</strong> The Terms shall be governed by, and construed in accordance with the laws of Nairobi, Kenya. All disputes arising out of the use of the Site shall be resolved via written notification to <strong>jakslab.services@gmail.com</strong>, allowing thirty (30) days for a response and remedy before further action is taken.
+                  <strong className="text-white">Choice of Law and Forum:</strong> The Terms shall be governed by, and construed in accordance with the laws of Nairobi, Kenya. All disputes arising out of the use of the Site shall be resolved via written notification to <strong>hello@jakslab.work</strong>, allowing thirty (30) days for a response and remedy before further action is taken.
                 </li>
                 <li>
                   <strong className="text-white">Conclusive Agreement:</strong> The Terms constitute the complete and exclusive statement of the Agreement between you and us. It supersedes any prior agreements, oral or written, relating to the subject matter of the Terms.
@@ -224,10 +224,10 @@ export default function TermsOfService() {
             </p>
             <div className="pt-4">
               <a 
-                href="mailto:jakslab.services@gmail.com"
+                href="mailto:hello@jakslab.work"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-colors"
               >
-                jakslab.services@gmail.com
+                hello@jakslab.work
               </a>
             </div>
             <p className="text-sm text-slate-500 mt-4">
