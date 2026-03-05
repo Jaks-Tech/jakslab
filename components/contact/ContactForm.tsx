@@ -2,27 +2,21 @@
 
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
-
+import PersonalInfo from "@/components/order/order-form/PersonalInfo";
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-    // Clear error if user starts typing again
-    if (error) setError(null);
-  };
+  // 1. Refactored state to match PersonalInfo props
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [platform, setPlatform] = useState("WhatsApp");
+  const [phone, setPhone] = useState("");
+  
+  // 2. Remaining fields for the contact form
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +29,14 @@ export function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          platform,
+          phone,
+          subject,
+          message,
+        }),
       });
 
       const result = await response.json();
@@ -56,12 +57,14 @@ export function ContactForm() {
   const resetForm = () => {
     setSubmitted(false);
     setError(null);
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    
+    // Reset all individual states
+    setFullName("");
+    setEmail("");
+    setPlatform("WhatsApp");
+    setPhone("");
+    setSubject("");
+    setMessage("");
   };
 
   if (submitted) {
@@ -93,33 +96,39 @@ export function ContactForm() {
         We'd love to hear from you. Fill out the form below.
       </p>
 
-      <form className="space-y-8" onSubmit={handleSubmit}>
-        <FloatingInput
-          label="Full Name"
-          type="text"
-          value={formData.name}
-          onChange={(v) => handleChange("name", v)}
+      <form className="space-y-10" onSubmit={handleSubmit}>
+        
+        {/* 3. Imported Component */}
+        <PersonalInfo
+          fullName={fullName}
+          setFullName={setFullName}
+          email={email}
+          setEmail={setEmail}
+          platform={platform}
+          setPlatform={setPlatform}
+          phone={phone}
+          setPhone={setPhone}
         />
 
-        <FloatingInput
-          label="Email Address"
-          type="email"
-          value={formData.email}
-          onChange={(v) => handleChange("email", v)}
-        />
+        {/* 4. Subject and Message section */}
+        <section className="space-y-6">
+          <h3 className="text-xl font-semibold text-white mb-6 border-b border-white/5 pb-2">
+            Message Details
+          </h3>
 
-        <FloatingInput
-          label="Subject"
-          type="text"
-          value={formData.subject}
-          onChange={(v) => handleChange("subject", v)}
-        />
+          <FloatingInput
+            label="Subject"
+            type="text"
+            value={subject}
+            onChange={setSubject}
+          />
 
-        <FloatingTextarea
-          label="Message"
-          value={formData.message}
-          onChange={(v) => handleChange("message", v)}
-        />
+          <FloatingTextarea
+            label="Message"
+            value={message}
+            onChange={setMessage}
+          />
+        </section>
 
         {error && (
           <p className="text-red-400 text-sm text-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">
@@ -148,7 +157,6 @@ export function ContactForm() {
     </div>
   );
 }
-
 
 /* ---------- Reusable Components ---------- */
 

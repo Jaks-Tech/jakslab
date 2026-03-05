@@ -9,17 +9,21 @@ import {
   MessageSquare,
   Reply,
   Clock,
-  AlertCircle
+  AlertCircle,
+  Phone // 1. Imported Phone icon
 } from "lucide-react";
 
 interface InquiryManagerProps {
   searchTerm: string;
 }
 
+// 2. Updated Interface to include new fields
 interface Inquiry {
   id: string;
   name: string;
   email: string;
+  phone?: string;
+  platform?: string;
   subject: string;
   message: string;
   created_at: string;
@@ -88,7 +92,8 @@ export function InquiryManager({ searchTerm }: InquiryManagerProps) {
     iq =>
       iq.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       iq.subject?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      iq.email?.toLowerCase().includes(searchTerm.toLowerCase())
+      iq.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      iq.phone?.includes(searchTerm) // Also allow searching by phone number
   );
 
   if (loading)
@@ -195,6 +200,13 @@ export function InquiryManager({ searchTerm }: InquiryManagerProps) {
                     <span className="flex items-center gap-2 opacity-60">
                       <Mail size={14} /> {iq.email}
                     </span>
+
+                    {/* 3. Added Phone & Platform display */}
+                    {iq.phone && (
+                      <span className="flex items-center gap-2 opacity-60">
+                        <Phone size={14} /> +{iq.phone} {iq.platform ? `(${iq.platform})` : ""}
+                      </span>
+                    )}
 
                     <span className="flex items-center gap-2 opacity-60">
                       <Clock size={14} />

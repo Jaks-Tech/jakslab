@@ -4,6 +4,15 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+interface ContactData {
+  name: string;
+  email: string;
+  phone: string;
+  platform: string;
+  subject: string;
+  message: string;
+}
+
 // Helper to get the correct URL for branding
 const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
@@ -14,7 +23,7 @@ const getBaseUrl = () => {
 /**
  * Sends Admin Notification via Resend
  */
-async function sendContactEmail(data: { name: string; email: string; subject: string; message: string }) {
+async function sendContactEmail(data: ContactData) {
   try {
     const logoUrl = "https://jakslab.vercel.app/jakslab.png";
 
@@ -32,6 +41,7 @@ async function sendContactEmail(data: { name: string; email: string; subject: st
           <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
             <p style="margin: 5px 0;"><strong>From:</strong> ${data.name}</p>
             <p style="margin: 5px 0;"><strong>Email:</strong> ${data.email}</p>
+            <p style="margin: 5px 0;"><strong>Phone:</strong> +${data.phone} (${data.platform})</p>
             <p style="margin: 5px 0;"><strong>Subject:</strong> ${data.subject}</p>
           </div>
 
@@ -54,7 +64,7 @@ async function sendContactEmail(data: { name: string; email: string; subject: st
 /**
  * Sends Discord Notification
  */
-async function sendContactDiscord(data: { name: string; email: string; subject: string; message: string }) {
+async function sendContactDiscord(data: ContactData) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
   if (!webhookUrl) return;
 
@@ -67,6 +77,7 @@ async function sendContactDiscord(data: { name: string; email: string; subject: 
     fields: [
       { name: "👤 Name", value: data.name, inline: true },
       { name: "✉️ Email", value: data.email, inline: true },
+      { name: "📱 Phone", value: `+${data.phone}\n(${data.platform})`, inline: true },
       { name: "📝 Message", value: data.message.length > 1000 ? data.message.substring(0, 1000) + "..." : data.message }
     ],
     footer: { text: "Jakslab Inquiries" },
@@ -90,10 +101,10 @@ async function sendContactDiscord(data: { name: string; email: string; subject: 
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body: ContactData = await req.json();
 
-    // Basic validation
-    if (!body.name || !body.email || !body.subject || !body.message) {
+    // Basic validation (updated to include the new fields, assuming they are required)
+    if (!body.name || !body.email || !body.subject || !body.message || !body.phone) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -104,6 +115,8 @@ export async function POST(req: Request) {
         {
           name: body.name,
           email: body.email,
+          phone: body.phone,
+          platform: body.platform,
           subject: body.subject,
           message: body.message,
         },
