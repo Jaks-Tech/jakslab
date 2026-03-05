@@ -49,7 +49,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
     await resend.emails.send({
       from: "Jakslab <onboarding@resend.dev>",
       to: "jakslab.services@gmail.com",
-      subject: `🔔 New Order: ${order.fullName} - ${order.projectType}`,
+      subject: `🔔 New Request: ${order.fullName} - ${order.projectType}`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
           
@@ -86,7 +86,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
           </div>
           
           <p style="font-size: 11px; color: #aaa; margin-top: 40px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-            Automated notification • Jakslab Dashboard
+            Jakslab Services
           </p>
         </div>
       `,
@@ -97,7 +97,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
 }
 
 /**
- * Sends Detailed Discord Notification
+ * Sends Detailed Discord Notification (Matches Email Format)
  */
 async function sendDiscordNotification(order: OrderPayload, orderId: string) {
   const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
@@ -105,28 +105,43 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
 
   const baseUrl = getBaseUrl();
   const orderUrl = `${baseUrl}/order/${orderId}`;
+  const logoUrl = "https://jakslab.vercel.app/jakslab.png";
 
   const embed = {
-    title: "🚀 New Order Received!",
-    description: `A new request has been submitted. [**View Order Details**](${orderUrl})`,
-    color: 0x3b82f6,
+    title: "🔔 New Request",
+    description: `A new order has been placed on the Jakslab dashboard.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
+    url: orderUrl,
+    color: 0x2563eb, // Matches your brand blue
+    thumbnail: {
+      url: logoUrl, // This puts your logo in the top right corner of the embed
+    },
+    author: {
+      name: "Jakslab Services",
+      icon_url: logoUrl,
+    },
     fields: [
-      { name: "Client Name", value: order.fullName, inline: true },
-      { name: "Email", value: order.email, inline: true },
-      { name: "Contact Method", value: `${order.contactMethod}: ${order.phone}`, inline: false },
-      {
-        name: "Project Type",
-        value: order.projectType === "Custom Project" ? `Custom: ${order.customProject}` : order.projectType,
-        inline: true
+      { name: "👤 Client Name", value: order.fullName, inline: true },
+      { name: "✉️ Email", value: order.email, inline: true },
+      { name: "📞 Contact", value: `${order.contactMethod} (${order.phone})`, inline: false },
+      { 
+        name: "📂 Project Type", 
+        value: order.projectType === "Custom Project" ? `Custom: ${order.customProject}` : order.projectType, 
+        inline: true 
       },
-      { name: "Deadline", value: `📅 ${order.deadline}`, inline: true },
-      {
-        name: "Description",
-        value: order.description.length > 500 ? order.description.substring(0, 500) + "..." : order.description
+      { name: "📅 Deadline", value: order.deadline, inline: true },
+      { 
+        name: "📝 Description", 
+        value: order.description.length > 1000 ? order.description.substring(0, 1000) + "..." : order.description 
       },
-      { name: "Attachments", value: `${order.attachments?.length || 0} file(s) uploaded`, inline: true }
+      { 
+        name: "📎 Attachments", 
+        value: `${order.attachments?.length || 0} file(s) uploaded`, 
+        inline: true 
+      }
     ],
-    footer: { text: `Order ID: ${orderId}` },
+    footer: {
+      text: `Order ID: ${orderId} • Jakslab Services`,
+    },
     timestamp: new Date().toISOString(),
   };
 
@@ -134,13 +149,16 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
     await fetch(webhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ embeds: [embed] }),
+      body: JSON.stringify({
+        username: "Jakslab Orders",
+        avatar_url: logoUrl, // This changes the bot's profile picture
+        embeds: [embed] 
+      }),
     });
   } catch (err) {
     console.error("Discord notification failed:", err);
   }
 }
-
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as OrderPayload;
