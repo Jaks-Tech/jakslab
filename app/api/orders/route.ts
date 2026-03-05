@@ -49,7 +49,7 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
     await resend.emails.send({
       // TIP: Once you verify your domain in Resend, change this to hello@jakslab.work
       from: "JaksLab <onboarding@resend.dev>", 
-      to: "jakslab.services@gmail.com",
+      to: "hello@jakslab.work",
       subject: `🔔 New Request: ${order.fullName} - ${order.projectType}`,
       html: `
         <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
