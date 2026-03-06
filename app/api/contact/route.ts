@@ -23,7 +23,7 @@ interface ContactData {
 const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
   if (process.env.NODE_ENV === "production") return PRODUCTION_DOMAIN;
-  return "http://localhost:3000";
+  return "https://www.jakslab.work/";
 };
 
 /**
