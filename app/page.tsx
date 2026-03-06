@@ -19,10 +19,10 @@ export default function Home() {
       <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-2 space-y-2">
         <ServicesPreview />
         <WhyChooseUs />
+       <FeaturedArticles articles={articles} />
         <Statistics />
-        
-        {/* 3. Pass the resulting array into your component */}
-        <FeaturedArticles articles={articles} />
+
+
         
         <Testimonials />
       </div>

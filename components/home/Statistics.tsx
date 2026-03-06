@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 const stats = [
-  { label: "Projects Delivered", val: "450+", color: "text-blue-400" },
-  { label: "Years Experience", val: "20+", color: "text-indigo-400" },
-  { label: "Brilliant Minds", val: "110+", color: "text-purple-400" },
-  { label: "Satisfaction Rate", val: "98%", color: "text-emerald-400" },
+  { label: "Projects Delivered", val: "150+", color: "text-blue-400" },
+  { label: "Years Experience", val: "5+", color: "text-indigo-400" },
+  { label: "Brilliant Minds", val: "90+", color: "text-purple-400" },
+  { label: "Satisfaction Rate", val: "99%", color: "text-emerald-400" },
 ];
 
 interface StatisticsProps {
@@ -28,7 +28,7 @@ export default function Statistics({
           Proven Performance
         </div>
 
-        <h2 className="text-2xl md:text-6xl font-bold text-white leading-tight">
+        <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">
           The Global Hub for Excellence
         </h2>
       </div>
