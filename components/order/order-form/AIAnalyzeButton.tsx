@@ -7,7 +7,10 @@ type AIAnalyzeButtonProps = {
   onAnalysisReceived: (val: string) => void;
 };
 
-export default function AIAnalyzeButton({ description, onAnalysisReceived }: AIAnalyzeButtonProps) {
+export default function AIAnalyzeButton({
+  description,
+  onAnalysisReceived,
+}: AIAnalyzeButtonProps) {
   const [loading, setLoading] = useState(false);
 
   const handleAnalyze = async () => {
@@ -24,9 +27,11 @@ export default function AIAnalyzeButton({ description, onAnalysisReceived }: AIA
         body: JSON.stringify({ description }),
       });
 
-      if (!response.ok) throw new Error("API Route not found (404) or Server Error");
+      if (!response.ok)
+        throw new Error("API Route not found (404) or Server Error");
 
       const data = await response.json();
+
       if (data.analysis) {
         onAnalysisReceived(data.analysis);
       }
@@ -39,20 +44,27 @@ export default function AIAnalyzeButton({ description, onAnalysisReceived }: AIA
   };
 
   return (
-    <button
-      type="button"
-      onClick={handleAnalyze}
-      disabled={loading}
-      className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-md transition-all text-sm font-medium shadow-lg active:scale-95"
-    >
-      {loading ? (
-        <span className="flex items-center gap-2">
-          <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          Analyzing...
-        </span>
-      ) : (
-        "Refine with AI"
-      )}
-    </button>
+    <div className="flex flex-col items-start gap-1">
+      <button
+        type="button"
+        onClick={handleAnalyze}
+        disabled={loading}
+        className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-md transition-all text-sm font-medium shadow-lg active:scale-95"
+      >
+        {loading ? (
+          <span className="flex items-center gap-2">
+            <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            Analyzing...
+          </span>
+        ) : (
+          "Refine with Jakslab AI"
+        )}
+      </button>
+
+      <p className="text-xs text-white/50 max-w-sm">
+        Our AI will analyze your description and turn it into a clearer project
+        brief with deliverables, timeline, and technical requirements.
+      </p>
+    </div>
   );
 }
