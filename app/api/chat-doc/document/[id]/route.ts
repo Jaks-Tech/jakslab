@@ -1,14 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-
   try {
-
-    const documentId = params.id;
+    // 1. Await the params to extract the documentId
+    const { id: documentId } = await context.params;
 
     const { data: messages } = await supabase
       .from("document_messages")
@@ -22,8 +21,7 @@ export async function GET(
     });
 
   } catch (error) {
-
-    console.error(error);
+    console.error("Chat Doc Load Error:", error);
 
     return NextResponse.json(
       { error: "Failed to load document" },
