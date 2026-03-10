@@ -11,7 +11,6 @@
   "dependencies": {
     "@ai-sdk/openai": "^3.0.41",
     "@ai-sdk/react": "^3.0.118",
-    "@napi-rs/canvas": "^0.1.96",
     "@napi-rs/canvas-win32-x64-msvc": "^0.1.96",
     "@radix-ui/react-slot": "^1.2.4",
     "@react-three/drei": "^10.7.7",
@@ -77,5 +76,8 @@
     "rehype-autolink-headings": "^7.1.0",
     "tailwindcss": "^4.2.1",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@napi-rs/canvas": "^0.1.96"
   }
 }
