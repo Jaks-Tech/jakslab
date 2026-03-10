@@ -1,13 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { supabase } from "@/lib/supabase";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  // Params is now a Promise in the second argument (context)
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const sessionId = params.id;
+    // 1. Await the params promise to extract the id
+    const { id: sessionId } = await context.params;
 
+    // 2. Proceed with Supabase queries using sessionId
     const { data: session } = await supabase
       .from("research_sessions")
       .select("*")
@@ -34,7 +37,7 @@ export async function GET(
       plan: version,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Session Fetch Error:", error);
 
     return NextResponse.json(
       { success: false, error: "Failed to fetch session" },
