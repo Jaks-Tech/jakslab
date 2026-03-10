@@ -1,7 +1,7 @@
 import mammoth from "mammoth";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import Tesseract from "tesseract.js";
-import { createCanvas } from "canvas";
+import { createCanvas } from "@napi-rs/canvas";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -48,7 +48,7 @@ async function ocrPDF(buffer: Buffer) {
       viewport,
     }).promise;
 
-    const image = canvas.toBuffer();
+    const image = canvas.toBuffer('image/png');
 
     const { data } = await Tesseract.recognize(image, "eng");
 
