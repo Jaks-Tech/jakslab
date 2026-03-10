@@ -86,44 +86,57 @@ export default function HeroCTA({
             {/* Buttons */}
             <div className="flex flex-col gap-4">
               <Link
-                href="/order"
-                className="px-6 py-4 rounded-xl 
-                           bg-gradient-to-r from-blue-600 to-indigo-600 
-                           text-white text-center font-semibold 
-                           shadow-lg shadow-blue-600/20
-                           hover:shadow-blue-600/40
-                           transition-all duration-300"
-                onClick={() => setOpen(false)}
-              >
-                Hire a Service
-              </Link>
+            href="/order"
+            className="px-6 py-4 rounded-xl 
+                       bg-gradient-to-r from-violet-600 to-indigo-600 
+                       text-white text-center font-semibold 
+                       shadow-lg shadow-violet-600/20
+                       hover:shadow-violet-600/40 hover:scale-[1.02]
+                       transition-all duration-300"
+            onClick={() => setOpen(false)}
+          >
+            Hire a Service
+          </Link>
 
-              <Link
-                href="/contact"
-                className="px-6 py-4 rounded-xl 
-                           bg-white/10 backdrop-blur
-                           border border-white/10
-                           text-white text-center font-semibold 
-                           hover:border-blue-500/40
-                           transition-all duration-300"
-                onClick={() => setOpen(false)}
-              >
-                Request a Quote
-              </Link>
+          <Link
+            href="/contact"
+            className="px-6 py-4 rounded-xl 
+                       bg-white/10 backdrop-blur-md
+                       border border-white/10
+                       text-white text-center font-semibold 
+                       hover:bg-white/15 hover:border-violet-500/50
+                       transition-all duration-300"
+            onClick={() => setOpen(false)}
+          >
+            Request a Quote
+          </Link>
 
-              <Link
-                href="/services"
-                className="px-6 py-4 rounded-xl 
-                           bg-white/5
-                           border border-white/10 
-                           text-slate-300 
-                           text-center font-semibold 
-                           hover:text-white hover:border-blue-500/40
-                           transition-all duration-300"
-                onClick={() => setOpen(false)}
-              >
-                Explore Services
-              </Link>
+          <Link
+            href="/services"
+            className="px-6 py-4 rounded-xl 
+                       bg-red-600/50
+                       border border-white/5 
+                       text-zinc-400 
+                       text-center font-semibold 
+                       hover:text-white hover:border-zinc-700
+                       transition-all duration-300"
+            onClick={() => setOpen(false)}
+          >
+            Explore Services
+          </Link>
+          
+          <Link
+            href="/products"
+            className="px-6 py-4 rounded-xl 
+                       bg-gradient-to-r from-emerald-600 to-teal-600 
+                       text-white text-center font-semibold 
+                       shadow-lg shadow-emerald-600/20
+                       hover:shadow-emerald-600/40 hover:scale-[1.02]
+                       transition-all duration-300"
+            onClick={() => setOpen(false)}
+          >
+            Explore Our Products
+          </Link>
             </div>
           </div>
         </div>
