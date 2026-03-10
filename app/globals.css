@@ -34,7 +34,3 @@ body {
   --tw-prose-bullets: #3b82f6; /* Matching your blue 3D stars */
 }
 
-/* Ensures the 3D Canvas container doesn't interfere with mouse clicks on buttons */
-canvas {
-  pointer-events: none;
-}

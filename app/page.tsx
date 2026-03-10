@@ -22,8 +22,6 @@ export default function Home() {
        <FeaturedArticles articles={articles} />
         <Statistics />
 
-
-        
         <Testimonials />
       </div>
     </main>
