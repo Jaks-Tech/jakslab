@@ -74,7 +74,7 @@ export default function ReferenceHistory({ history = [], onSelect, onClear }: Re
             <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
           </div>
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.2em]">
-            Archive <span className="text-zinc-800">/</span> {history.length} Units
+            Archive <span className="text-zinc-800">/</span> {history.length} Sources
           </span>
         </div>
         
@@ -86,7 +86,7 @@ export default function ReferenceHistory({ history = [], onSelect, onClear }: Re
               className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-violet-500/10 border border-white/5 hover:border-violet-500/20 transition-all active:scale-95"
             >
               <span className="text-[9px] font-bold text-zinc-400 group-hover:text-violet-400 transition-colors uppercase tracking-widest">
-                {copied ? "Copied" : "Bulk_Export"}
+                {copied ? "Copied" : "Copy all sources"}
               </span>
               {copied ? (
                 <Check size={10} className="text-green-500" />
@@ -107,7 +107,7 @@ export default function ReferenceHistory({ history = [], onSelect, onClear }: Re
             )}
           >
             <span className="text-[9px] font-bold uppercase tracking-widest">
-              {showConfirm ? "Confirm_Purge?" : "Purge"}
+              {showConfirm ? "Confirm Reset?" : "Reset"}
             </span>
             {showConfirm ? (
               <AlertCircle size={10} className="text-red-500" />
@@ -146,9 +146,9 @@ export default function ReferenceHistory({ history = [], onSelect, onClear }: Re
               <Cpu size={14} className={isOpen ? "text-violet-300" : "text-zinc-600"} />
             </div>
             <div className="flex flex-col items-start truncate">
-              <span className="text-[9px] font-mono uppercase tracking-[0.2em] opacity-50">System_History</span>
+              <span className="text-[9px] font-mono uppercase tracking-[0.2em] opacity-50">System History</span>
               <span className="text-xs font-bold uppercase tracking-[0.1em] truncate transition-colors group-hover:text-zinc-200">
-                {isOpen ? "Awaiting_Input..." : "Recall_Previous_Data"}
+                {isOpen ? "Awaiting References..." : "Generated References"}
               </span>
             </div>
           </div>

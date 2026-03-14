@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Cpu, FileSearch, Quote, ArrowRight, Plus } from "lucide-react";
+import { Menu, X, ChevronDown, Cpu, FileSearch, Quote, ArrowRight, Plus, Library } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const productItems = [
@@ -20,6 +20,13 @@ const productItems = [
     description: "Strategic project architect", 
     icon: <Cpu size={16} /> 
   },
+{ 
+  label: "Generate Literature Sources", 
+  path: "/literature-planner", 
+  description: "Comprehensive synthesis matrix", 
+  icon: <Library size={16} /> // Or <ListChecks size={16} /> for a roadmap feel
+},
+
   { 
     label: "Citation Generator", 
     path: "/citation-generator", // Pointing to exact personal page

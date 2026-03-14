@@ -32,7 +32,7 @@ export default function StyleSelector({ selected, onSelect }: StyleSelectorProps
       <div className="flex items-center gap-2 mb-4 opacity-40 group-hover:opacity-100 transition-opacity duration-500">
         <Sparkles size={10} className="text-violet-400 animate-pulse" />
         <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.4em]">
-          Engine_Protocol
+          Jakslab Engine
         </span>
       </div>
 
