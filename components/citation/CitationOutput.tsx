@@ -7,12 +7,12 @@ import { motion } from "framer-motion";
 
 interface CitationOutputProps {
   data?: {
-    full_reference: string
-    in_text: string
-    example: string
-    original_paragraph?: string
-  }
-  isLoading?: boolean
+    full_reference: string;
+    in_text: string;
+    example: string;
+    original_paragraph?: string;
+  };
+  isLoading?: boolean;
 }
 
 export default function CitationOutput({ data, isLoading }: CitationOutputProps) {
@@ -64,7 +64,7 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
   return (
     <div className="space-y-8 sm:space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
 
-      {/* Main Reference Card */}
+      {/* Main Reference Card - Optimized for Single Result */}
       <div className="relative group">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-violet-500/20 to-indigo-500/20 rounded-[2rem] blur opacity-0 group-hover:opacity-100 transition duration-1000" />
 
@@ -87,7 +87,7 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
             <div className="flex justify-between items-start mb-8">
               <div>
                 <h2 className="text-xs font-black text-zinc-500 uppercase tracking-[0.3em] mb-2">
-                  Primary Reference
+                  Full Reference
                 </h2>
                 <div className="flex items-center gap-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,1)]" />
@@ -105,13 +105,13 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
                 )}
               >
                 <span className="text-[10px] font-bold uppercase tracking-widest">
-                  {copied === "full" ? "Captured" : "Copy All"}
+                  {copied === "full" ? "Captured" : "Copy Reference"}
                 </span>
                 {copied === "full" ? <Check size={14} /> : <Copy size={14} />}
               </button>
             </div>
 
-            <p className="text-base sm:text-xl text-zinc-200 leading-relaxed font-serif">
+            <p className="text-base sm:text-lg text-zinc-200 leading-relaxed font-serif">
               {data.full_reference}
             </p>
           </div>
@@ -127,7 +127,7 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
             <div className="flex items-center gap-3">
               <Quote size={16} className="text-violet-400" />
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">
-                In-Text Example
+                In-Text Citation
               </span>
             </div>
 
@@ -148,13 +148,13 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
           </p>
         </div>
 
-        {/* Context Module */}
+        {/* Context Module - Now supports single result better */}
         <div className="group/card bg-zinc-900/30 border border-white/5 rounded-3xl p-6">
           <div className="flex justify-between items-center mb-8">
             <div className="flex items-center gap-3 text-zinc-500">
               <BookOpen size={16} />
               <span className="text-[10px] font-black uppercase tracking-[0.2em]">
-                Context Example
+                Contextual Use
               </span>
             </div>
 
@@ -170,16 +170,16 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
             </button>
           </div>
 
-          <p className="text-sm text-zinc-400 leading-relaxed">
-            {data.original_paragraph ? (
+          <p className="text-sm text-zinc-400 leading-relaxed italic">
+            {data.example ? (
+              data.example
+            ) : (
               <>
-                {data.original_paragraph}{" "}
-                <span className="text-violet-400 font-semibold">
+                "{data.original_paragraph || "The research indicates clear results."}"{" "}
+                <span className="text-violet-400 font-semibold not-italic">
                   {data.in_text}
                 </span>
               </>
-            ) : (
-              `"${data.example}"`
             )}
           </p>
         </div>
@@ -190,7 +190,7 @@ export default function CitationOutput({ data, isLoading }: CitationOutputProps)
         <div className="flex items-center gap-2">
           <Sparkles size={10} className="text-violet-400" />
           <span className="text-[9px] font-mono uppercase tracking-widest text-zinc-500">
-            Jakslab Citation Generator
+            Jakslab Neural Citation Engine
           </span>
         </div>
       </div>
