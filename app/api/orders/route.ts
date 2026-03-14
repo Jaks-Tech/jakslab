@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Constants for your new brand
+// Constants for your brand
 const PRODUCTION_DOMAIN = "https://www.jakslab.work";
 const LOGO_URL = `${PRODUCTION_DOMAIN}/jakslab.png`;
 
@@ -29,17 +29,16 @@ type OrderPayload = {
 };
 
 /**
- * Robust helper to get the site URL
+ * Determine base site URL
  */
 const getBaseUrl = () => {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL;
-  // If in production Vercel, use your custom domain
   if (process.env.NODE_ENV === "production") return PRODUCTION_DOMAIN;
-  return "https://www.jakslab.work/";
+  return "http://localhost:3000";
 };
 
 /**
- * Sends Admin Notification via Resend
+ * Send email notification to admin
  */
 async function sendEmailNotifications(order: OrderPayload, orderId: string) {
   try {
@@ -47,110 +46,91 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
     const orderUrl = `${baseUrl}/order/${orderId}`;
 
     await resend.emails.send({
-      // TIP: Once you verify your domain in Resend, change this to hello@jakslab.work
-      from: "JaksLab <onboarding@resend.dev>", 
+      from: "JaksLab <onboarding@resend.dev>",
       to: "hello@jakslab.work",
       subject: `🔔 New Request: ${order.fullName} - ${order.projectType}`,
       html: `
-        <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 10px;">
-          
-          <div style="text-align: center; margin-bottom: 20px;">
-            <img 
-              src="${LOGO_URL}" 
-              alt="JaksLab Logo" 
-              width="80" 
-              height="80" 
-              style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #2563eb; display: inline-block;" 
-            />
-            <h2 style="color: #2563eb; margin-top: 10px;">JaksLab</h2>
-          </div>
-
-          <h3 style="border-bottom: 2px solid #f4f4f4; padding-bottom: 10px; color: #333;">New Project Request Received</h3>
-          
-          <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-            <p style="margin: 5px 0;"><strong>Client Name:</strong> ${order.fullName}</p>
-            <p style="margin: 5px 0;"><strong>Email:</strong> ${order.email}</p>
-            <p style="margin: 5px 0;"><strong>Contact:</strong> ${order.contactMethod} (${order.phone})</p>
-            <p style="margin: 5px 0;"><strong>Project Type:</strong> ${order.projectType}</p>
-            <p style="margin: 5px 0;"><strong>Deadline:</strong> ${order.deadline}</p>
-          </div>
-
-          <p><strong>Description:</strong></p>
-          <div style="background: #fff; border-left: 4px solid #2563eb; padding: 10px 15px; font-style: italic; color: #555;">
-            ${order.description}
-          </div>
-          
-          <div style="text-align: center; margin-top: 30px;">
-            <a href="${orderUrl}" style="background: #2563eb; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">
-              View Full Order & Files
-            </a>
-          </div>
-          
-          <p style="font-size: 11px; color: #aaa; margin-top: 40px; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-            JaksLab Services • Engineered Excellence
-          </p>
+      <div style="font-family:sans-serif;max-width:600px;margin:auto;padding:20px;border:1px solid #eee;border-radius:10px">
+        
+        <div style="text-align:center;margin-bottom:20px">
+          <img src="${LOGO_URL}" width="80" height="80" style="border-radius:50%;border:2px solid #2563eb"/>
+          <h2 style="color:#2563eb;margin-top:10px">JaksLab</h2>
         </div>
+
+        <h3 style="border-bottom:2px solid #f4f4f4;padding-bottom:10px">New Project Request</h3>
+
+        <p><strong>Name:</strong> ${order.fullName}</p>
+        <p><strong>Email:</strong> ${order.email}</p>
+        <p><strong>Contact:</strong> ${order.contactMethod} (${order.phone})</p>
+        <p><strong>Project:</strong> ${order.projectType}</p>
+        <p><strong>Deadline:</strong> ${order.deadline}</p>
+
+        <p><strong>Description:</strong></p>
+        <div style="background:#f9f9f9;padding:12px;border-radius:6px">
+          ${order.description}
+        </div>
+
+        <div style="text-align:center;margin-top:25px">
+          <a href="${orderUrl}" style="background:#2563eb;color:white;padding:14px 28px;text-decoration:none;border-radius:8px">
+            View Order
+          </a>
+        </div>
+
+      </div>
       `,
     });
-  } catch (error) {
-    console.error("Resend Email Error:", error);
+  } catch (err) {
+    console.error("Email error:", err);
   }
 }
 
 /**
- * Sends Detailed Discord Notification
+ * Send Discord notification
  */
 async function sendDiscordNotification(order: OrderPayload, orderId: string) {
-  const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-  if (!webhookUrl) return;
+  const webhook = process.env.DISCORD_WEBHOOK_URL;
+  if (!webhook) return;
 
   const baseUrl = getBaseUrl();
   const orderUrl = `${baseUrl}/order/${orderId}`;
 
   const embed = {
     title: "🔔 New Request Received",
-    description: `A new client has submitted a task via **jakslab.work**.\n\n[**Click here to View Full Order & Files**](${orderUrl})`,
-    url: orderUrl,
+    description: `[Open Order](${orderUrl})`,
     color: 0x2563eb,
     thumbnail: { url: LOGO_URL },
-    author: {
-      name: "JaksLab Services",
-      icon_url: LOGO_URL,
-    },
     fields: [
-      { name: "👤 Client Name", value: order.fullName, inline: true },
-      { name: "✉️ Email", value: order.email, inline: true },
-      { name: "📞 Contact", value: `${order.contactMethod} (${order.phone})`, inline: false },
-      { 
-        name: "📂 Project Type", 
-        value: order.projectType === "Custom Project" ? `Custom: ${order.customProject}` : order.projectType, 
-        inline: true 
+      { name: "Client", value: order.fullName, inline: true },
+      { name: "Email", value: order.email, inline: true },
+      { name: "Contact", value: `${order.contactMethod} (${order.phone})` },
+      { name: "Project", value: order.projectType, inline: true },
+      { name: "Deadline", value: order.deadline, inline: true },
+      {
+        name: "Description",
+        value:
+          order.description.length > 400
+            ? order.description.slice(0, 400) + "..."
+            : order.description,
       },
-      { name: "📅 Deadline", value: order.deadline, inline: true },
-      { 
-        name: "📝 Description", 
-        value: order.description.length > 500 ? order.description.substring(0, 500) + "..." : order.description 
+      {
+        name: "Attachments",
+        value: `${order.attachments?.length || 0} file(s)`,
       },
-      { 
-        name: "📎 Attachments", 
-        value: `${order.attachments?.length || 0} file(s) uploaded`, 
-        inline: true 
-      }
     ],
-    footer: {
-      text: `ID: ${orderId} • Sent from jakslab.work`,
-    },
+    footer: { text: `Order ID: ${orderId}` },
     timestamp: new Date().toISOString(),
   };
 
   try {
-    await fetch(webhookUrl, {
+    await fetch(webhook, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         username: "JaksLab Orders",
         avatar_url: LOGO_URL,
-        embeds: [embed] 
+        embeds: [embed],
       }),
     });
   } catch (err) {
@@ -158,18 +138,35 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
   }
 }
 
+/**
+ * POST /api/orders
+ */
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as OrderPayload;
 
-    if (!body.fullName || !body.email || !body.contactMethod || !body.phone || !body.projectType || !body.deadline || !body.description) {
-      return NextResponse.json({ error: "Required fields missing." }, { status: 400 });
+    if (
+      !body.fullName ||
+      !body.email ||
+      !body.contactMethod ||
+      !body.phone ||
+      !body.projectType ||
+      !body.deadline ||
+      !body.description
+    ) {
+      return NextResponse.json(
+        { error: "Required fields missing." },
+        { status: 400 }
+      );
     }
 
-    const attachments = Array.isArray(body.attachments) ? body.attachments : [];
+    const attachments = Array.isArray(body.attachments)
+      ? body.attachments
+      : [];
+
     const first = attachments[0];
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from("orders")
       .insert({
         full_name: body.fullName,
@@ -186,16 +183,26 @@ export async function POST(req: Request) {
       .select("id")
       .single();
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) {
+      console.error(error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-    // Run notifications in parallel
     await Promise.allSettled([
       sendDiscordNotification(body, data.id),
-      sendEmailNotifications(body, data.id)
+      sendEmailNotifications(body, data.id),
     ]);
 
-    return NextResponse.json({ ok: true, orderId: data.id }, { status: 200 });
-  } catch {
-    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    return NextResponse.json(
+      { ok: true, orderId: data.id },
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { error: "Invalid request." },
+      { status: 400 }
+    );
   }
 }
+

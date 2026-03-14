@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import OpenAI from "openai";
 import mammoth from "mammoth";
 import Tesseract from "tesseract.js";

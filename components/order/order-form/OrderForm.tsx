@@ -29,7 +29,6 @@ type OrderFormProps = {
 };
 
 export default function OrderForm({ order }: OrderFormProps) {
-
   const isEdit = !!order;
 
   const [submitted, setSubmitted] = useState(false);
@@ -61,6 +60,53 @@ export default function OrderForm({ order }: OrderFormProps) {
   );
 
   /**
+   * Upload files to Supabase Storage
+   */
+  const uploadFiles = async () => {
+    const attachments: {
+      filePath: string;
+      fileUrl: string;
+      fileName: string;
+      fileType: string;
+      fileSize: number;
+    }[] = [];
+
+    const maxBytes = 20 * 1024 * 1024;
+
+    for (const file of files) {
+      if (file.size > maxBytes) {
+        throw new Error(`File too large: ${file.name}`);
+      }
+
+      const safeName = file.name.replace(/\s+/g, "_");
+      const filePath = `orders/${crypto.randomUUID()}-${safeName}`;
+
+      const { error } = await supabase.storage
+        .from("order-files")
+        .upload(filePath, file, {
+          contentType: file.type || "application/octet-stream",
+          upsert: false,
+        });
+
+      if (error) throw error;
+
+      const { data } = supabase.storage
+        .from("order-files")
+        .getPublicUrl(filePath);
+
+      attachments.push({
+        filePath,
+        fileUrl: data.publicUrl,
+        fileName: file.name,
+        fileType: file.type,
+        fileSize: file.size,
+      });
+    }
+
+    return attachments;
+  };
+
+  /**
    * Submit handler
    */
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,82 +116,43 @@ export default function OrderForm({ order }: OrderFormProps) {
     setErrorMsg(null);
 
     try {
-      const attachments: {
-        filePath: string;
-        fileUrl: string;
-        fileName: string;
-        fileType: string;
-        fileSize: number;
-      }[] = [];
-
-      const maxBytes = 20 * 1024 * 1024;
-
-      for (const file of files) {
-        if (file.size > maxBytes) {
-          setErrorMsg(`File too large: ${file.name}`);
-          setLoading(false);
-          return;
-        }
-
-        const safeName = file.name.replace(/\s+/g, "_");
-        const filePath = `orders/${crypto.randomUUID()}-${safeName}`;
-
-        const { error } = await supabase.storage
-          .from("order-files")
-          .upload(filePath, file, {
-            contentType: file.type || "application/octet-stream",
-          });
-
-        if (error) {
-          setErrorMsg(error.message);
-          setLoading(false);
-          return;
-        }
-
-        const { data } = supabase.storage
-          .from("order-files")
-          .getPublicUrl(filePath);
-
-        attachments.push({
-          filePath,
-          fileUrl: data.publicUrl,
-          fileName: file.name,
-          fileType: file.type,
-          fileSize: file.size,
-        });
-      }
+      const attachments = await uploadFiles();
 
       /**
        * EDIT ORDER
        */
-      if (isEdit && order) {
-        const { error } = await supabase
-          .from("orders")
-          .update({
-            full_name: fullName,
-            email,
-            contact_method: platform,
-            phone,
-            project_type: projectType,
-            custom_project:
-              projectType === "Custom Project" ? customProject : null,
-            deadline,
-            description,
-          })
-          .eq("id", order.id);
+        if (isEdit && order) {
+          const res = await fetch(`/api/orders/${order.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              fullName,
+              email,
+              contactMethod: platform,
+              phone,
+              projectType,
+              customProject:
+                projectType === "Custom Project" ? customProject : null,
+              deadline,
+              description,
+            }),
+          });
 
-        if (error) {
-          setErrorMsg(error.message);
+          const data = await res.json();
+
+          if (!res.ok) {
+            throw new Error(data?.error || "Update failed");
+          }
+
+          setOrderId(order.id);
+          setSubmitted(true);
           return;
         }
 
-        setOrderId(order.id);
-        setSubmitted(true);
-        return;
-      }
-
       /**
-       * CREATE ORDER
+       * CREATE ORDER (via API)
        */
       const res = await fetch("/api/orders", {
         method: "POST",
@@ -169,15 +176,14 @@ export default function OrderForm({ order }: OrderFormProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data?.error || "Something went wrong");
-        return;
+        throw new Error(data?.error || "Something went wrong");
       }
 
       setOrderId(data.orderId);
       setSubmitted(true);
 
-    } catch {
-      setErrorMsg("Network error. Please try again.");
+    } catch (err: any) {
+      setErrorMsg(err.message || "Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -202,7 +208,6 @@ export default function OrderForm({ order }: OrderFormProps) {
     setDescription("");
 
     setFiles([]);
-
     setErrorMsg(null);
     setLoading(false);
   };
@@ -217,10 +222,7 @@ export default function OrderForm({ order }: OrderFormProps) {
   }
 
   return (
-    <form
-      className="grid lg:grid-cols-2 gap-12"
-      onSubmit={handleSubmit}
-    >
+    <form className="grid lg:grid-cols-2 gap-12" onSubmit={handleSubmit}>
       {/* LEFT COLUMN */}
       <div className="space-y-10">
         <PersonalInfo
