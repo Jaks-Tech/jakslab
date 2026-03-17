@@ -34,3 +34,41 @@ body {
   --tw-prose-bullets: #3b82f6; /* Matching your blue 3D stars */
 }
 
+/* Phone input container */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Input field */
+.PhoneInputInput {
+  background: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+/* Country select button */
+.PhoneInputCountry {
+  background: transparent;
+}
+
+/* Country dropdown */
+.PhoneInputCountrySelect {
+  background-color: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Dropdown options */
+.PhoneInputCountrySelect option {
+  background: #0a0a0a;
+  color: white;
+}
+
+/* Hover */
+.PhoneInputCountrySelect option:hover {
+  background: #111;
+}

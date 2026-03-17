@@ -25,9 +25,9 @@ export default function Hero() {
           font-bold tracking-tight text-white 
           leading-tight max-w-5xl mx-auto"
         >
-          Build Better Projects With{" "}
+          Get Expert Help to Develop{" "}
           <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-            Expert Academic & Technical Support
+            High-Quality Academic and Technical Projects
           </span>
         </h1>
 

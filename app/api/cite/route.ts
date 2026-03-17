@@ -38,7 +38,9 @@ function isDOI(input: string) {
 async function fetchDOIMetadata(doi: string) {
   const cleanDOI = doi.replace("https://doi.org/", "").trim();
   const res = await fetch(`https://api.crossref.org/works/${cleanDOI}`);
+
   if (!res.ok) return null;
+
   const data = await res.json();
   return data.message;
 }
@@ -52,6 +54,9 @@ async function fetchWithTavily(url: string) {
       urls: [url],
     }),
   });
+
+  if (!res.ok) return null;
+
   const data = await res.json();
   return data?.results?.[0] || null;
 }
@@ -64,33 +69,46 @@ async function generateSearchQuery(text: string) {
     messages: [
       {
         role: "system",
-        content: `Extract the core scientific or pedagogical claim. Focus on mechanisms (e.g., "explicit instruction") rather than modern technology unless the text is specifically about tech. Max 6 words. No punctuation.`,
+        content:
+          "Extract the core scientific claim from the text. Maximum 6 words. No punctuation.",
       },
       { role: "user", content: text },
     ],
   });
+
   return completion.choices[0].message.content?.trim() || text;
 }
 
-async function searchOpenAlex(query: string): Promise<Paper[]> {
-  if (!process.env.OPENALEX_API_KEY) throw new Error("OPENALEX_API_KEY missing");
+/* ---------------- OpenAlex Search ---------------- */
 
+async function searchOpenAlex(
+  query: string,
+  numSources: number
+): Promise<Paper[]> {
   const currentYear = new Date().getFullYear();
-  const startYear = currentYear - 15; 
+  const startYear = currentYear - 5;
 
   const url = `https://api.openalex.org/works?search=${encodeURIComponent(
     query
-  )}&filter=publication_year:${startYear}-${currentYear}&sort=relevance_score:desc&per_page=10&select=title,doi,publication_year,authorships,cited_by_count,primary_location&api_key=${process.env.OPENALEX_API_KEY}`;
+  )}&filter=publication_year:${startYear}-${currentYear}&sort=relevance_score:desc&per_page=${
+    numSources * 2
+  }&select=title,doi,publication_year,authorships,cited_by_count,primary_location`;
 
   const res = await fetch(url);
+
   if (!res.ok) return [];
 
   const data = await res.json();
+
   return data.results.map((paper: any) => ({
     title: paper.title,
     year: paper.publication_year,
-    authors: paper.authorships?.map((a: any) => a.author.display_name).join(", ") || "Unknown",
-    journal: paper.primary_location?.source?.display_name || "Academic Journal",
+    authors:
+      paper.authorships
+        ?.map((a: any) => a.author.display_name)
+        .join(", ") || "Unknown",
+    journal:
+      paper.primary_location?.source?.display_name || "Academic Journal",
     doi: paper.doi,
     citations: paper.cited_by_count,
   }));
@@ -100,98 +118,145 @@ async function searchOpenAlex(query: string): Promise<Paper[]> {
 
 export async function POST(req: Request) {
   try {
-    const { rawInput, targetStyle } = await req.json();
+    const { rawInput, targetStyle, numSources } = await req.json();
 
-    if (!rawInput || !targetStyle) {
+    if (!rawInput || !targetStyle || !numSources) {
       return NextResponse.json({ error: "Missing input" }, { status: 400 });
     }
 
-    const hash = generateCitationHash(rawInput, targetStyle);
+    const hash = generateCitationHash(rawInput, targetStyle + numSources);
 
-    /* ---------- 1. Cache Check ---------- */
+    /* ---------- Cache Check ---------- */
+
     const { data: cachedData } = await supabase
       .from("citation_cache")
       .select("*")
       .eq("hash", hash)
       .maybeSingle();
 
-    if (cachedData) return NextResponse.json({ ...cachedData, isCached: true });
+    if (cachedData) {
+      return NextResponse.json({ ...cachedData, isCached: true });
+    }
 
     let structuredInput = rawInput;
-    let sourcesList = ""; // Defined here to prevent ReferenceError
+    let sourcesList = "";
 
-    /* ---------- 2. Logic Branching ---------- */
+    /* ---------- DOI Handling ---------- */
+
     if (isDOI(rawInput)) {
       const meta = await fetchDOIMetadata(rawInput);
+
       if (meta) {
         structuredInput = `DOI Meta: ${meta.title?.[0]} by ${meta.author?.[0]?.family}`;
         sourcesList = structuredInput;
       }
-    } else if (isUrl(rawInput)) {
+    }
+
+    /* ---------- URL Handling ---------- */
+
+    else if (isUrl(rawInput)) {
       const page = await fetchWithTavily(rawInput);
+
       if (page) {
-        structuredInput = `URL Content: ${page.title} - ${page.content?.slice(0, 1000)}`;
+        structuredInput = `URL Content: ${page.title} - ${page.content?.slice(
+          0,
+          1200
+        )}`;
         sourcesList = structuredInput;
       }
-    } else {
+    }
+
+    /* ---------- Paragraph / Claim Handling ---------- */
+
+    else {
       const searchQuery = await generateSearchQuery(rawInput);
-      const foundPapers = await searchOpenAlex(searchQuery);
-      
-      sourcesList = foundPapers
-        .map((p, i) => `SOURCE ${i+1}: ${p.title} (${p.year}). Authors: ${p.authors}. Journal: ${p.journal}. DOI: ${p.doi}`)
+
+      const foundPapers = await searchOpenAlex(searchQuery, numSources);
+
+      const selectedPapers = foundPapers.slice(0, numSources);
+
+      sourcesList = selectedPapers
+        .map(
+          (p, i) =>
+            `SOURCE ${i + 1}: ${p.title} (${p.year}). Authors: ${
+              p.authors
+            }. Journal: ${p.journal}. DOI: ${p.doi}`
+        )
         .join("\n\n");
 
       structuredInput = `
-CLAIM TO SUPPORT: ${rawInput}
-STYLE: ${targetStyle}
+CLAIM OR PARAGRAPH:
+${rawInput}
 
-POTENTIAL SOURCES:
+STYLE:
+${targetStyle}
+
+NUMBER OF SOURCES:
+${numSources}
+
+AVAILABLE SOURCES:
 ${sourcesList}
 `.trim();
     }
 
-    /* ---------- 3. Contextual Rewrite Generation ---------- */
+    /* ---------- AI Rewrite ---------- */
+
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: `You are an academic librarian and editor. You must respond in JSON format.
-          Step 1: Select the SINGLE most relevant source that accurately supports the CLAIM.
-          Step 2: If a source is about "AI" or "ChatGPT" but the claim is about general education/science, ignore it.
-          Step 3: Rewrite the user's original CLAIM into a scholarly paragraph that naturally integrates the citation in ${targetStyle} style.
+          content: `You are an academic librarian and editor.
 
-          Format JSON:
-          {
-            "full_reference": "Full bibliographic citation",
-            "in_text": "(Author, Year)",
-            "example": "The rewritten paragraph with citation integrated naturally."
-          }`,
+Use ALL provided sources to support the paragraph.
+
+Rewrite the paragraph into a scholarly version and cite every source.
+
+Return JSON in this format:
+
+{
+ "references":[
+   "Full citation 1",
+   "Full citation 2"
+ ],
+ "in_text_citations":[
+   "(Author, Year)"
+ ],
+ "example":"Rewritten paragraph citing all sources."
+}
+
+Citations must follow ${targetStyle} style.`,
         },
-        { role: "user", content: `Please provide the following research in JSON: ${structuredInput}` },
+        {
+          role: "user",
+          content: structuredInput,
+        },
       ],
       response_format: { type: "json_object" },
     });
 
     const aiResult = JSON.parse(completion.choices[0].message.content!);
 
-    /* ---------- 4. Save to Cache (Awaited) ---------- */
+    /* ---------- Save to Cache ---------- */
+
     const finalPayload = {
       hash,
       raw_input: rawInput,
       style: targetStyle,
-      full_reference: aiResult.full_reference,
-      in_text: aiResult.in_text,
+      references: aiResult.references,
+      in_text_citations: aiResult.in_text_citations,
       example: aiResult.example,
     };
 
-    // Await ensures the result is available immediately
     await supabase.from("citation_cache").insert([finalPayload]);
 
     return NextResponse.json({ ...finalPayload, isCached: false });
-
   } catch (error: any) {
     console.error("API Error:", error);
-    return NextResponse.json({ error: error.message || "Internal server error" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: error.message || "Internal server error" },
+      { status: 500 }
+    );
   }
 }
