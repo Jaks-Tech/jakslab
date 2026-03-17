@@ -40,7 +40,8 @@ export default function SitemapPage() {
               <BulletLink href="/">Home</BulletLink>
               <BulletLink href="/about">About Us</BulletLink>
               <BulletLink href="/services">Services</BulletLink>
-              <BulletLink href="/portfolio">Portfolio & Blog</BulletLink>
+              <BulletLink href="/products">Products</BulletLink>
+              <BulletLink href="/portfolio">Blog</BulletLink>
               <BulletLink href="/order">Create Task (Order)</BulletLink>
               <BulletLink href="/contact">Contact Us</BulletLink>
               <BulletLink href="/terms">Terms & Conditions</BulletLink>
