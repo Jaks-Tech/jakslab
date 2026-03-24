@@ -69,6 +69,9 @@ export function Footer() {
               <FooterLink href="/products">Products</FooterLink>
               <FooterLink href="/portfolio">Blog</FooterLink>
               <FooterLink href="/contact">Contact</FooterLink>
+              <FooterLink href="/signup">Create Account</FooterLink>
+              <FooterLink href="/ login">Login</FooterLink>
+              
             </ul>
           </div>
 
@@ -80,6 +83,7 @@ export function Footer() {
               <FooterLink href="/privacy">Privacy Policy</FooterLink>
               <FooterLink href="/return">Refund Policy</FooterLink>
               <FooterLink href="/sitemap">Sitemap</FooterLink>
+              <FooterLink href="/payment">JaksPay</FooterLink>
             </ul>
           </div>
 
