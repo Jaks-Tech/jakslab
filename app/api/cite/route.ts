@@ -64,19 +64,38 @@ async function fetchWithTavily(url: string) {
 /* ---------------- Research Logic ---------------- */
 
 async function generateSearchQuery(text: string) {
+  const cleaned = text.trim();
+  const words = cleaned.split(/\s+/).filter(Boolean);
+
+  if (words.length <= 12) {
+    return cleaned;
+  }
+
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
+    temperature: 0,
     messages: [
       {
         role: "system",
-        content:
-          "Extract the core scientific claim from the text. Maximum 6 words. No punctuation.",
+            content: `
+            You transform long academic text into an OpenAlex search query.
+
+            Rules:
+            - If the input has 12 words or fewer, return it exactly as written.
+            - If the input has more than 12 words, rewrite it into a context-preserving academic search query.
+            - The query must be between 10 and 15 words.
+            - Preserve the core claim and important context such as topic, population, setting, outcome, and comparison.
+            - Remove only non-essential filler words.
+            - Do not reduce the query to vague keywords.
+            - Do not use punctuation.
+            - Return only the query text.
+            `.trim(),
       },
-      { role: "user", content: text },
+      { role: "user", content: cleaned },
     ],
   });
 
-  return completion.choices[0].message.content?.trim() || text;
+  return completion.choices[0].message.content?.trim() || cleaned;
 }
 
 /* ---------------- OpenAlex Search ---------------- */
