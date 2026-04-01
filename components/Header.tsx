@@ -42,6 +42,7 @@ const navItems = [
   { label: "Contact", path: "/contact" },
   { label: "About", path: "/about" },
   { label: "Blog", path: "/portfolio" },
+  { label: "JL Workhub", path: "/workhub" },
 ];
 
 export function Header() {
