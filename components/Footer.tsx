@@ -70,7 +70,9 @@ export function Footer() {
               <FooterLink href="/portfolio">Blog</FooterLink>
               <FooterLink href="/contact">Contact</FooterLink>
               <FooterLink href="/signup">Create Account</FooterLink>
-              <FooterLink href="/ login">Login</FooterLink>
+              <FooterLink href="/login">Login</FooterLink>
+              <FooterLink href="/ielts">IELTS</FooterLink>
+              
               
             </ul>
           </div>
