@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://jakslab.work'
+  // Exact base URL as requested
+  const baseUrl = 'https://www.jakslab.work'
 
-  // These are the unique paths from your project structure
   const routes = [
     '',
     '/about',
