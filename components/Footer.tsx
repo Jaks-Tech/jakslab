@@ -84,7 +84,7 @@ export function Footer() {
               <FooterLink href="/terms">Terms & Conditions</FooterLink>
               <FooterLink href="/privacy">Privacy Policy</FooterLink>
               <FooterLink href="/return">Refund Policy</FooterLink>
-              <FooterLink href="/sitemap">Sitemap</FooterLink>
+              <FooterLink href="/site-map">Sitemap</FooterLink>
               <FooterLink href="/payment">JaksPay</FooterLink>
             </ul>
           </div>
