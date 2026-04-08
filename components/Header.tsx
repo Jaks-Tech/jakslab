@@ -42,7 +42,7 @@ const navItems = [
   { label: "Contact", path: "/contact" },
   { label: "About", path: "/about" },
   { label: "Blog", path: "/portfolio" },
-  { label: "JL Workhub", path: "/workhub" },
+  { label: "Workhub", path: "/workhub" },
 ];
 
 export function Header() {
@@ -144,7 +144,7 @@ export function Header() {
           {/* Action Buttons */}
           <div className="flex items-center gap-3 z-[110]">
             <Link href="/order" className="hidden md:flex px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full transition-all shadow-lg shadow-blue-500/20">
-              Create Task
+              Create Order
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
