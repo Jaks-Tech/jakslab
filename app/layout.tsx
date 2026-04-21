@@ -1,13 +1,20 @@
+'use client';
+
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Background3D from "@/components/Scene";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  const isGhostChat = pathname.startsWith("/ghost-chat");
+
   return (
     <html
       lang="en"
@@ -22,7 +29,7 @@ export default function RootLayout({
         {/* Content Wrapper */}
         <div className="relative z-10 flex min-h-screen flex-col">
 
-          {/* Header */}
+          {/* Header (always visible) */}
           <Header />
 
           {/* Main */}
@@ -30,8 +37,8 @@ export default function RootLayout({
             {children}
           </main>
 
-          {/* Footer */}
-          <Footer />
+          {/* Footer (hidden only for ghost-chat) */}
+          {!isGhostChat && <Footer />}
 
         </div>
 

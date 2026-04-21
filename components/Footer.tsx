@@ -86,6 +86,7 @@ export function Footer() {
               <FooterLink href="/return">Refund Policy</FooterLink>
               <FooterLink href="/site-map">Sitemap</FooterLink>
               <FooterLink href="/payment">JaksPay</FooterLink>
+              <FooterLink href="/ghost-chat">Let's Chat</FooterLink>
             </ul>
           </div>
 
