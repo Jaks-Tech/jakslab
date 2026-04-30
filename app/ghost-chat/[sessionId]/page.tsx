@@ -7,15 +7,23 @@ import ChatWindow from '@/components/ghost-chat/ChatWindow';
 import MessageInput from '@/components/ghost-chat/MessageInput';
 import InviteModal from '@/components/ghost-chat/InviteModal';
 import BurnConfirmation from '@/components/ghost-chat/BurnConfirmation';
+import GhostCall from '@/components/ghost-chat/GhostCall';
 import { UserPlus, ShieldCheck, Loader2, Trash2 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+type GhostChatUser = {
+  id: string;
+  email?: string;
+  isGuest: boolean;
+  displayName: string;
+};
 
 export default function GhostChatPage({ params }: { params: Promise<{ sessionId: string }> }) {
   const { sessionId } = use(params);
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<GhostChatUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [showInvite, setShowInvite] = useState(false);
   const [showBurnConfirm, setShowBurnConfirm] = useState(false);
@@ -28,7 +36,12 @@ export default function GhostChatPage({ params }: { params: Promise<{ sessionId:
         
         if (authUser) {
           // 1. Creator identity protocol
-          setUser({ ...authUser, displayName: 'ADMIN', isGuest: false });
+          setUser({
+            id: authUser.id,
+            email: authUser.email,
+            displayName: 'ADMIN',
+            isGuest: false,
+          });
           setLoading(false);
           return;
         }
@@ -132,6 +145,12 @@ export default function GhostChatPage({ params }: { params: Promise<{ sessionId:
           </div>
 
           <div className="flex items-center gap-2 md:gap-4">
+            <GhostCall
+              sessionId={sessionId}
+              currentUser={user}
+              onlineCount={onlineCount}
+            />
+
             {!user.isGuest && (
               <>
                 <button 
