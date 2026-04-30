@@ -1,6 +1,7 @@
 export interface GhostSession {
   id: string;
   creator_id: string;
+  created_at: string;
   burned_at: string | null;
   creator_online: boolean;
   guest_online: boolean;
