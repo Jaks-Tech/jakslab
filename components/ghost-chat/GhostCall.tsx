@@ -61,14 +61,30 @@ function RemoteAudio({ stream }: { stream: MediaStream }) {
 }
 
 function getErrorMessage(error: unknown) {
-  return error instanceof Error ? error.message : 'Call setup failed.';
+  if (!(error instanceof Error)) return 'Call setup failed.';
+
+  if (error.name === 'NotAllowedError') {
+    return 'Microphone permission was blocked. Allow microphone access to answer the call.';
+  }
+
+  if (error.name === 'NotFoundError') {
+    return 'No microphone was found on this device.';
+  }
+
+  if (error.name === 'NotReadableError') {
+    return 'The microphone is already in use by another app.';
+  }
+
+  return error.message;
 }
 
 export default function GhostCall({ sessionId, currentUser, onlineCount }: GhostCallProps) {
   const [callState, setCallState] = useState<CallState>('idle');
   const [incomingCall, setIncomingCall] = useState<IncomingCall | null>(null);
   const [isMuted, setIsMuted] = useState(false);
+  const [isAccepting, setIsAccepting] = useState(false);
   const [isChannelReady, setIsChannelReady] = useState(false);
+  const [callPeerCount, setCallPeerCount] = useState(0);
   const [callError, setCallError] = useState<string | null>(null);
   const [remoteStreams, setRemoteStreams] = useState<Record<string, MediaStream>>({});
   const [remoteNames, setRemoteNames] = useState<Record<string, string>>({});
@@ -82,12 +98,15 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
   const activeCallIdRef = useRef<string | null>(null);
   const isMutedRef = useRef(false);
   const isChannelReadyRef = useRef(false);
+  const callPeerCountRef = useRef(0);
   const currentUserRef = useRef(currentUser);
   const remoteStreamsRef = useRef<Record<string, MediaStream>>({});
+  const ringingTimerRef = useRef<number | null>(null);
 
   const displayName = currentUser.displayName || currentUser.email?.split('@')[0] || 'GHOST';
   const remoteCount = Object.keys(remoteStreams).length;
   const isCallActive = callState !== 'idle' && callState !== 'incoming';
+  const hasCallablePeer = callPeerCount > 1 || onlineCount > 1;
 
   const updateCallState = (nextState: CallState) => {
     callStateRef.current = nextState;
@@ -111,17 +130,55 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
     setIsChannelReady(nextReady);
   };
 
+  const updateCallPeerCount = (nextCount: number) => {
+    callPeerCountRef.current = nextCount;
+    setCallPeerCount(nextCount);
+  };
+
+  const stopRinging = () => {
+    if (ringingTimerRef.current) {
+      window.clearInterval(ringingTimerRef.current);
+      ringingTimerRef.current = null;
+    }
+  };
+
+  const sendCallRequest = async (callId: string) => {
+    await sendSignal({
+      ...buildSignalBase(callId),
+      kind: 'call-request',
+    });
+  };
+
+  const startRinging = (callId: string) => {
+    stopRinging();
+
+    ringingTimerRef.current = window.setInterval(() => {
+      if (activeCallIdRef.current !== callId || callStateRef.current !== 'calling') {
+        stopRinging();
+        return;
+      }
+
+      void sendCallRequest(callId).catch((error) => {
+        console.error('Call request retry failed:', error);
+      });
+    }, 1800);
+  };
+
   const sendSignal = async (signal: CallSignal) => {
     const channel = channelRef.current;
     if (!channel || !isChannelReadyRef.current) {
       throw new Error('Call channel is still connecting.');
     }
 
-    await channel.send({
+    const result = await channel.send({
       type: 'broadcast',
       event: CALL_SIGNAL_EVENT,
       payload: signal,
     });
+
+    if (result !== 'ok') {
+      throw new Error(`Call signal failed: ${result}`);
+    }
   };
 
   const buildSignalBase = (callId: string): BaseSignal => ({
@@ -157,6 +214,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
   };
 
   const resetCall = (stopLocalStream = true) => {
+    stopRinging();
     Object.keys(peersRef.current).forEach(closePeer);
     peersRef.current = {};
     queuedIceRef.current = {};
@@ -165,6 +223,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
     setRemoteNames({});
     setRemoteMuteState({});
     setIncomingCall(null);
+    setIsAccepting(false);
     updateActiveCallId(null);
     updateCallState('idle');
     updateMuted(false);
@@ -179,7 +238,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
     if (localStreamRef.current) return localStreamRef.current;
 
     if (!navigator.mediaDevices?.getUserMedia) {
-      throw new Error('Audio calls are not available in this browser.');
+      throw new Error('Audio calls need HTTPS or localhost so the browser can use the microphone.');
     }
 
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -289,6 +348,15 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
 
     switch (signal.kind) {
       case 'call-request': {
+        if (signal.callId === activeCallIdRef.current && callStateRef.current === 'incoming') {
+          setIncomingCall({
+            callId: signal.callId,
+            callerId: signal.senderId,
+            callerName: signal.senderName,
+          });
+          return;
+        }
+
         if (callStateRef.current !== 'idle') {
           await sendSignal({
             ...buildSignalBase(signal.callId),
@@ -310,7 +378,9 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
       case 'call-accepted': {
         if (signal.callId !== activeCallIdRef.current || callStateRef.current === 'idle') return;
         if (!localStreamRef.current) return;
+        if (peersRef.current[signal.senderId]) return;
 
+        stopRinging();
         setCallError(null);
         if (callStateRef.current !== 'connected') {
           updateCallState('connecting');
@@ -324,7 +394,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
         if (signal.callId !== activeCallIdRef.current) return;
 
         setCallError(`${signal.senderName} declined the call.`);
-        if (onlineCount <= 2 && remoteStreamsRef.current && Object.keys(remoteStreamsRef.current).length === 0) {
+        if (callPeerCountRef.current <= 2 && remoteStreamsRef.current && Object.keys(remoteStreamsRef.current).length === 0) {
           resetCall();
         }
         break;
@@ -414,7 +484,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
   };
 
   const startCall = async () => {
-    if (onlineCount < 2) {
+    if (!hasCallablePeer) {
       setCallError('Invite someone into the session before starting a call.');
       return;
     }
@@ -426,10 +496,8 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
 
     try {
       await startLocalAudio();
-      await sendSignal({
-        ...buildSignalBase(callId),
-        kind: 'call-request',
-      });
+      await sendCallRequest(callId);
+      startRinging(callId);
     } catch (error) {
       setCallError(getErrorMessage(error));
       resetCall();
@@ -437,26 +505,45 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
   };
 
   const acceptCall = async () => {
-    if (!incomingCall) return;
+    if (!incomingCall || isAccepting) return;
 
+    const callToAccept = incomingCall;
     setCallError(null);
-    updateActiveCallId(incomingCall.callId);
+    setIsAccepting(true);
+    updateActiveCallId(callToAccept.callId);
     updateCallState('connecting');
-    setIncomingCall(null);
 
     try {
       await startLocalAudio();
       await sendSignal({
-        ...buildSignalBase(incomingCall.callId),
+        ...buildSignalBase(callToAccept.callId),
         kind: 'call-accepted',
       });
+
+      [900, 1800].forEach((delay) => {
+        window.setTimeout(() => {
+          if (activeCallIdRef.current !== callToAccept.callId || callStateRef.current !== 'connecting') return;
+          if (peersRef.current[callToAccept.callerId]) return;
+
+          void sendSignal({
+            ...buildSignalBase(callToAccept.callId),
+            kind: 'call-accepted',
+          }).catch((error) => {
+            console.error('Call accept retry failed:', error);
+          });
+        }, delay);
+      });
+
+      setIncomingCall(null);
     } catch (error) {
       setCallError(getErrorMessage(error));
       await sendSignal({
-        ...buildSignalBase(incomingCall.callId),
+        ...buildSignalBase(callToAccept.callId),
         kind: 'call-declined',
       }).catch(() => undefined);
       resetCall();
+    } finally {
+      setIsAccepting(false);
     }
   };
 
@@ -519,7 +606,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
   useEffect(() => {
     const channel = supabase.channel(`ghost_call_${sessionId}`, {
       config: {
-        broadcast: { self: false },
+        broadcast: { self: false, ack: true },
         presence: { key: currentUser.id },
       },
     });
@@ -528,6 +615,9 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
     updateChannelReady(false);
 
     channel
+      .on('presence', { event: 'sync' }, () => {
+        updateCallPeerCount(Object.keys(channel.presenceState()).length);
+      })
       .on('broadcast', { event: CALL_SIGNAL_EVENT }, ({ payload }) => {
         void handleSignal(payload as CallSignal).catch((error) => {
           console.error('Call signal failed:', error);
@@ -543,11 +633,16 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
             online_at: new Date().toISOString(),
           });
         }
+
+        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+          updateChannelReady(false);
+        }
       });
 
     return () => {
       resetCall();
       updateChannelReady(false);
+      updateCallPeerCount(0);
       channelRef.current = null;
       supabase.removeChannel(channel);
     };
@@ -571,8 +666,8 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
           <button
             type="button"
             onClick={startCall}
-            disabled={!isChannelReady || onlineCount < 2}
-            title={onlineCount < 2 ? 'Invite someone before starting a call' : 'Start voice call'}
+            disabled={!isChannelReady || !hasCallablePeer}
+            title={!hasCallablePeer ? 'Waiting for another participant to be call-ready' : 'Start voice call'}
             className="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-3 py-1.5 rounded-lg text-xs text-zinc-300 transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {!isChannelReady ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />}
@@ -623,6 +718,7 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
               <button
                 type="button"
                 onClick={declineCall}
+                disabled={isAccepting}
                 className="flex items-center justify-center gap-2 rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm font-bold text-zinc-300 transition-colors hover:bg-zinc-800"
               >
                 <X className="h-4 w-4" />
@@ -632,10 +728,11 @@ export default function GhostCall({ sessionId, currentUser, onlineCount }: Ghost
               <button
                 type="button"
                 onClick={acceptCall}
+                disabled={isAccepting}
                 className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-500"
               >
-                <Phone className="h-4 w-4" />
-                Accept
+                {isAccepting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Phone className="h-4 w-4" />}
+                {isAccepting ? 'Accepting' : 'Accept'}
               </button>
             </div>
           </div>
