@@ -63,10 +63,10 @@ export default function ProjectDescription({
       </div>
 
       {proposedVersion && (
-        <div className="mt-4 p-5 rounded-xl border border-purple-500/20 bg-purple-900/10 backdrop-blur-sm animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="mt-4 p-5 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-purple-400 font-bold text-xs uppercase tracking-widest">
-              AI Suggestion
+            <span className="text-slate-400 font-medium text-xs">
+              Suggested brief
             </span>
 
             <div className="flex gap-2">
@@ -84,7 +84,7 @@ export default function ProjectDescription({
                   setDescription(stripMarkdownToPlainText(proposedVersion));
                   setProposedVersion("");
                 }}
-                className="px-3 py-1 text-xs bg-purple-600 hover:bg-purple-500 text-white rounded"
+                className="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded"
               >
                 Accept & Replace
               </button>

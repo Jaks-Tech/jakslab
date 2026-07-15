@@ -1,6 +1,6 @@
 "use client";
 
-import { UploadCloud, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 type FileUploadProps = {
@@ -34,12 +34,10 @@ export default function FileUpload({
         File Upload
       </h3>
 
-      <label className="group block border-2 border-dashed border-white/10 rounded-2xl p-10 text-center bg-white/5 hover:border-blue-500/40 transition-all cursor-pointer backdrop-blur-md">
-
-        <UploadCloud className="mx-auto mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
+      <label className="group block border border-dashed border-white/15 rounded-xl p-7 sm:p-9 text-center bg-black/10 hover:border-blue-500/40 transition-colors cursor-pointer">
 
         <p className="text-white font-medium">
-          Click to upload or drag & drop
+          Add your files
         </p>
 
         <p className="text-sm text-slate-500 mt-2">

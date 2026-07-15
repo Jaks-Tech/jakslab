@@ -72,3 +72,120 @@ body {
 .PhoneInputCountrySelect option:hover {
   background: #111;
 }
+
+/* Homepage-only depth system. Keeps the shared background while giving cards a
+   physical, layered response. */
+.home-3d { perspective: 1400px; }
+.home-3d section, .home-3d > div { transform-style: preserve-3d; }
+.home-flow {
+  width: 100%;
+  padding-bottom: clamp(4rem, 8vw, 8rem);
+}
+.home-section {
+  width: min(100% - 2rem, 86rem);
+  margin-inline: auto;
+  padding-block: clamp(3.75rem, 7vw, 7rem);
+}
+.home-section + .home-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.home-section--wide { width: min(100%, 92rem); }
+.home-section--narrow { width: min(100% - 2rem, 76rem); }
+
+@media (min-width: 640px) {
+  .home-section,
+  .home-section--narrow { width: min(100% - 3rem, 86rem); }
+}
+
+@media (max-width: 639px) {
+  .home-section { padding-block: 3.5rem; }
+  .home-section [class*="text-5xl"] { font-size: 2rem; line-height: 1.2; }
+  .home-section [class*="text-lg"] { font-size: 1rem; }
+}
+.home-3d [class*="bg-white/\[0.03\]"] {
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255,255,255,.04);
+  transform: translateZ(0);
+}
+.home-3d [class*="bg-white/\[0.03\]"]:hover {
+  transform: translateY(-8px) rotateX(2deg) translateZ(18px);
+  box-shadow: 0 30px 70px rgba(3, 12, 30, 0.5), 0 0 35px rgba(59,130,246,.09);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-3d *, .home-3d *::before, .home-3d *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+.order-page { perspective: 1500px; }
+.contact-page { perspective: 1500px; }
+.services-page { perspective: 1500px; }
+.about-page { perspective: 1500px; }
+.about-orbit { animation: aboutOrbitSpin 18s linear infinite; }
+.about-orbit-scene:hover .about-orbit { animation-play-state: paused; }
+.about-orbit-card { --about-angle: calc(var(--about-index) * 120deg); transform: rotateY(var(--about-angle)) translateZ(145px) rotateY(calc(var(--about-angle) * -1)); }
+.about-depth-card, .blog-article-card, .blog-page-card { transform-style: preserve-3d; transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease; }
+.blog-stack-stage { transform: rotateX(var(--blog-rotate-x, 0deg)) rotateY(var(--blog-rotate-y, 0deg)); transition: transform 180ms ease-out; animation: blogStackFloat 7s ease-in-out infinite; }
+.blog-sheet { transform-style: preserve-3d; }
+.blog-sheet-back { transform: translateZ(-55px) rotateZ(-8deg); animation: blogSheetBack 8s ease-in-out infinite; }
+.blog-sheet-middle { transform: translateZ(-12px) rotateZ(-2deg); animation: blogSheetMiddle 7s ease-in-out infinite reverse; }
+.blog-sheet-front { transform: translateZ(42px) rotateZ(5deg); animation: blogSheetFront 6s ease-in-out infinite; }
+.blog-orbit-dot { position: absolute; left: 50%; top: 50%; width: .45rem; height: .45rem; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 18px #38bdf8; }
+.blog-orbit-dot-one { animation: blogDotOne 9s linear infinite; }
+.blog-orbit-dot-two { animation: blogDotTwo 12s linear infinite reverse; background: #a78bfa; }
+@keyframes blogStackFloat { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@keyframes blogSheetBack { 0%,100% { transform: translateZ(-55px) rotateZ(-8deg) translateY(0); } 50% { transform: translateZ(-55px) rotateZ(-6deg) translateY(10px); } }
+@keyframes blogSheetMiddle { 0%,100% { transform: translateZ(-12px) rotateZ(-2deg) translateY(0); } 50% { transform: translateZ(-12px) rotateZ(1deg) translateY(-7px); } }
+@keyframes blogSheetFront { 0%,100% { transform: translateZ(42px) rotateZ(5deg) translateY(0); } 50% { transform: translateZ(52px) rotateZ(3deg) translateY(-10px); } }
+@keyframes blogDotOne { from { transform: rotate(0) translateX(145px); } to { transform: rotate(360deg) translateX(145px); } }
+@keyframes blogDotTwo { from { transform: rotate(140deg) translateX(120px); } to { transform: rotate(500deg) translateX(120px); } }
+.about-depth-card:hover, .blog-article-card:hover { transform: translateY(-5px) translateZ(14px) !important; box-shadow: 0 25px 65px rgba(0,0,0,.32); }
+@keyframes aboutOrbitSpin { from { transform: rotateX(-8deg) rotateY(0); } to { transform: rotateX(-8deg) rotateY(360deg); } }
+.service-depth-card { transform-style: preserve-3d; transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease; }
+.service-depth-card:hover { transform: translateY(-6px) translateZ(18px) !important; border-color: rgba(96,165,250,.28); box-shadow: 0 28px 70px rgba(0,0,0,.35); }
+.services-orbit { animation: servicesOrbitSpin 18s linear infinite; }
+.services-orbit-scene:hover .services-orbit { animation-play-state: paused; }
+.services-orbit-card { --service-angle: calc(var(--service-index) * 90deg); transform: rotateY(var(--service-angle)) translateZ(150px) rotateY(calc(var(--service-angle) * -1)); }
+@keyframes servicesOrbitSpin { from { transform: rotateX(-9deg) rotateY(0); } to { transform: rotateX(-9deg) rotateY(360deg); } }
+.contact-orbit-stage { transform: rotateX(var(--contact-rx, 0deg)) rotateY(var(--contact-ry, 0deg)); transition: transform 180ms ease-out; }
+.contact-ring-one { animation: contactRingOne 12s linear infinite; }
+.contact-ring-two { animation: contactRingTwo 15s linear infinite reverse; }
+.contact-node { position: absolute; left: 50%; top: 50%; display: grid; width: 4.5rem; height: 2.5rem; place-items: center; margin: -1.25rem 0 0 -2.25rem; border: 1px solid rgba(255,255,255,.12); border-radius: .65rem; background: rgba(7,16,31,.9); color: #cbd5e1; font-size: .75rem; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+.contact-node-one { animation: contactNodeOne 12s linear infinite; }
+.contact-node-two { animation: contactNodeTwo 12s linear infinite; }
+.contact-node-three { animation: contactNodeThree 12s linear infinite; }
+.contact-depth-card, .contact-form-card { transform-style: preserve-3d; transition: transform 280ms ease, border-color 280ms ease; }
+.contact-depth-card:hover, .contact-form-card:hover { transform: translateY(-4px) translateZ(12px); border-color: rgba(96,165,250,.28); }
+@keyframes contactRingOne { from { transform: translate(-50%,-50%) rotateX(68deg) rotateZ(0); } to { transform: translate(-50%,-50%) rotateX(68deg) rotateZ(360deg); } }
+@keyframes contactRingTwo { from { transform: translate(-50%,-50%) rotateY(64deg) rotateZ(0); } to { transform: translate(-50%,-50%) rotateY(64deg) rotateZ(360deg); } }
+@keyframes contactNodeOne { from { transform: rotate(0) translateX(130px) rotate(0); } to { transform: rotate(360deg) translateX(130px) rotate(-360deg); } }
+@keyframes contactNodeTwo { from { transform: rotate(120deg) translateX(130px) rotate(-120deg); } to { transform: rotate(480deg) translateX(130px) rotate(-480deg); } }
+@keyframes contactNodeThree { from { transform: rotate(240deg) translateX(130px) rotate(-240deg); } to { transform: rotate(600deg) translateX(130px) rotate(-600deg); } }
+.order-orbit { animation: orderOrbitSpin 18s linear infinite; }
+.order-orbit-scene:hover .order-orbit { animation-play-state: paused; }
+.order-orbit-card {
+  --orbit-angle: calc(var(--orbit-index) * 90deg);
+  transform: rotateY(var(--orbit-angle)) translateZ(150px) rotateY(calc(var(--orbit-angle) * -1));
+}
+@keyframes orderOrbitSpin {
+  from { transform: rotateX(-8deg) rotateY(0deg); }
+  to { transform: rotateX(-8deg) rotateY(360deg); }
+}
+.order-form-card,
+.order-process-card { transform-style: preserve-3d; transition: transform 280ms ease, border-color 280ms ease, box-shadow 280ms ease; }
+.order-form-card:first-of-type { transform: rotateY(0.7deg); }
+.order-form-card:nth-of-type(2) { transform: rotateY(-0.7deg); }
+.order-form-card:hover,
+.order-process-card:hover { transform: translateY(-4px) translateZ(14px); border-color: rgba(96,165,250,.28); box-shadow: 0 28px 70px rgba(0,0,0,.35); }
+@media (max-width: 767px), (prefers-reduced-motion: reduce) {
+  .order-form-card:first-of-type, .order-form-card:nth-of-type(2), .order-form-card:hover, .order-process-card:hover { transform: none; }
+  .order-orbit { animation: none; }
+  .contact-ring-one, .contact-ring-two, .contact-node-one, .contact-node-two, .contact-node-three { animation-play-state: paused; }
+  .contact-depth-card:hover, .contact-form-card:hover { transform: none; }
+  .services-orbit { animation: none; }
+  .service-depth-card:hover { transform: none !important; }
+  .about-orbit { animation: none; }
+  .about-depth-card:hover, .blog-article-card:hover { transform: none !important; }
+  .blog-stack-stage, .blog-sheet, .blog-orbit-dot { animation: none !important; }
+}

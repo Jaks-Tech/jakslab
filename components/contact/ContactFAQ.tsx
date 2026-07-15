@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus } from "lucide-react";
 
 const faqs = [
   {
@@ -26,9 +25,9 @@ export function ContactFAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="relative w-full max-w-4xl p-10 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:border-blue-500/40 transition-all duration-500">
-      <h3 className="text-3xl font-bold text-white mb-12 text-center">
-        Frequently Asked Questions
+    <div className="relative w-full p-5 sm:p-8 rounded-2xl bg-white/[0.035] backdrop-blur-xl border border-white/10">
+      <h3 className="text-2xl font-semibold text-white mb-9">
+        Common questions
       </h3>
 
       <div className="space-y-6">
@@ -51,7 +50,7 @@ export function ContactFAQ() {
                   transition={{ duration: 0.25 }}
                   className="text-blue-400"
                 >
-                  <Plus size={20} />
+                  <span className="text-xl leading-none">+</span>
                 </motion.div>
               </div>
 
@@ -71,9 +70,6 @@ export function ContactFAQ() {
                 )}
               </AnimatePresence>
 
-              {isOpen && (
-                <div className="h-1 w-full bg-gradient-to-r from-blue-600 to-indigo-600" />
-              )}
             </div>
           );
         })}

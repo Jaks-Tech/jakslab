@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Send, Check } from "lucide-react";
 import PersonalInfo from "@/components/order/order-form/PersonalInfo";
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -70,11 +69,7 @@ export function ContactForm() {
   if (submitted) {
     return (
       <div className="relative w-full p-10 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 text-center">
-        <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-indigo-600">
-          <Check className="text-white" />
-        </div>
-
-        <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+        <h3 className="text-2xl font-semibold text-white mb-2">Message sent</h3>
         <p className="text-slate-400 mb-6">
           Thank you for contacting us. We'll reply shortly.
         </p>
@@ -90,10 +85,10 @@ export function ContactForm() {
   }
 
   return (
-    <div className="relative w-full p-10 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] hover:border-blue-500/40 transition-all duration-500">
-      <h3 className="text-3xl font-bold text-white mb-2 text-center">Get in Touch</h3>
-      <p className="text-slate-400 text-center mb-10">
-        We'd love to hear from you. Fill out the form below.
+    <div className="contact-form-card relative w-full p-5 sm:p-8 rounded-2xl bg-[#07101f]/55 backdrop-blur-xl border border-white/10 shadow-[0_25px_70px_rgba(0,0,0,.3)]">
+      <h3 className="text-2xl font-semibold text-white mb-2">Send a message</h3>
+      <p className="text-slate-400 mb-9">
+        Include a little context so we can give you a useful answer.
       </p>
 
       <form className="space-y-10" onSubmit={handleSubmit}>
@@ -139,15 +134,9 @@ export function ContactForm() {
         <button
           disabled={loading}
           type="submit"
-          className="group w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-3 hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 rounded-lg bg-blue-600 text-white font-medium transition-colors hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Sending..." : "Send Message"}
-          {!loading && (
-            <Send
-              size={20}
-              className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-            />
-          )}
         </button>
 
         <p className="text-xs text-slate-500 text-center">

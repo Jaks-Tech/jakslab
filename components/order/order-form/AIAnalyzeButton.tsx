@@ -49,7 +49,7 @@ export default function AIAnalyzeButton({
         type="button"
         onClick={handleAnalyze}
         disabled={loading}
-        className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white rounded-md transition-all text-sm font-medium shadow-lg active:scale-95"
+        className="flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/10 hover:text-white disabled:opacity-50"
       >
         {loading ? (
           <span className="flex items-center gap-2">
@@ -57,13 +57,12 @@ export default function AIAnalyzeButton({
             Analyzing...
           </span>
         ) : (
-          "Refine with Jakslab AI"
+          "Improve this brief"
         )}
       </button>
 
       <p className="text-xs text-white/50 max-w-sm">
-        Our AI will analyze your description and turn it into a clearer project
-        brief with deliverables, timeline, and technical requirements.
+        Optional: turn your notes into a clearer project brief before submitting.
       </p>
     </div>
   );

@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { Suspense } from "react";
 import { getAllArticles } from "@/lib/articles";
-import ArticlesHero from "@/components/portfolio/ArticlesHero";
+import ArticlesHeroSimple from "@/components/portfolio/ArticlesHeroSimple";
 import PortfolioClient from "@/components/portfolio/PortfolioClient";
 import ResultsInfo from "@/components/portfolio/Pagination";
 
@@ -17,10 +17,10 @@ export default function PortfolioPage() {
       </div>
 
       {/* Hero */}
-      <ArticlesHero />
+      <ArticlesHeroSimple />
 
       {/* Content */}
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-16">
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-20 space-y-16">
         <Suspense
           fallback={
             <div className="py-20 text-center text-slate-400">

@@ -1,6 +1,5 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { inputClasses, labelClasses } from "./styles";
 
@@ -101,7 +100,6 @@ export default function ProjectDetails({
               </option>
             </select>
 
-            <ChevronDown className="absolute right-4 top-4 w-4 h-4 text-slate-500 pointer-events-none" />
           </div>
         </div>
 

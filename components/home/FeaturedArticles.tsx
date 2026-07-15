@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Calendar, Clock, User, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Category, getCategoryStyles } from "@/lib/categories";
+import { Category } from "@/lib/categories";
 
 interface Article {
   slug: string;
@@ -25,8 +25,8 @@ interface FeaturedArticlesProps {
 
 export default function FeaturedArticles({
   articles,
-  spacing = "py-1",
-  headerSpacing = "mb-1",
+  spacing = "py-0",
+  headerSpacing = "mb-10 sm:mb-14",
   contentSpacing = "pb-1",
 }: FeaturedArticlesProps) {
 
@@ -58,9 +58,6 @@ export default function FeaturedArticles({
         <div
         className={`flex flex-col items-center text-center px-4 ${headerSpacing}`}
         >
-        <div className="inline-flex px-4 py-1 mb-4 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
-            Latest Insights
-        </div>
 
         <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
             Engineering Knowledge
@@ -74,21 +71,15 @@ export default function FeaturedArticles({
             href="/portfolio"
             className="group inline-flex items-center gap-2 mt-6 text-blue-400 font-semibold hover:text-blue-300 transition-colors"
         >
-            Explore More Insights
-            <ArrowRight
-            size={18}
-            className="transition-transform duration-300 group-hover:translate-x-1"
-            />
+            Read all articles
         </Link>
         </div>
 
       {/* DESKTOP GRID */}
       <div
-        className={`hidden lg:grid relative w-full max-w-[1400px] mx-auto px-6 ${contentSpacing} grid-cols-3 gap-8`}
+        className={`hidden md:grid relative w-full max-w-[1400px] mx-auto px-0 sm:px-3 ${contentSpacing} md:grid-cols-2 xl:grid-cols-3 gap-6`}
       >
         {displayArticles.map((article, i) => {
-          const styles = getCategoryStyles(article.category);
-
           return (
             <motion.div
               key={article.slug}
@@ -103,10 +94,7 @@ export default function FeaturedArticles({
               >
 
                 {/* CATEGORY */}
-                <span
-                  className={`inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full border backdrop-blur-md ${styles.badge}`}
-                >
-                  <span className={styles.dot} />
+                <span className="text-xs text-slate-500">
                   {article.category}
                 </span>
 
@@ -118,20 +106,9 @@ export default function FeaturedArticles({
                 {/* META */}
                 <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-[10px] font-medium text-slate-500 mt-3 uppercase tracking-wider">
 
-                  <div className="flex items-center gap-1.5">
-                    <User size={12} className="text-blue-500/60" />
-                    {article.author}
-                  </div>
-
-                  <div className="flex items-center gap-1.5">
-                    <Calendar size={12} className="text-blue-500/60" />
-                    {article.date}
-                  </div>
-
-                  <div className="flex items-center gap-1.5">
-                    <Clock size={12} className="text-blue-500/60" />
-                    {article.readTime}
-                  </div>
+                  <span>{article.author}</span>
+                  <span>{article.date}</span>
+                  <span>{article.readTime}</span>
 
                 </div>
 
@@ -151,7 +128,7 @@ export default function FeaturedArticles({
 
       {/* MOBILE SLIDER */}
       <div
-        className={`lg:hidden relative w-full px-6 ${contentSpacing} flex flex-col items-center`}
+        className={`md:hidden relative w-full px-0 ${contentSpacing} flex flex-col items-center`}
       >
         <div className="relative w-full min-h-[320px] flex items-center justify-center">
 
@@ -167,15 +144,10 @@ export default function FeaturedArticles({
               {(() => {
 
                 const article = displayArticles[activeIndex];
-                const styles = getCategoryStyles(article.category);
-
                 return (
                   <Link href={`/portfolio/${article.slug}`}>
 
-                    <span
-                      className={`inline-flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full border backdrop-blur-md ${styles.badge}`}
-                    >
-                      <span className={styles.dot} />
+                    <span className="text-xs text-slate-500">
                       {article.category}
                     </span>
 
@@ -185,20 +157,9 @@ export default function FeaturedArticles({
 
                     <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500 mt-3">
 
-                      <div className="flex items-center gap-1">
-                        <User size={12} />
-                        {article.author}
-                      </div>
-
-                      <div className="flex items-center gap-1">
-                        <Calendar size={12} />
-                        {article.date}
-                      </div>
-
-                      <div className="flex items-center gap-1">
-                        <Clock size={12} />
-                        {article.readTime}
-                      </div>
+                      <span>{article.author}</span>
+                      <span>{article.date}</span>
+                      <span>{article.readTime}</span>
 
                     </div>
 

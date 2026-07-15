@@ -1,6 +1,5 @@
 "use client";
 
-import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const reviews = [
@@ -55,16 +54,12 @@ export default function Testimonials() {
   const review = reviews[activeIndex];
 
   return (
-    <section className="relative py-24 px-6">
+    <div className="relative px-0 sm:px-4">
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
 
         {/* LEFT SIDE MESSAGE */}
         <div>
-
-          <div className="inline-flex px-4 py-1 mb-6 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
-            Testimonials
-          </div>
 
           <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
             Trusted by Students
@@ -85,16 +80,9 @@ export default function Testimonials() {
 
           <div className="p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-500">
 
-            {/* Stars */}
-            <div className="flex text-yellow-400 mb-6 gap-1">
-              {[...Array(5)].map((_, index) => (
-                <Star key={index} size={18} fill="currentColor" />
-              ))}
-            </div>
-
             {/* Content */}
             <p className="text-slate-300 italic text-lg leading-relaxed mb-8">
-              "{review.content}"
+              &ldquo;{review.content}&rdquo;
             </p>
 
             {/* Author */}
@@ -137,6 +125,6 @@ export default function Testimonials() {
 
       </div>
 
-    </section>
+    </div>
   );
 }

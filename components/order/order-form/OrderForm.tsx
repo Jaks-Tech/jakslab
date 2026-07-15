@@ -222,9 +222,9 @@ export default function OrderForm({ order }: OrderFormProps) {
   }
 
   return (
-    <form className="grid lg:grid-cols-2 gap-12" onSubmit={handleSubmit}>
+    <form className="grid gap-5 lg:grid-cols-2 lg:gap-6 [perspective:1400px]" onSubmit={handleSubmit}>
       {/* LEFT COLUMN */}
-      <div className="space-y-10">
+      <div className="order-form-card space-y-9 rounded-2xl border border-white/10 bg-[#07101f]/55 p-5 shadow-[0_24px_70px_rgba(0,0,0,.28)] backdrop-blur-xl sm:p-8">
         <PersonalInfo
           fullName={fullName}
           setFullName={setFullName}
@@ -243,7 +243,7 @@ export default function OrderForm({ order }: OrderFormProps) {
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="space-y-10">
+      <div className="order-form-card space-y-9 rounded-2xl border border-white/10 bg-[#07101f]/55 p-5 shadow-[0_24px_70px_rgba(0,0,0,.28)] backdrop-blur-xl sm:p-8">
         <ProjectDetails
           projectType={projectType}
           setProjectType={setProjectType}
@@ -273,7 +273,7 @@ export default function OrderForm({ order }: OrderFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-lg hover:shadow-[0_0_40px_rgba(59,130,246,0.5)] transition-all duration-300 disabled:opacity-60"
+          className="w-full rounded-lg bg-blue-600 py-4 text-white font-medium hover:bg-blue-500 transition-colors disabled:opacity-60"
         >
           {loading
             ? "Submitting..."

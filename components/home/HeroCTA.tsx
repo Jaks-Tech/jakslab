@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, X } from "lucide-react";
+import { X } from "lucide-react";
 
 interface HeroCTAProps {
   spacing?: string;       // controls top margin
@@ -25,17 +25,16 @@ export default function HeroCTA({
       <div className={`${spacing} flex justify-center`}>
         <button
           onClick={() => setOpen(true)}
-          className="px-10 py-4 rounded-2xl 
-                     bg-gradient-to-r from-blue-600 to-indigo-600 
+          className="px-9 py-3.5 rounded-lg
+                     bg-blue-600
                      text-white font-semibold 
                      shadow-lg shadow-blue-600/20
                      hover:shadow-blue-600/40 
                      hover:scale-[1.03] 
                      transition-all duration-300 
-                     flex items-center gap-2"
+                     flex items-center"
         >
-          Get Started
-          <ArrowRight className="w-4 h-4" />
+          Start here...
         </button>
       </div>
 
@@ -79,7 +78,7 @@ export default function HeroCTA({
               </h3>
 
               <p className="text-slate-400 text-sm mt-2 text-center">
-                Choose how you'd like to proceed
+                Choose how you would like to proceed
               </p>
             </div>
 

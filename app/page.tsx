@@ -13,16 +13,29 @@ export default function Home() {
   const articles = getAllArticles();
 
   return (
-    <main className="flex-1 bg-transparent text-white relative">
+    <main className="home-3d flex-1 bg-transparent text-white relative overflow-hidden">
       <Hero />
 
-      <div className="max-w-[1400px] mx-auto px-8 lg:px-12 pb-2 space-y-2">
-        <ServicesPreview />
-        <WhyChooseUs />
-       <FeaturedArticles articles={articles} />
-        <Statistics />
+      <div className="home-flow relative">
+        <section className="home-section" aria-label="Services">
+          <ServicesPreview />
+        </section>
 
-        <Testimonials />
+        <section className="home-section home-section--wide" aria-label="Company statistics">
+          <Statistics />
+        </section>
+
+        <section className="home-section" aria-label="Why choose JaksLab">
+          <WhyChooseUs />
+        </section>
+
+        <section className="home-section home-section--narrow" aria-label="Client testimonials">
+          <Testimonials />
+        </section>
+
+        <section className="home-section" aria-label="Featured articles">
+          <FeaturedArticles articles={articles} />
+        </section>
       </div>
     </main>
   );

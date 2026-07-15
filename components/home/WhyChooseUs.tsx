@@ -1,10 +1,6 @@
 "use client";
 
 import {
-  Lock,
-  Calendar,
-  Users,
-  ShieldCheck,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -13,28 +9,24 @@ import { useState, useEffect } from "react";
 
 const reasons = [
   {
-    icon: Lock,
     title: "100% Confidential",
     desc: "Your projects and data are handled with complete privacy and discretion. We prioritize your intellectual property above all else.",
     color: "text-blue-400",
     bg: "bg-blue-500/10",
   },
   {
-    icon: Calendar,
     title: "On-Time Delivery",
     desc: "We respect deadlines and deliver precisely when promised. Our workflow is optimized to handle urgent academic and technical requirements.",
     color: "text-indigo-400",
     bg: "bg-indigo-500/10",
   },
   {
-    icon: Users,
     title: "Expert Team",
     desc: "Specialists across academic and technical disciplines. You work with engineers and researchers who are masters of their specific crafts.",
     color: "text-purple-400",
     bg: "bg-purple-500/10",
   },
   {
-    icon: ShieldCheck,
     title: "Quality Guaranteed",
     desc: "Every project undergoes thorough review and refinement. We ensure all outputs meet or exceed professional and university standards.",
     color: "text-emerald-400",
@@ -49,8 +41,8 @@ interface WhyChooseUsProps {
 }
 
 export default function WhyChooseUs({
-  spacing = "py-1",
-  headerSpacing = "mb-1",
+  spacing = "py-0",
+  headerSpacing = "mb-10 sm:mb-14",
   contentSpacing = "pb-1",
 }: WhyChooseUsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -73,10 +65,6 @@ export default function WhyChooseUs({
       <div
         className={`flex flex-col items-center text-center px-4 ${headerSpacing}`}
       >
-        <div className="inline-flex px-4 py-1 mb-4 text-sm font-medium text-blue-300 bg-blue-900/30 border border-blue-500/20 rounded-full backdrop-blur-sm">
-          Our Values
-        </div>
-
         <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
           Why Choose JaksLab
         </h2>
@@ -89,10 +77,9 @@ export default function WhyChooseUs({
 
       {/* Desktop Grid */}
       <div
-        className={`hidden lg:grid relative w-full max-w-[1400px] mx-auto px-6 ${contentSpacing} grid-cols-4 gap-6`}
+        className={`hidden md:grid relative w-full max-w-[1400px] mx-auto px-0 sm:px-3 ${contentSpacing} md:grid-cols-2 xl:grid-cols-4 gap-5`}
       >
         {reasons.map((r, i) => {
-          const Icon = r.icon;
           return (
             <motion.div
               key={i}
@@ -100,14 +87,8 @@ export default function WhyChooseUs({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="group relative bg-white/[0.03] border border-white/10 p-8 rounded-3xl flex flex-col items-center text-center transition-all duration-500 hover:bg-white/[0.07] hover:border-blue-500/30"
+              className="group relative bg-white/[0.03] border border-white/10 p-6 lg:p-8 rounded-2xl flex flex-col items-start text-left transition-all duration-500 hover:bg-white/[0.07] hover:border-blue-500/30"
             >
-              <div
-                className={`w-16 h-16 rounded-2xl ${r.bg} border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300`}
-              >
-                <Icon className={`w-7 h-7 ${r.color}`} />
-              </div>
-
               <h3 className="text-xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
                 {r.title}
               </h3>
@@ -122,7 +103,7 @@ export default function WhyChooseUs({
 
       {/* Mobile Slider */}
       <div
-        className={`lg:hidden relative w-full px-6 ${contentSpacing} flex flex-col items-center`}
+        className={`md:hidden relative w-full px-0 ${contentSpacing} flex flex-col items-center`}
       >
         <div className="relative w-full min-h-[350px] flex items-center justify-center">
           <AnimatePresence mode="wait">
@@ -134,19 +115,6 @@ export default function WhyChooseUs({
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="w-full max-w-sm bg-white/[0.03] backdrop-blur-md border border-white/10 p-8 rounded-3xl shadow-2xl flex flex-col items-center text-center"
             >
-              <div
-                className={`w-20 h-20 rounded-2xl ${reasons[activeIndex].bg} border border-white/10 flex items-center justify-center mb-6 shadow-lg`}
-              >
-                {(() => {
-                  const Icon = reasons[activeIndex].icon;
-                  return (
-                    <Icon
-                      className={`w-10 h-10 ${reasons[activeIndex].color}`}
-                    />
-                  );
-                })()}
-              </div>
-
               <h3 className="text-2xl font-bold text-white mb-4">
                 {reasons[activeIndex].title}
               </h3>

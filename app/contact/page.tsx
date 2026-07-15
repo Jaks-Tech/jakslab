@@ -1,13 +1,12 @@
-import { ContactHero } from "@/components/contact/ContactHero";
-import { ContactInfoCards } from "@/components/contact/ContactInfoCards";
+import { ContactHeroSimple } from "@/components/contact/ContactHeroSimple";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { ContactFAQ } from "@/components/contact/ContactFAQ";
-import { ContactWhatsAppCard } from "@/components/contact/ContactWhatsAppCard";
-import { ContactBusinessHours } from "@/components/contact/ContactBusinessHours";
+import { ContactOrbit } from "@/components/contact/ContactOrbit";
+import { ContactChannels } from "@/components/contact/ContactChannels";
 
 export default function ContactPage() {
   return (
-    <main className="relative bg-transparent overflow-hidden">
+    <main className="contact-page relative bg-transparent overflow-hidden pb-24">
       {/* Global Ambient Depth Layer */}
       <div className="absolute inset-0 flex flex-col items-center pointer-events-none -z-10">
         <div className="w-[1200px] h-[600px] bg-blue-600/10 blur-[160px] rounded-full mt-[-10%]" />
@@ -15,34 +14,19 @@ export default function ContactPage() {
       </div>
 
       {/* 1. Hero Section */}
-      <section className="pt-24 pb-12 text-center">
-        <ContactHero />
+      <section className="mx-auto grid max-w-6xl items-center gap-8 px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[1.05fr_.95fr] lg:pt-28">
+        <ContactHeroSimple /><ContactOrbit />
       </section>
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pb-32">
+      <div className="mx-auto max-w-6xl space-y-20 px-5 sm:px-8">
         
         {/* 2. Full Width Contact Form */}
-        <div className="flex justify-center mb-24">
-          <div className="w-full max-w-4xl">
+        <ContactChannels />
+        <div className="grid items-start gap-8 lg:grid-cols-[1.08fr_.92fr]">
+          <div className="w-full">
             <ContactForm />
           </div>
-        </div>
-
-        {/* 3. Middle Section: WhatsApp & FAQ aligned in a balanced column */}
-        <div className="flex flex-col items-center gap-10 mb-24">
-          <ContactWhatsAppCard />
           <ContactFAQ />
-        </div>
-
-        {/* 4. Global Reach Info Cards */}
-        <div className="relative mb-32 w-full">
-          <div className="absolute inset-0 bg-blue-500/5 blur-[100px] -z-10 rounded-full" />
-          <ContactInfoCards />
-        </div>
-
-        {/* 5. Business Hours (The Last One) */}
-        <div className="flex justify-center">
-          <ContactBusinessHours />
         </div>
 
       </div>
