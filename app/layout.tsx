@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Background3D from "@/components/Scene";
 import { usePathname } from "next/navigation";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({
   children,
@@ -41,6 +42,8 @@ export default function RootLayout({
           {!isGhostChat && <Footer />}
 
         </div>
+
+        <SpeedInsights />
 
       </body>
     </html>
