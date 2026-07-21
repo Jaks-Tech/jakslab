@@ -20,7 +20,7 @@ export default function PortfolioPage() {
       <ArticlesHeroSimple />
 
       {/* Content */}
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-20 space-y-16">
+      <div className="relative mx-auto max-w-6xl space-y-10 px-5 pb-10 pt-3 sm:px-8 sm:pb-14 sm:pt-4">
         <Suspense
           fallback={
             <div className="py-20 text-center text-slate-400">

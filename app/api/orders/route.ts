@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { Resend } from "resend";
+import { createPortalToken, hashPortalToken } from "@/lib/order-portal";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -47,10 +48,10 @@ const getBaseUrl = () => {
   return "http://localhost:3000";
 };
 
-async function sendEmailNotifications(order: OrderPayload, orderId: string) {
+async function sendEmailNotifications(order: OrderPayload, orderId: string, portalUrl: string) {
   try {
     const baseUrl = getBaseUrl();
-    const orderUrl = `${baseUrl}/order/${orderId}`;
+    const orderUrl = `${baseUrl}/admin/orders/${orderId}`;
 
     await resend.emails.send({
       from: "JaksLab <onboarding@resend.dev>",
@@ -77,6 +78,21 @@ async function sendEmailNotifications(order: OrderPayload, orderId: string) {
       </div>
       `,
     });
+
+    await resend.emails.send({
+      from: "JaksLab <onboarding@resend.dev>",
+      to: order.email,
+      subject: `We received your JaksLab request — ${orderId}`,
+      html: `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:28px;color:#172033">
+        <img src="${LOGO_URL}" width="56" height="56" style="border-radius:50%;margin-bottom:20px"/>
+        <h2 style="margin:0 0 12px">Your request is with us.</h2>
+        <p style="line-height:1.7;color:#526078">We will review the brief and contact you with the scope, price and next step. Your reference is <strong>${orderId}</strong>.</p>
+        <p style="line-height:1.7;color:#526078">Use your private workspace to follow progress and download deliveries.</p>
+        <a href="${portalUrl}" style="display:inline-block;margin-top:12px;background:#2563eb;color:white;padding:13px 20px;text-decoration:none;border-radius:8px">Open private workspace</a>
+        <p style="margin-top:24px;font-size:12px;color:#8290a5">Keep this link private. It provides access to your project.</p>
+      </div>`,
+    });
   } catch (err) {
     console.error("Email error:", err);
   }
@@ -87,7 +103,7 @@ async function sendDiscordNotification(order: OrderPayload, orderId: string) {
   if (!webhook) return;
 
   const baseUrl = getBaseUrl();
-  const orderUrl = `${baseUrl}/order/${orderId}`;
+  const orderUrl = `${baseUrl}/admin/orders/${orderId}`;
 
   const embed = {
     title: "🔔 New Request Received",
@@ -173,12 +189,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    const portalToken = createPortalToken();
+    const { error: accessError } = await supabaseAdmin
+      .from("order_portal_access")
+      .insert({ order_id: data.id, access_token_hash: hashPortalToken(portalToken) });
+
+    if (accessError) throw accessError;
+
+    const portalUrl = `${getBaseUrl()}/order/portal/${portalToken}`;
+
     await Promise.allSettled([
       sendDiscordNotification(body, data.id),
-      sendEmailNotifications(body, data.id),
+      sendEmailNotifications(body, data.id, portalUrl),
     ]);
 
-    return NextResponse.json({ ok: true, orderId: data.id }, { status: 200 });
+    return NextResponse.json({ ok: true, orderId: data.id, portalUrl }, { status: 200 });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });

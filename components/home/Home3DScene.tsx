@@ -12,11 +12,11 @@ function Core() {
   const isPhone = size.width < 640;
   const isTablet = size.width >= 640 && size.width < 1024;
   const position: [number, number, number] = isPhone
-    ? [0, -2.15, -0.8]
+    ? [0, -0.3, -2]
     : isTablet
       ? [1.35, -1.2, -0.35]
       : [3.1, 0.35, 0];
-  const sceneScale = isPhone ? 0.58 : isTablet ? 0.78 : 1;
+  const sceneScale = isPhone ? 0.85 : isTablet ? 0.78 : 1;
 
   useFrame((state, delta) => {
     if (!group.current || !ring.current) return;
@@ -86,7 +86,7 @@ function Core() {
 
 export default function Home3DScene() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-55 sm:opacity-100" aria-hidden="true">
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 8], fov: 48 }}

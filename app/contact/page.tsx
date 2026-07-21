@@ -1,34 +1,20 @@
-import { ContactHeroSimple } from "@/components/contact/ContactHeroSimple";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { ContactFAQ } from "@/components/contact/ContactFAQ";
-import { ContactOrbit } from "@/components/contact/ContactOrbit";
+import { CompactContactForm } from "@/components/contact/CompactContactForm";
 import { ContactChannels } from "@/components/contact/ContactChannels";
+import { ContactFAQ } from "@/components/contact/ContactFAQ";
 
 export default function ContactPage() {
   return (
-    <main className="contact-page relative bg-transparent overflow-hidden pb-24">
-      {/* Global Ambient Depth Layer */}
-      <div className="absolute inset-0 flex flex-col items-center pointer-events-none -z-10">
-        <div className="w-[1200px] h-[600px] bg-blue-600/10 blur-[160px] rounded-full mt-[-10%]" />
-        <div className="w-[1000px] h-[1000px] bg-indigo-600/5 blur-[140px] rounded-full mt-auto mb-[-20%]" />
-      </div>
-
-      {/* 1. Hero Section */}
-      <section className="mx-auto grid max-w-6xl items-center gap-8 px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[1.05fr_.95fr] lg:pt-28">
-        <ContactHeroSimple /><ContactOrbit />
-      </section>
-
-      <div className="mx-auto max-w-6xl space-y-20 px-5 sm:px-8">
+    <main className="contact-page relative min-h-[calc(100vh-5rem)] overflow-hidden bg-transparent px-4 pb-20 pt-14 text-white sm:px-6 sm:pt-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[38rem] bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,.2),transparent_68%)]" />
+      <section className="relative mx-auto max-w-2xl text-center">
         
-        {/* 2. Full Width Contact Form */}
+        <h1 className="mx-auto mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Let&apos;s talk.</h1>
+        <p className="mx-auto mt-4 max-w-md text-slate-400">Tell us what you need.</p>
+        <div className="mt-9 text-left"><CompactContactForm /></div>
+      </section>
+      <div className="relative mx-auto mt-16 max-w-5xl space-y-16 sm:mt-24 sm:space-y-20">
         <ContactChannels />
-        <div className="grid items-start gap-8 lg:grid-cols-[1.08fr_.92fr]">
-          <div className="w-full">
-            <ContactForm />
-          </div>
-          <ContactFAQ />
-        </div>
-
+        <ContactFAQ />
       </div>
     </main>
   );

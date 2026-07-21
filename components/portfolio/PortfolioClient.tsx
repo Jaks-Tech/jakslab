@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Category } from "@/lib/categories";
 import CategoryTabs from "@/components/portfolio/CategoryTabs"; 
+import { ArrowUpRight } from "lucide-react";
 
 interface Article {
   slug: string;
@@ -42,11 +43,11 @@ export default function PortfolioClient({
   return (
     <>
       {/* FILTER SECTION */}
-      <div className="mb-14">
+      <div className="mb-8 sm:mb-10">
         <CategoryTabs onSelect={handleCategoryChange} />
 
         {/* RESULTS COUNT */}
-        <div className="mt-8 text-sm text-slate-400 text-center md:text-left">
+        <div className="mt-5 text-center text-sm text-slate-400 md:text-left">
           Showing{" "}
           <span className="font-semibold text-white">
             {filteredArticles.length}
@@ -55,41 +56,25 @@ export default function PortfolioClient({
         </div>
       </div>
 
-      {/* ARTICLES GRID */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-        {filteredArticles.map((article) => {
-          return (
+      <div className="border-t border-white/15">
+        {filteredArticles.map((article, index) => (
             <Link
               key={article.slug}
               href={`/portfolio/${article.slug}`}
-              className="blog-article-card group p-6 sm:p-7 rounded-2xl bg-white/[0.035] backdrop-blur-xl border border-white/10 transition-all duration-300 hover:border-blue-500/30 flex flex-col h-full"
+              className="group grid grid-cols-[2rem_1fr] gap-x-3 gap-y-3 border-b border-white/15 py-6 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6 sm:py-8"
             >
-              {/* 1. Category Badge */}
-              <div>
-                <span className="text-xs text-slate-500">
-                  {article.category}
-                </span>
+              <span className="pt-1 font-mono text-xs text-slate-600">{String(index + 1).padStart(2, "0")}</span>
+              <div className="min-w-0">
+                <span className="text-xs text-blue-400">{article.category}</span>
+                <h2 className="mt-2 text-lg font-medium leading-snug text-white transition-colors group-hover:text-blue-300 sm:text-2xl">{article.title}</h2>
+                {article.excerpt && <p className="mt-3 line-clamp-2 max-w-3xl text-sm leading-6 text-slate-400 sm:text-base sm:leading-7">{article.excerpt}</p>}
+                <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-medium uppercase tracking-wider text-slate-500"><span>{article.author}</span><span>{article.date}</span><span>{article.readTime}</span></div>
               </div>
-
-              {/* 2. Title */}
-              <h2 className="text-xl font-medium mt-5 text-white group-hover:text-blue-300 transition-colors duration-300 leading-snug">
-                {article.title}
-              </h2>
-
-              {/* 3. Metadata (Moved here - after Title) */}
-              <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-[10px] font-medium text-slate-500 mt-3 uppercase tracking-wider">
-                <span>{article.author}</span><span>{article.date}</span><span>{article.readTime}</span>
+              <div className="col-start-2 flex items-center justify-end sm:col-start-auto sm:row-start-1 sm:self-center">
+                <span className="grid h-9 w-9 place-items-center rounded-full border border-white/15 text-blue-400 transition group-hover:border-blue-500 group-hover:bg-blue-600 group-hover:text-white sm:h-10 sm:w-10"><ArrowUpRight className="h-4 w-4" /></span>
               </div>
-
-              {/* 4. Excerpt */}
-              {article.excerpt && (
-                <p className="text-slate-400 mt-5 text-sm leading-relaxed line-clamp-3 flex-grow border-t border-white/5 pt-4">
-                  {article.excerpt}
-                </p>
-              )}
             </Link>
-          );
-        })}
+        ))}
       </div>
     </>
   );

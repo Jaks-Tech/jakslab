@@ -33,6 +33,7 @@ export default function OrderForm({ order }: OrderFormProps) {
 
   const [submitted, setSubmitted] = useState(false);
   const [orderId, setOrderId] = useState<string | null>(order?.id ?? null);
+  const [portalUrl, setPortalUrl] = useState<string | null>(null);
 
   // form fields
   const [fullName, setFullName] = useState(order?.full_name || "");
@@ -180,6 +181,7 @@ export default function OrderForm({ order }: OrderFormProps) {
       }
 
       setOrderId(data.orderId);
+      setPortalUrl(data.portalUrl || null);
       setSubmitted(true);
 
     } catch (err: any) {
@@ -195,6 +197,7 @@ export default function OrderForm({ order }: OrderFormProps) {
   const resetForm = () => {
     setSubmitted(false);
     setOrderId(null);
+    setPortalUrl(null);
 
     setFullName("");
     setEmail("");
@@ -216,6 +219,7 @@ export default function OrderForm({ order }: OrderFormProps) {
     return (
       <SuccessState
         orderId={orderId ?? undefined}
+        portalUrl={portalUrl ?? undefined}
         onReset={resetForm}
       />
     );

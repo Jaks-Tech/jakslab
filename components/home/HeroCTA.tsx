@@ -94,7 +94,7 @@ export default function HeroCTA({
                        transition-all duration-300"
             onClick={() => setOpen(false)}
           >
-            Hire a Service
+            Request Service
           </Link>
 
           <Link
@@ -107,7 +107,7 @@ export default function HeroCTA({
                        transition-all duration-300"
             onClick={() => setOpen(false)}
           >
-            Request a Quote
+            Ask for Quote
           </Link>
 
           <Link

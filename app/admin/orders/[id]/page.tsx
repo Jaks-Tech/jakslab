@@ -13,6 +13,7 @@ import {
   Activity
 } from "lucide-react";
 import DownloadButton from "@/components/admin/DownloadButton";
+import { DeliveryForm } from "@/components/admin/DeliveryForm";
 
 export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
   // Await params as required by Next.js 15
@@ -40,7 +41,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
   const displayTitle = order.custom_project || order.project_type || "Custom Request";
 
   return (
-    <main className="min-h-screen p-6 lg:p-12 text-white bg-zinc-950 selection:bg-blue-500/30">
+    <main className="min-h-screen p-6 lg:p-12 text-white bg-transparent selection:bg-blue-500/30">
       <div className="max-w-6xl mx-auto space-y-10">
         
         {/* Top Navigation & Header */}
@@ -76,6 +77,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
           
           {/* Main Content (8 Columns) */}
           <div className="lg:col-span-8 space-y-8">
+            <DeliveryForm orderId={order.id} />
             
             {/* Client Info Card */}
             <section className="bg-white/[0.01] border border-white/10 rounded-[2.5rem] p-8 lg:p-10 backdrop-blur-sm relative overflow-hidden group">

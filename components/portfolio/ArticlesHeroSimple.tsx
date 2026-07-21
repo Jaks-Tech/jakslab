@@ -1,6 +1,5 @@
-import SearchBar from "./SearchBar";
 import Blog3DStack from "./Blog3DStack";
 
 export default function ArticlesHeroSimple() {
-  return <section className="mx-auto grid max-w-6xl items-center gap-10 px-5 pb-10 pt-16 sm:px-8 sm:pt-24 lg:grid-cols-[1fr_.7fr] lg:pt-28"><div><p className="mb-5 text-sm tracking-wide text-slate-400">JaksLab journal</p><h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">Ideas for better research and better products.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">Practical writing on research, technology, academic work and the tools behind them.</p><div className="mt-9 max-w-xl"><SearchBar /></div></div><Blog3DStack /></section>;
+  return <section className="mx-auto grid max-w-6xl items-center gap-5 px-5 pb-2 pt-12 sm:px-8 sm:pb-3 sm:pt-16 lg:grid-cols-[1fr_.7fr]"><div><h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">Research, academic and technology insights.</h1><p className="mt-4 max-w-2xl text-base leading-7 text-slate-400 sm:text-lg">Practical ideas and useful tools.</p></div><Blog3DStack /></section>;
 }

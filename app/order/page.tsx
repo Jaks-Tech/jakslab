@@ -1,37 +1,16 @@
-import { OrderHeroSimple } from "@/components/order/OrderHeroSimple";
-import OrderForm from "@/components/order/order-form/OrderForm";
-import { OrderProcessSimple } from "@/components/order/OrderProcessSimple";
-import Testimonials from "@/components/home/Testimonials";
+import CompactOrderForm from "@/components/order/order-form/CompactOrderForm";
 
 export default function OrderPage() {
   return (
-    <main className="order-page relative bg-transparent min-h-screen pb-16 text-white overflow-hidden">
-
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1000px] pointer-events-none -z-10">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[160px] rounded-full" />
-        <div className="absolute top-[20%] right-[-5%] w-[30%] h-[50%] bg-indigo-600/10 blur-[160px] rounded-full" />
-      </div>
-
-      <div>
-
-        {/* HERO */}
-        <OrderHeroSimple />
-
-        {/* ORDER FORM */}
-        <section id="order-form" className="relative max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="mb-8 max-w-xl"><h2 className="text-2xl font-semibold text-white sm:text-3xl">Project details</h2><p className="mt-3 leading-7 text-slate-400">Give us enough context to understand the work. You can clarify anything else when we respond.</p></div>
-          <OrderForm />
-        </section>
-
-        {/* PROCESS */}
-        <OrderProcessSimple />
-
-        {/* TESTIMONIALS */}
-        <Testimonials />
-
-      </div>
-
+    <main className="order-page relative min-h-[calc(100vh-5rem)] overflow-hidden bg-transparent px-4 pb-16 pt-14 text-white sm:px-6 sm:pt-20">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[38rem] bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,.2),transparent_68%)]" />
+      <section className="relative mx-auto max-w-2xl text-center">
+        
+        <h1 className="mx-auto mt-4 max-w-xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Get expert help with your work</h1>
+        <p className="mx-auto mt-4 max-w-md text-base text-slate-300 sm:text-lg">Send your question. We&apos;ll take it from there.</p>
+        <div id="order-form" className="mt-9 text-left"><CompactOrderForm /></div>
+        <p className="mt-7 text-sm font-medium text-slate-400">Already submitted? Check the private link sent to your email.</p>
+      </section>
     </main>
   );
 }

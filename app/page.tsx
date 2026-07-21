@@ -1,5 +1,5 @@
 import Hero from "@/components/home/Hero";
-import ServicesPreview from "@/components/home/ServicesPreview";
+import ServicesEditorial from "@/components/home/ServicesEditorial";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import Statistics from "@/components/home/Statistics";
 import Testimonials from "@/components/home/Testimonials";
@@ -18,7 +18,7 @@ export default function Home() {
 
       <div className="home-flow relative">
         <section className="home-section" aria-label="Services">
-          <ServicesPreview />
+          <ServicesEditorial />
         </section>
 
         <section className="home-section home-section--wide" aria-label="Company statistics">

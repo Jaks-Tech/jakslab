@@ -25,12 +25,12 @@ export function ContactFAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <div className="relative w-full p-5 sm:p-8 rounded-2xl bg-white/[0.035] backdrop-blur-xl border border-white/10">
-      <h3 className="text-2xl font-semibold text-white mb-9">
-        Common questions
+    <section className="relative mx-auto w-full max-w-3xl">
+      <h3 className="mb-7 text-center text-2xl font-semibold text-white">
+        FQAs...?
       </h3>
 
-      <div className="space-y-6">
+      <div className="border-t border-white/10">
         {faqs.map((faq, i) => {
           const isOpen = open === i;
 
@@ -38,10 +38,10 @@ export function ContactFAQ() {
             <div
               key={i}
               onClick={() => setOpen(isOpen ? null : i)}
-              className="group cursor-pointer rounded-2xl border border-white/10 bg-white/5 hover:border-blue-500/40 transition-all duration-300 overflow-hidden"
+              className="group cursor-pointer overflow-hidden border-b border-white/10"
             >
-              <div className="flex items-center justify-between p-6">
-                <h4 className="text-white font-medium text-lg">
+              <div className="flex items-center justify-between py-5">
+                <h4 className="pr-5 text-base font-medium text-white sm:text-lg">
                   {faq.q}
                 </h4>
 
@@ -63,7 +63,7 @@ export function ContactFAQ() {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 text-slate-400 leading-relaxed">
+                    <div className="pb-5 pr-10 leading-relaxed text-slate-400">
                       {faq.a}
                     </div>
                   </motion.div>
@@ -74,6 +74,6 @@ export function ContactFAQ() {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
