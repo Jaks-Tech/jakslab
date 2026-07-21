@@ -73,6 +73,72 @@ body {
   background: #111;
 }
 
+/* Site-wide light theme. Dark remains the default visual language; this layer
+   translates the shared dark utilities used across older and newer pages. */
+html[data-theme="light"] body {
+  background: #f6f8fc !important;
+  color: #172033;
+}
+
+html[data-theme="light"] .theme-dark-background { display: none !important; }
+
+html[data-theme="light"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -20;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 5%, rgba(14, 165, 233, .13), transparent 34rem),
+    radial-gradient(circle at 85% 18%, rgba(99, 102, 241, .11), transparent 32rem),
+    linear-gradient(180deg, #fbfdff, #f3f7fc);
+}
+
+html[data-theme="light"] [class~="text-white"]:not([class*="bg-blue-"]):not([class*="bg-indigo-"]):not([class*="bg-violet-"]):not([class*="bg-emerald-"]):not([class*="bg-gradient-"]) { color: #0f172a !important; }
+html[data-theme="light"] [class*="text-slate-100"],
+html[data-theme="light"] [class*="text-slate-200"],
+html[data-theme="light"] [class*="text-slate-300"] { color: #334155 !important; }
+html[data-theme="light"] [class*="text-slate-400"] { color: #52637a !important; }
+html[data-theme="light"] [class*="text-slate-500"] { color: #64748b !important; }
+html[data-theme="light"] [class*="text-slate-600"] { color: #8290a5 !important; }
+
+html[data-theme="light"] [class*="bg-[#030"],
+html[data-theme="light"] [class*="bg-[#071"],
+html[data-theme="light"] [class*="bg-[#081"],
+html[data-theme="light"] [class*="bg-slate-950"],
+html[data-theme="light"] [class*="bg-slate-900"] { background-color: rgba(255, 255, 255, .94) !important; }
+html[data-theme="light"] [class*="bg-white/5"],
+html[data-theme="light"] [class*="bg-white/[0.0"] { background-color: rgba(255, 255, 255, .62) !important; }
+html[data-theme="light"] [class*="border-white/"] { border-color: rgba(100, 116, 139, .2) !important; }
+
+html[data-theme="light"] a[class*="bg-blue-"],
+html[data-theme="light"] button[class*="bg-blue-"],
+html[data-theme="light"] a[class*="bg-indigo-"],
+html[data-theme="light"] button[class*="bg-indigo-"],
+html[data-theme="light"] a[class*="bg-gradient-"],
+html[data-theme="light"] button[class*="bg-gradient-"] { color: #fff !important; }
+
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  color: #172033 !important;
+  background-color: rgba(255, 255, 255, .82) !important;
+  border-color: rgba(100, 116, 139, .25) !important;
+}
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder { color: #8290a5 !important; }
+html[data-theme="light"] option { color: #172033 !important; background: #fff !important; }
+
+html[data-theme="light"] .site-footer {
+  background: #eaf0f8 !important;
+  border-color: rgba(100, 116, 139, .18) !important;
+}
+html[data-theme="light"] .theme-toggle {
+  background: rgba(255, 255, 255, .8) !important;
+  color: #334155 !important;
+  border-color: rgba(100, 116, 139, .25) !important;
+}
+
 /* Homepage-only depth system. Keeps the shared background while giving cards a
    physical, layered response. */
 .home-3d { perspective: 1400px; }

@@ -21,7 +21,7 @@ export default function RootLayout({
       className="scroll-smooth"
       suppressHydrationWarning
     >
-      <body className="relative flex min-h-screen flex-col bg-[#03050c] antialiased text-slate-100">
+      <body className="relative flex min-h-screen flex-col bg-[#03050c] antialiased text-slate-100 transition-colors duration-300">
 
         {/* Background Layer */}
         <Background3D />

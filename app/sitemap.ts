@@ -17,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/refund',
     '/login',
     '/signup',
-    '/workhub',
     '/ai-doc-analysis',
     '/chat-doc',
     '/citation-generator',

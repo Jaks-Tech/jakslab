@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Cpu, FileSearch, Quote, ArrowRight, Plus, Library } from "lucide-react";
+import { Menu, X, ChevronDown, Cpu, FileSearch, Quote, Plus, Library, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const productItems = [
@@ -42,13 +42,13 @@ const navItems = [
   { label: "Contact", path: "/contact" },
   { label: "About", path: "/about" },
   { label: "Blog", path: "/portfolio" },
-  { label: "Workhub", path: "/workhub" },
 ];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -56,6 +56,22 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("jakslab-theme");
+    const light = savedTheme ? savedTheme === "light" : window.matchMedia("(prefers-color-scheme: light)").matches;
+    setIsLight(light);
+    document.documentElement.dataset.theme = light ? "light" : "dark";
+    document.documentElement.style.colorScheme = light ? "light" : "dark";
+  }, []);
+
+  const toggleTheme = () => {
+    const light = !isLight;
+    setIsLight(light);
+    document.documentElement.dataset.theme = light ? "light" : "dark";
+    document.documentElement.style.colorScheme = light ? "light" : "dark";
+    localStorage.setItem("jakslab-theme", light ? "light" : "dark");
+  };
 
   // Sync state to close mobile menu on route change
   useEffect(() => {
@@ -143,6 +159,15 @@ export function Header() {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-3 z-[110]">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition hover:bg-white/10 hover:text-white"
+              aria-label={isLight ? "Use dark mode" : "Use light mode"}
+              title={isLight ? "Dark mode" : "Light mode"}
+            >
+              {isLight ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
             <Link href="/order" className="hidden md:flex px-6 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-full transition-all shadow-lg shadow-blue-500/20">
               Request Service
             </Link>

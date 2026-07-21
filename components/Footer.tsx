@@ -7,7 +7,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative pt-24 pb-10 text-slate-400 overflow-hidden w-full border-t border-white/5 bg-[#030712]">
+    <footer className="site-footer relative pt-24 pb-10 text-slate-400 overflow-hidden w-full border-t border-white/5 bg-[#030712]">
       
       {/* --- Background Effects --- */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-950/10 pointer-events-none" />
@@ -28,7 +28,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
           
           {/* COLUMN 1: Brand & Socials (Spans 4 cols) */}
-          <div className="lg:col-span-4 space-y-8">
+          <div className="lg:col-span-3 space-y-8">
             <div className="flex items-center gap-4 group cursor-pointer w-fit">
               <div className="relative w-14 h-14 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-[0_0_30px_rgba(59,130,246,0.2)] group-hover:ring-blue-500/50 group-hover:shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-all duration-500">
                 <Image
@@ -85,13 +85,21 @@ export function Footer() {
               <FooterLink href="/privacy">Privacy Policy</FooterLink>
               <FooterLink href="/return">Refund Policy</FooterLink>
               <FooterLink href="/site-map">Sitemap</FooterLink>
-              <FooterLink href="/payment">JaksPay</FooterLink>
-              <FooterLink href="/ghost-chat">Let's Chat</FooterLink>
             </ul>
           </div>
 
-          {/* COLUMN 4: Trust Badge & Location (Spans 4 cols) */}
-          <div className="lg:col-span-4 space-y-6 lg:pl-8">
+          {/* COLUMN 4: Staff and tools */}
+          <div className="lg:col-span-2 space-y-6">
+            <h4 className="text-white font-bold tracking-wide uppercase text-sm">Workspace</h4>
+            <ul className="space-y-3">
+              <FooterLink href="/workhub">Work Hub</FooterLink>
+              <FooterLink href="/payment">JaksPay</FooterLink>
+              <FooterLink href="/ghost-chat">Let&apos;s Chat</FooterLink>
+            </ul>
+          </div>
+
+          {/* COLUMN 5: Trust Badge & Location */}
+          <div className="lg:col-span-3 space-y-6 lg:pl-4">
             <h4 className="text-white font-bold tracking-wide uppercase text-sm">Commitment</h4>
             
             {/* Elegant Trust Badge */}

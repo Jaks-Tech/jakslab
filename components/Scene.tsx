@@ -1,6 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function Background3D() {
+  const [isLight, setIsLight] = useState(false);
+
+  useEffect(() => {
+    const syncTheme = () => setIsLight(document.documentElement.dataset.theme === "light");
+    syncTheme();
+
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  if (isLight) return null;
+
   return (
     <div className="fixed inset-0 -z-10 h-full w-full overflow-hidden">
 
@@ -8,7 +27,7 @@ export default function Background3D() {
           DARK THEME  (default)
           Abyssal ocean · bioluminescent pulses
       ══════════════════════════════════════════ */}
-      <div className="dark:block hidden absolute inset-0">
+      <div className="theme-dark-background dark:block hidden absolute inset-0">
         {/* Base */}
         <div className="absolute inset-0 bg-[#030912]" />
         <div className="absolute inset-0 bg-[linear-gradient(160deg,#04101f_0%,#020810_45%,#030712_100%)]" />
