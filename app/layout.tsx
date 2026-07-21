@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import Background3D from "@/components/Scene";
 import { usePathname } from "next/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -44,6 +45,7 @@ export default function RootLayout({
         </div>
 
         <SpeedInsights />
+        <Analytics />
 
       </body>
     </html>
