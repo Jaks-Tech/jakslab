@@ -2,7 +2,7 @@
 title: "How to Write a Strong Thesis Statement"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "A weak thesis statement wastes time and derails essays. Learn how to draft specific, arguable claims that align with your assignment’s genre."
 ---
 

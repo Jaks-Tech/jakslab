@@ -2,7 +2,7 @@
 title: "How to Remove Plagiarism Professionally"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "Plagiarism removal in professional settings fails when teams rely on automated tools or surface-level fixes. Learn how to implement layered, documented workflows."
 ---
 

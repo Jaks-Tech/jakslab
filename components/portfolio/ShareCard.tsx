@@ -36,45 +36,38 @@ export default function ShareCard() {
   };
 
   return (
-    <div className="relative rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] p-8 text-center hover:border-blue-500/40 transition-all duration-500">
-      {/* Ambient Glow */}
-      <div className="absolute inset-0 flex justify-center -z-10 pointer-events-none">
-        <div className="w-[400px] h-[400px] bg-blue-600/10 blur-[160px] rounded-full" />
-      </div>
-
-      <h3 className="text-lg font-bold text-white">
-        Share This Article
-      </h3>
-
-      <div className="mt-3 mb-8 h-1 w-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mx-auto" />
-
-      <div className="flex justify-center gap-6">
+    <div className="border border-slate-300 bg-white p-6">
+      <h2 className="text-lg font-semibold text-slate-950">Share this article</h2>
+      <div className="mt-5 flex gap-3">
         <button
           onClick={shareTwitter}
-          className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-blue-500/40 hover:text-blue-400 transition-all duration-300"
+          className="grid size-10 place-items-center rounded-full border border-slate-400 bg-white text-slate-800 transition hover:border-slate-900"
+          aria-label="Share on X"
         >
           <Twitter size={18} strokeWidth={1.8} />
         </button>
 
         <button
           onClick={shareFacebook}
-          className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-blue-500/40 hover:text-blue-400 transition-all duration-300"
+          className="grid size-10 place-items-center rounded-full border border-slate-400 bg-white text-slate-800 transition hover:border-slate-900"
+          aria-label="Share on Facebook"
         >
           <Facebook size={18} strokeWidth={1.8} />
         </button>
 
         <button
           onClick={handleCopy}
-          className="p-3 rounded-full bg-white/5 border border-white/10 text-slate-300 hover:border-blue-500/40 hover:text-blue-400 transition-all duration-300"
+          className="grid size-10 place-items-center rounded-full border border-slate-400 bg-white text-slate-800 transition hover:border-slate-900"
+          aria-label="Copy article link"
         >
           <LinkIcon size={18} strokeWidth={1.8} />
         </button>
       </div>
 
-      <p className="text-xs text-slate-500 mt-6">
+      <p className="mt-4 text-xs text-slate-600">
         {copied
-          ? "Link copied to clipboard!"
-          : "Help others discover this content"}
+          ? "Link copied."
+          : "Share or copy the link."}
       </p>
     </div>
   );

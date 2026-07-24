@@ -1,5 +1,5 @@
-import { ServicesExperience } from "@/components/services/ServicesExperience";
+import { ServicesCategories } from "@/components/content-marketing/ServicesCategories";
 
 export default function ServicesPage() {
-  return <ServicesExperience />;
+  return <ServicesCategories />;
 }

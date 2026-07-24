@@ -7,7 +7,7 @@ import SuccessState from "./SuccessState";
 import PersonalInfo from "./PersonalInfo";
 
 const topics = ["Essay Writing", "Research Paper", "Literature Review", "Thesis Writing", "Dissertation", "Case Study", "Term Paper", "Report Writing", "Web Development", "Mobile App Development", "Machine Learning Project", "Data Science Project", "AI / Deep Learning", "Software Engineering", "Database Design", "API Development", "Custom Project"];
-const fieldClass = "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-[15px] text-white outline-none transition placeholder:text-slate-500 focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/15";
+const fieldClass = "w-full rounded-lg border border-slate-300 bg-white px-4 py-3.5 text-[15px] text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-slate-700 focus:ring-2 focus:ring-slate-200";
 
 export default function CompactOrderForm() {
   const [step, setStep] = useState(1);
@@ -52,23 +52,23 @@ export default function CompactOrderForm() {
   if (submitted) return <SuccessState orderId={orderId} portalUrl={portalUrl} onReset={reset} />;
 
   return (
-    <form onSubmit={submit} className="rounded-[1.4rem] border border-white/10 bg-[#07101f]/80 p-3 shadow-[0_28px_80px_rgba(0,0,0,.35)] backdrop-blur-xl sm:p-4">
-      {step === 1 ? <div className="space-y-2.5">
-        <select required aria-label="Choose a topic" value={projectType} onChange={(event) => setProjectType(event.target.value)} className={`${fieldClass} appearance-none`}><option value="" className="bg-slate-900">Choose a topic</option>{topics.map((topic) => <option className="bg-slate-900" key={topic}>{topic}</option>)}</select>
+    <form onSubmit={submit} className="order-form-light">
+      {step === 1 ? <div className="space-y-5">
+        <div><label className="mb-2 block text-sm font-semibold text-slate-800">Type of work</label><select required aria-label="Choose a topic" value={projectType} onChange={(event) => setProjectType(event.target.value)} className={`${fieldClass} appearance-none`}><option value="">Choose a topic</option>{topics.map((topic) => <option key={topic}>{topic}</option>)}</select></div>
         {projectType === "Custom Project" && <input required value={customProject} onChange={(event) => setCustomProject(event.target.value)} placeholder="Describe your custom project" className={fieldClass} />}
-        <textarea required aria-label="Your question" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Copy and paste your question here..." className={`${fieldClass} resize-none`} />
-        <input required type="date" aria-label="When do you need an answer?" value={deadline} onChange={(event) => setDeadline(event.target.value)} className={fieldClass} />
-        {files.map((file, index) => <div key={`${file.name}-${index}`} className="flex items-center justify-between px-2 text-sm text-slate-300"><span className="truncate">{file.name}</span><button type="button" aria-label={`Remove ${file.name}`} onClick={() => setFiles((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="p-1 text-slate-500 hover:text-red-400"><X size={16} /></button></div>)}
-        <div className="flex items-center gap-2 pt-1">
-          <label className="flex cursor-pointer items-center gap-2 px-2 py-3 text-sm font-semibold text-slate-300 hover:text-blue-300"><Paperclip size={18} /> Attach file<input type="file" multiple accept=".pdf,.docx,.png,.jpg,.jpeg,.webp,.gif,.zip" className="hidden" onChange={(event) => setFiles((current) => [...current, ...Array.from(event.target.files ?? [])])} /></label>
-          <button type="button" onClick={() => { if (!projectType || !description || !deadline || (projectType === "Custom Project" && !customProject)) { setErrorMsg("Complete the project details before continuing."); return; } setErrorMsg(null); setStep(2); }} className="ml-auto flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500">Continue <ArrowRight size={17} /></button>
+        <div><label className="mb-2 block text-sm font-semibold text-slate-800">Brief and requirements</label><textarea required aria-label="Your question" rows={7} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Describe the expected result, requirements and any relevant context." className={`${fieldClass} resize-none`} /></div>
+        <div><label className="mb-2 block text-sm font-semibold text-slate-800">Deadline</label><input required type="date" aria-label="When do you need an answer?" value={deadline} onChange={(event) => setDeadline(event.target.value)} className={fieldClass} /></div>
+        {files.map((file, index) => <div key={`${file.name}-${index}`} className="flex items-center justify-between border border-slate-300 px-3 py-2 text-sm text-slate-700"><span className="truncate">{file.name}</span><button type="button" aria-label={`Remove ${file.name}`} onClick={() => setFiles((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="p-1 text-slate-500 hover:text-red-700"><X size={16} /></button></div>)}
+        <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
+          <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 px-4 py-3 text-sm font-semibold text-slate-800 hover:border-slate-700"><Paperclip size={18} /> Attach files<input type="file" multiple accept=".pdf,.docx,.png,.jpg,.jpeg,.webp,.gif,.zip" className="hidden" onChange={(event) => setFiles((current) => [...current, ...Array.from(event.target.files ?? [])])} /></label>
+          <button type="button" onClick={() => { if (!projectType || !description || !deadline || (projectType === "Custom Project" && !customProject)) { setErrorMsg("Complete the project details before continuing."); return; } setErrorMsg(null); setStep(2); }} className="flex items-center justify-center gap-2 rounded-lg bg-[#202733] px-5 py-3 text-sm font-bold text-[#fff] hover:bg-[#111827] sm:ml-auto">Continue <ArrowRight size={17} /></button>
         </div>
       </div> : <div className="space-y-3 p-1">
-        <button type="button" onClick={() => setStep(1)} className="mb-2 rounded-lg p-2 text-slate-400 hover:bg-white/5 hover:text-white" aria-label="Back"><ArrowLeft size={19} /></button>
+        <button type="button" onClick={() => setStep(1)} className="mb-2 rounded-lg border border-slate-300 p-2 text-slate-700 hover:border-slate-700" aria-label="Back"><ArrowLeft size={19} /></button>
         <PersonalInfo fullName={fullName} setFullName={setFullName} email={email} setEmail={setEmail} platform={platform} setPlatform={setPlatform} phone={phone} setPhone={setPhone} />
-        <button type="submit" disabled={loading} className="w-full rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white hover:bg-blue-500 disabled:opacity-60">{loading ? "Sending..." : "Submit request"}</button>
+        <button type="submit" disabled={loading} className="w-full rounded-lg bg-[#202733] py-3.5 text-sm font-bold text-[#fff] hover:bg-[#111827] disabled:opacity-60">{loading ? "Sending..." : "Submit request"}</button>
       </div>}
-      {errorMsg && <p className="px-2 pb-1 pt-2 text-sm text-red-400">{errorMsg}</p>}
+      {errorMsg && <p className="px-2 pb-1 pt-2 text-sm text-red-700">{errorMsg}</p>}
     </form>
   );
 }

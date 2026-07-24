@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 import { getArticleBySlug, getAllArticles } from "@/lib/articles";
 import ShareCard from "@/components/portfolio/ShareCard";
 
@@ -10,7 +10,6 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
   if (!slug) notFound();
 
   let article;
@@ -21,159 +20,91 @@ export default async function ArticlePage({
   }
 
   const related = getAllArticles()
-    .filter((a) => a.slug !== slug)
+    .filter((item) => item.slug !== slug)
     .slice(0, 3);
 
   return (
-    <main className="relative bg-transparent min-h-screen overflow-hidden">
-      {/* Global Ambient Glow */}
-      <div className="absolute inset-0 flex justify-center -z-10 pointer-events-none">
-        <div className="w-[1200px] h-[1200px] bg-blue-600/10 blur-[200px] rounded-full" />
-      </div>
-
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        {/* ===============================
-           BREADCRUMB
-        =============================== */}
-        <div className="text-sm text-slate-500 mb-6">
-          <Link href="/" className="hover:text-blue-400 transition">
-            Home
+    <main className="min-h-screen bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+      <header className="border-b border-slate-300 px-5 pb-14 pt-20 sm:px-8 sm:pb-16 sm:pt-24 lg:px-12 lg:pb-20 lg:pt-24 xl:px-16 2xl:px-20">
+        <nav aria-label="Breadcrumb">
+          <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-950">
+            <ArrowLeft size={16} aria-hidden="true" />
+            Back to all articles
           </Link>
-          <span className="mx-2">›</span>
-          <Link href="/portfolio" className="hover:text-blue-400 transition">
-            Portfolio
-          </Link>
-          <span className="mx-2">›</span>
-          <span className="text-slate-400">{article.category}</span>
+        </nav>
+
+        <div className="mt-10 max-w-5xl">
+          <p className="text-xs font-semibold uppercase tracking-[.12em] text-slate-600">{article.category}</p>
+          <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            {article.title}
+          </h1>
+          {article.excerpt && (
+            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">{article.excerpt}</p>
+          )}
+          <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
+            <span>By {article.author}</span>
+            <span>{article.date}</span>
+            <span>{article.readTime}</span>
+          </div>
         </div>
+      </header>
 
-        {/* ===============================
-           TITLE + META
-        =============================== */}
-        <h1 className="text-4xl font-bold text-white leading-tight">
-          {article.title}
-        </h1>
+      <div className="grid w-full gap-12 px-5 py-14 sm:px-8 sm:py-16 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
+        <article
+          className="article-prose prose prose-lg w-full max-w-4xl"
+          dangerouslySetInnerHTML={{ __html: article.contentHtml }}
+        />
 
-        <div className="flex flex-wrap items-center gap-4 mt-6 text-sm text-slate-400">
-          <span>By {article.author}</span>
-          <span>•</span>
-          <span>{article.date}</span>
-          <span>•</span>
-          <span>{article.readTime}</span>
-        </div>
-
-        {/* ===============================
-           FEATURED IMAGE
-        =============================== */}
-        <div className="mt-12 rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_40px_rgba(59,130,246,0.15)]">
-          <Image
-            src="/article-placeholder.png"
-            alt={article.title}
-            width={1200}
-            height={600}
-            className="w-full object-cover"
-          />
-        </div>
-
-        {/* ===============================
-           CONTENT + SIDEBAR
-        =============================== */}
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-16 mt-16">
-          {/* Article Content */}
-          <article
-            className="
-              prose prose-lg max-w-none
-              prose-invert
-              prose-headings:text-white
-              prose-p:text-slate-300
-              prose-strong:text-white
-              prose-a:text-blue-400
-              hover:prose-a:text-indigo-400
-            "
-            dangerouslySetInnerHTML={{
-              __html: article.contentHtml,
-            }}
-          />
-
-          {/* Sidebar */}
-          <aside className="space-y-12 lg:sticky lg:top-24 self-start">
-            {/* AUTHOR CARD */}
-            <div className="rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.15)] p-8 text-center hover:border-blue-500/40 transition-all duration-500">
-              <div className="flex justify-center mb-6">
-                <div className="relative w-24 h-24 rounded-full overflow-hidden border border-white/20">
-                  <Image
-                    src="/jakslab.png"
-                    alt="Author"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+        <aside className="space-y-5 self-start lg:sticky lg:top-28">
+          <div className="border border-slate-300 bg-white p-6">
+            <h2 className="text-lg font-semibold text-slate-950">Article information</h2>
+            <dl className="mt-5 space-y-4 text-sm">
+              <div>
+                <dt className="text-slate-600">Category</dt>
+                <dd className="mt-1 font-medium text-slate-950">{article.category}</dd>
               </div>
-
-              <h3 className="text-lg font-bold text-white">
-                About the Author
-              </h3>
-
-              <div className="mt-3 mb-6 h-1 w-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mx-auto" />
-
-              <p className="text-sm leading-relaxed text-slate-400">
-                <span className="font-semibold text-white">
-                  {article.author}
-                </span>{" "}
-                consists of academic and technical professionals delivering
-                structured research insights and expert guidance.
-              </p>
-
-              <div className="my-6 border-t border-white/10" />
-
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] transition"
-              >
-                Explore More Articles →
-              </Link>
-            </div>
-
-            {/* SHARE CARD */}
-            <ShareCard />
-          </aside>
-        </div>
-
-        {/* ===============================
-           RELATED ARTICLES
-        =============================== */}
-        <section className="mt-32 pt-16 border-t border-white/10">
-          <div className="flex items-center justify-between mb-12">
-            <h2 className="text-3xl font-bold text-white">
-              Related Articles
-            </h2>
-            <span className="text-sm text-slate-500">
-              Explore more insights
-            </span>
+              <div>
+                <dt className="text-slate-600">Author</dt>
+                <dd className="mt-1 font-medium text-slate-950">{article.author}</dd>
+              </div>
+              <div>
+                <dt className="text-slate-600">Reading time</dt>
+                <dd className="mt-1 font-medium text-slate-950">{article.readTime}</dd>
+              </div>
+            </dl>
           </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ShareCard />
+
+          <div className="border border-slate-300 bg-slate-50 p-6">
+            <h2 className="text-lg font-semibold text-slate-950">Need technical content for your company?</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-700">
+              Bring your documentation, existing blog or an idea for where to begin.
+            </p>
+            <Link href="/book-call" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
+              <CalendarDays size={16} aria-hidden="true" />
+              Book a 30-minute call
+            </Link>
+          </div>
+        </aside>
+      </div>
+
+      {related.length > 0 && (
+        <section className="border-t border-slate-300 px-5 py-14 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Continue reading</h2>
+            <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+              All articles <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div className="mt-9 grid gap-4 md:grid-cols-3">
             {related.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/portfolio/${item.slug}`}
-                className="group rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-8 transition-all duration-500 hover:border-blue-500/40 shadow-[0_0_40px_rgba(59,130,246,0.15)]"
-              >
-                <div className="mb-4">
-                  <span className="inline-block text-xs font-medium bg-white/10 border border-white/20 text-blue-400 px-3 py-1 rounded-full">
-                    {item.category}
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-semibold text-white leading-snug group-hover:text-blue-400 transition">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-slate-400 mt-4 line-clamp-3 leading-relaxed">
-                  {item.excerpt}
-                </p>
-
-                <div className="mt-6 flex items-center justify-between text-xs text-slate-500">
+              <Link key={item.slug} href={`/portfolio/${item.slug}`} className="group border border-slate-300 bg-white p-6 transition hover:border-slate-700">
+                <p className="text-xs font-semibold uppercase tracking-[.1em] text-slate-600">{item.category}</p>
+                <h3 className="mt-4 text-lg font-semibold leading-snug text-slate-950">{item.title}</h3>
+                {item.excerpt && <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-700">{item.excerpt}</p>}
+                <div className="mt-6 flex items-center justify-between border-t border-slate-300 pt-4 text-xs text-slate-600">
                   <span>{item.date}</span>
                   <span>{item.readTime}</span>
                 </div>
@@ -181,7 +112,7 @@ export default async function ArticlePage({
             ))}
           </div>
         </section>
-      </div>
+      )}
     </main>
   );
 }

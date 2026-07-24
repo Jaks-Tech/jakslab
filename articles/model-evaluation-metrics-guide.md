@@ -2,7 +2,7 @@
 title: "Model Evaluation: Accuracy, Precision, and Recall"
 date: "2026-02-24"
 author: "JaksLab"
-category: "AI & Machine Learning"
+category: "Technical Products"
 excerpt: "Metric choice can hide critical failures. Learn how to navigate imbalanced data and trade-offs between precision and recall to ensure models work in production."
 ---
 

@@ -2,7 +2,7 @@
 title: "Debugging Techniques Every Developer Should Know"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Programming & Development"
+category: "Technical Products"
 excerpt: "Most debugging time is wasted chasing symptoms. Learn how to implement a systematic workflow built on reproducibility, the right tools, and social debugging tactics."
 ---
 

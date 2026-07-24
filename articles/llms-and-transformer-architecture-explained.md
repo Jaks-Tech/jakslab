@@ -2,7 +2,7 @@
 title: "LLMs and Transformer Architecture Explained"
 date: "2026-02-24"
 author: "JaksLab"
-category: "AI & Machine Learning"
+category: "Technical Products"
 excerpt: "Transformer models power modern NLP but introduce scaling and reliability limits. Learn how to manage attention costs and prevent deployment failures through disciplined validation."
 ---
 

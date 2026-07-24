@@ -2,7 +2,7 @@
 title: "How to Paraphrase Without AI Detection"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "AI detectors look for statistical patterns like low perplexity and burstiness. Learn how to break these patterns using a hybrid approach of tool-assisted drafting and manual 'humanization' edits."
 ---
 

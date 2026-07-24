@@ -81,15 +81,16 @@ export default function PersonalInfo({
                 country={"us"}
                 value={phone}
                 onChange={(value) => setPhone(value)}
+                placeholder="Phone number"
                 enableSearch
                 enableAreaCodes
                 countryCodeEditable={false}
 
                 containerClass="!w-full"
-                inputClass="!w-full !bg-white/5 !text-white !border !border-white/10 !rounded-xl !h-[48px] !pl-14 focus:!border-blue-500/50"
-                buttonClass="!bg-transparent !border-white/10 !rounded-l-xl hover:!bg-white/10"
-                dropdownClass="!bg-slate-800 !text-white"
-                searchClass="!bg-slate-700 !text-white"
+                inputClass="!w-full !bg-white !text-slate-950 !border !border-slate-300 !rounded-lg !h-[48px] !pl-14 focus:!border-slate-700"
+                buttonClass="!bg-white !border-slate-300 !rounded-l-lg hover:!bg-slate-100"
+                dropdownClass="!bg-white !text-slate-950"
+                searchClass="!bg-white !text-slate-950"
               />
             </div>
           </div>

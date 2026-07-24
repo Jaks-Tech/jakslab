@@ -2,7 +2,7 @@
 title: "How to Avoid AI Slop in Writing"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Content Marketing"
 excerpt: "AI text often looks polished but fails to deliver value. Learn the editorial discipline and anchoring techniques required to turn generic drafts into high-signal content."
 ---
 

@@ -34,8 +34,8 @@ export default function DownloadButton({ url, projectTitle, originalFileName }: 
   return (
     <button 
       onClick={handleDownload}
-      className="p-2 hover:bg-blue-600/20 text-slate-500 hover:text-blue-400 rounded-lg transition-colors"
-      title="Download with project name"
+      className="rounded-md border border-slate-300 p-2 text-slate-700 transition-colors hover:bg-slate-100"
+      title="Download file"
     >
       <Download size={16} />
     </button>

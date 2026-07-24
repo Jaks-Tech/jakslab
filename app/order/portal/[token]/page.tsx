@@ -35,35 +35,35 @@ export default async function ClientOrderPortal({ params }: { params: Promise<{ 
   const status = (order.status || "submitted") as keyof typeof orderStatuses;
 
   return (
-    <main className="min-h-screen px-5 pb-24 pt-16 text-white sm:px-8">
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-6 border-b border-white/10 pb-9 sm:flex-row sm:items-end sm:justify-between">
-          <div><p className="text-sm text-blue-300">Private project workspace</p><h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">{order.custom_project || order.project_type}</h1><p className="mt-3 text-sm text-slate-500">Reference {order.id}</p></div>
-          <span className="w-fit rounded-full border border-blue-400/20 bg-blue-400/10 px-4 py-2 text-sm text-blue-200">{orderStatuses[status] || "In review"}</span>
+    <main className="min-h-screen bg-white px-5 pb-20 pt-20 [font-family:Arial,Helvetica,sans-serif] text-slate-800 sm:px-8 sm:pt-24 lg:px-12 xl:px-16 2xl:px-20">
+      <div className="w-full">
+        <div className="flex flex-col gap-6 border-b border-slate-300 pb-9 sm:flex-row sm:items-end sm:justify-between">
+          <div><p className="text-sm font-semibold text-slate-600">Private project workspace</p><h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-5xl">{order.custom_project || order.project_type}</h1><p className="mt-3 text-sm text-slate-600">Reference {order.id}</p></div>
+          <span className="w-fit rounded-full border border-slate-400 bg-white px-4 py-2 text-sm font-semibold text-slate-800">{orderStatuses[status] || "In review"}</span>
         </div>
         <div className="mt-10 grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
           <aside className="space-y-4">
             <PortalCard label="Deadline" value={order.deadline || "To be confirmed"} />
             <PortalCard label="Preferred contact" value={order.contact_method || "Email"} />
-            <div className="rounded-2xl border border-white/10 bg-[#07101f]/70 p-6"><p className="text-xs uppercase tracking-[.18em] text-slate-600">Original brief</p><p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-slate-300">{order.description}</p></div>
+            <div className="border border-slate-300 bg-white p-6"><p className="text-xs font-semibold uppercase tracking-[.14em] text-slate-600">Original brief</p><p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-slate-700">{order.description}</p></div>
           </aside>
-          <section className="rounded-2xl border border-white/10 bg-[#07101f]/70 p-6 sm:p-8">
-            <div className="flex items-end justify-between gap-4"><div><p className="text-sm text-blue-300">Solutions</p><h2 className="mt-2 text-2xl font-semibold">Deliveries and revisions</h2></div><span className="text-sm text-slate-500">{preparedDeliveries.length} delivered</span></div>
+          <section className="border border-slate-300 bg-white p-6 sm:p-8">
+            <div className="flex items-end justify-between gap-4"><h2 className="text-2xl font-semibold text-slate-950">Deliveries and revisions</h2><span className="text-sm text-slate-600">{preparedDeliveries.length} delivered</span></div>
             {preparedDeliveries.length ? <div className="mt-8 space-y-4">{preparedDeliveries.map((delivery) => (
-              <article key={delivery.id} className="rounded-xl border border-white/10 bg-white/[.025] p-5">
-                <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs text-slate-500">Version {delivery.version}</p><h3 className="mt-1 font-medium text-white">{delivery.title}</h3></div><time className="text-xs text-slate-600">{new Date(delivery.created_at).toLocaleDateString()}</time></div>
-                {delivery.notes && <p className="mt-4 text-sm leading-6 text-slate-400">{delivery.notes}</p>}
-                <div className="mt-5 flex flex-wrap gap-2">{(delivery.files as FileRecord[]).map((file, index) => file.fileUrl && <a key={`${file.fileName}-${index}`} href={file.fileUrl} className="rounded-lg border border-white/10 px-4 py-2 text-sm text-slate-200 hover:border-blue-400/30 hover:text-white">Download {file.fileName}</a>)}</div>
+              <article key={delivery.id} className="border border-slate-300 bg-slate-50 p-5">
+                <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs text-slate-600">Version {delivery.version}</p><h3 className="mt-1 font-medium text-slate-950">{delivery.title}</h3></div><time className="text-xs text-slate-600">{new Date(delivery.created_at).toLocaleDateString()}</time></div>
+                {delivery.notes && <p className="mt-4 text-sm leading-6 text-slate-700">{delivery.notes}</p>}
+                <div className="mt-5 flex flex-wrap gap-2">{(delivery.files as FileRecord[]).map((file, index) => file.fileUrl && <a key={`${file.fileName}-${index}`} href={file.fileUrl} className="rounded-lg border border-slate-400 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:border-slate-800">Download {file.fileName}</a>)}</div>
               </article>
-            ))}</div> : <div className="mt-8 rounded-xl border border-dashed border-white/10 px-6 py-12 text-center"><p className="text-slate-300">No solution has been submitted yet.</p><p className="mt-2 text-sm text-slate-500">Your completed files and delivery notes will appear here.</p></div>}
+            ))}</div> : <div className="mt-8 border border-dashed border-slate-400 px-6 py-12 text-center"><p className="text-slate-800">No solution has been submitted yet.</p><p className="mt-2 text-sm text-slate-600">Your completed files and delivery notes will appear here.</p></div>}
           </section>
         </div>
-        <div className="mt-8 flex flex-wrap gap-3"><a href="mailto:hello@jakslab.work" className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-medium hover:bg-blue-500">Contact JaksLab</a><Link href="/order" className="rounded-lg border border-white/10 px-5 py-3 text-sm text-slate-300 hover:bg-white/5">Start another request</Link></div>
+        <div className="mt-8 flex flex-wrap gap-3"><a href="mailto:hello@jakslab.work" className="rounded-lg bg-[#202733] px-5 py-3 text-sm font-medium text-[#fff] hover:bg-[#111827]">Contact JaksLab</a><Link href="/order" className="rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm text-slate-900 hover:border-slate-800">Start another request</Link></div>
       </div>
     </main>
   );
 }
 
 function PortalCard({ label, value }: { label: string; value: string }) {
-  return <div className="rounded-2xl border border-white/10 bg-[#07101f]/70 p-6"><p className="text-xs uppercase tracking-[.18em] text-slate-600">{label}</p><p className="mt-3 text-slate-200">{value}</p></div>;
+  return <div className="border border-slate-300 bg-white p-6"><p className="text-xs font-semibold uppercase tracking-[.14em] text-slate-600">{label}</p><p className="mt-3 text-slate-900">{value}</p></div>;
 }

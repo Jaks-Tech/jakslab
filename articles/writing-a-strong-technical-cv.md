@@ -2,7 +2,7 @@
 title: "How to Write a Strong Technical CV"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Career & Skill Growth"
+category: "Content Marketing"
 excerpt: "Most technical CVs fail by burying real impact. Learn how to build trust with recruiters by showing depth, honest setbacks, and measurable project outcomes."
 ---
 

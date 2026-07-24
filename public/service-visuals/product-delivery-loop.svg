@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Digital product delivery loop</title>
+  <desc id="desc">A five-stage loop moves from scope through architecture, build, verification and release, with feedback returning to scope.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0l9 4.5L0 9z" fill="#356df3"/></marker>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#173b70" flood-opacity=".12"/></filter>
+  </defs>
+  <rect width="1200" height="560" rx="24" fill="#f4f8fd"/>
+  <g font-family="Arial, sans-serif">
+    <text x="52" y="55" font-size="15" font-weight="700" fill="#17243a" letter-spacing="2">PRODUCT DELIVERY LOOP</text>
+    <text x="1148" y="55" text-anchor="end" font-size="13" fill="#607089">FROM SCOPE TO RELEASE</text>
+    <path d="M52 80h1096" stroke="#d6e1ef"/>
+
+    <path d="M296 218C378 112 539 92 657 147" fill="none" stroke="#c5d4e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M743 174c97 40 151 126 135 211" fill="none" stroke="#c5d4e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M825 424c-87 69-226 80-327 34" fill="none" stroke="#c5d4e8" stroke-width="3" marker-end="url(#arrow)"/>
+    <path d="M407 420c-94-18-159-89-164-160" fill="none" stroke="#c5d4e8" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <g filter="url(#shadow)">
+      <circle cx="247" cy="254" r="76" fill="#fff" stroke="#bdcde2"/>
+      <circle cx="699" cy="152" r="76" fill="#fff" stroke="#bdcde2"/>
+      <circle cx="874" cy="405" r="76" fill="#fff" stroke="#bdcde2"/>
+      <circle cx="449" cy="431" r="76" fill="#fff" stroke="#bdcde2"/>
+      <circle cx="576" cy="281" r="105" fill="#173b70"/>
+    </g>
+    <text x="247" y="240" text-anchor="middle" font-size="12" font-weight="700" fill="#356df3">01</text>
+    <text x="247" y="272" text-anchor="middle" font-size="20" font-weight="700" fill="#17243a">Scope</text>
+    <text x="247" y="295" text-anchor="middle" font-size="12" fill="#607089">Need + constraints</text>
+
+    <text x="699" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#356df3">02</text>
+    <text x="699" y="170" text-anchor="middle" font-size="20" font-weight="700" fill="#17243a">Architecture</text>
+    <text x="699" y="193" text-anchor="middle" font-size="12" fill="#607089">Structure + data</text>
+
+    <text x="874" y="391" text-anchor="middle" font-size="12" font-weight="700" fill="#356df3">04</text>
+    <text x="874" y="423" text-anchor="middle" font-size="20" font-weight="700" fill="#17243a">Verify</text>
+    <text x="874" y="446" text-anchor="middle" font-size="12" fill="#607089">Test + review</text>
+
+    <text x="449" y="417" text-anchor="middle" font-size="12" font-weight="700" fill="#356df3">05</text>
+    <text x="449" y="449" text-anchor="middle" font-size="20" font-weight="700" fill="#17243a">Release</text>
+    <text x="449" y="472" text-anchor="middle" font-size="12" fill="#607089">Deploy + document</text>
+
+    <text x="576" y="258" text-anchor="middle" font-size="12" font-weight="700" fill="#9fc0ff" letter-spacing="1.3">03 / CORE</text>
+    <text x="576" y="296" text-anchor="middle" font-size="27" font-weight="700" fill="#fff">Build</text>
+    <text x="576" y="325" text-anchor="middle" font-size="13" fill="#d7e4fa">Interface • API • Data</text>
+
+    <text x="52" y="522" font-size="13" fill="#607089">Short feedback loops expose technical risk before it becomes expensive.</text>
+  </g>
+</svg>

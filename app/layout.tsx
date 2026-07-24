@@ -2,8 +2,7 @@
 
 import "./globals.css";
 import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import Background3D from "@/components/Scene";
+import { LightFooter } from "@/components/content-marketing/LightFooter";
 import { usePathname } from "next/navigation";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -21,12 +20,11 @@ export default function RootLayout({
     <html
       lang="en"
       className="scroll-smooth"
+      data-theme="light"
+      style={{ colorScheme: "light" }}
       suppressHydrationWarning
     >
-      <body className="relative flex min-h-screen flex-col bg-[#03050c] antialiased text-slate-100 transition-colors duration-300">
-
-        {/* Background Layer */}
-        <Background3D />
+      <body className="relative flex min-h-screen flex-col bg-white antialiased text-slate-900">
 
         {/* Content Wrapper */}
         <div className="relative z-10 flex min-h-screen flex-col">
@@ -40,7 +38,7 @@ export default function RootLayout({
           </main>
 
           {/* Footer (hidden only for ghost-chat) */}
-          {!isGhostChat && <Footer />}
+          {!isGhostChat && <LightFooter />}
 
         </div>
 

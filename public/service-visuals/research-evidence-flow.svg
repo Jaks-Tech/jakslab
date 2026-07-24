@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Research evidence flow</title>
+  <desc id="desc">A research brief moves through source collection, evidence assessment, synthesis and quality checks to produce a defensible report or academic output.</desc>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#356df3"/></marker>
+    <filter id="sh" x="-20%" y="-30%" width="140%" height="160%"><feDropShadow dx="0" dy="9" stdDeviation="12" flood-color="#173b70" flood-opacity=".09"/></filter>
+  </defs>
+  <rect width="1200" height="560" rx="24" fill="#f6f9fd"/>
+  <g font-family="Arial, sans-serif">
+    <text x="52" y="55" font-size="15" font-weight="700" fill="#17243a" letter-spacing="2">EVIDENCE FLOW</text>
+    <text x="1148" y="55" text-anchor="end" font-size="13" fill="#607089">FROM BRIEF TO FINAL WORK</text>
+    <path d="M52 80h1096" stroke="#d6e1ef"/>
+
+    <path d="M239 268h61M482 268h61M725 268h61M968 268h54" stroke="#356df3" stroke-width="2" marker-end="url(#arr)"/>
+    <g filter="url(#sh)">
+      <rect x="52" y="181" width="187" height="174" rx="12" fill="#fff" stroke="#bdcde2"/>
+      <rect x="300" y="181" width="182" height="174" rx="12" fill="#fff" stroke="#bdcde2"/>
+      <rect x="543" y="181" width="182" height="174" rx="12" fill="#fff" stroke="#bdcde2"/>
+      <rect x="786" y="181" width="182" height="174" rx="12" fill="#fff" stroke="#bdcde2"/>
+      <rect x="1022" y="181" width="126" height="174" rx="12" fill="#173b70"/>
+    </g>
+    <text x="76" y="218" font-size="12" font-weight="700" fill="#356df3">01 / FRAME</text>
+    <text x="76" y="256" font-size="20" font-weight="700" fill="#17243a">Research brief</text>
+    <text x="76" y="289" font-size="13" fill="#607089">Question</text><text x="76" y="313" font-size="13" fill="#607089">Scope</text><text x="76" y="337" font-size="13" fill="#607089">Standard</text>
+
+    <text x="324" y="218" font-size="12" font-weight="700" fill="#356df3">02 / FIND</text>
+    <text x="324" y="256" font-size="20" font-weight="700" fill="#17243a">Sources</text>
+    <text x="324" y="289" font-size="13" fill="#607089">Databases</text><text x="324" y="313" font-size="13" fill="#607089">Reports</text><text x="324" y="337" font-size="13" fill="#607089">Primary material</text>
+
+    <text x="567" y="218" font-size="12" font-weight="700" fill="#356df3">03 / TEST</text>
+    <text x="567" y="256" font-size="20" font-weight="700" fill="#17243a">Evidence</text>
+    <text x="567" y="289" font-size="13" fill="#607089">Relevance</text><text x="567" y="313" font-size="13" fill="#607089">Quality</text><text x="567" y="337" font-size="13" fill="#607089">Limitations</text>
+
+    <text x="810" y="218" font-size="12" font-weight="700" fill="#356df3">04 / SYNTHESIZE</text>
+    <text x="810" y="256" font-size="20" font-weight="700" fill="#17243a">Argument</text>
+    <text x="810" y="289" font-size="13" fill="#607089">Compare</text><text x="810" y="313" font-size="13" fill="#607089">Interpret</text><text x="810" y="337" font-size="13" fill="#607089">Cite</text>
+
+    <text x="1085" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#9fc0ff">OUTPUT</text>
+    <text x="1085" y="260" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">Defensible</text>
+    <text x="1085" y="285" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">work</text>
+    <path d="M1050 316h70" stroke="#6c9dff" stroke-width="4"/>
+
+    <rect x="300" y="400" width="668" height="55" rx="8" fill="#e5edfa"/>
+    <text x="329" y="434" font-size="13" font-weight="700" fill="#42536a">QUALITY GATE</text>
+    <text x="474" y="434" font-size="13" fill="#52637a">argument</text><circle cx="554" cy="428" r="3" fill="#356df3"/>
+    <text x="570" y="434" font-size="13" fill="#52637a">evidence</text><circle cx="644" cy="428" r="3" fill="#356df3"/>
+    <text x="660" y="434" font-size="13" fill="#52637a">structure</text><circle cx="738" cy="428" r="3" fill="#356df3"/>
+    <text x="754" y="434" font-size="13" fill="#52637a">language</text><circle cx="830" cy="428" r="3" fill="#356df3"/>
+    <text x="846" y="434" font-size="13" fill="#52637a">references</text>
+
+    <text x="52" y="522" font-size="13" fill="#607089">The output is only as strong as the evidence trail behind it.</text>
+  </g>
+</svg>

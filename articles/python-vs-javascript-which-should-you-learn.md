@@ -2,7 +2,7 @@
 title: "Python vs JavaScript: Which Should You Learn?"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Programming & Development"
+category: "Technical Products"
 excerpt: "Language fit matters more than hype. Learn how to match your project goals to the right ecosystem and avoid the trap of 'tutorial hell'."
 ---
 

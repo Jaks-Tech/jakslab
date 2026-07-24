@@ -2,7 +2,7 @@
 title: "How to Use Zotero for Citations"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Tools & Productivity"
+category: "Academic"
 excerpt: "Zotero simplifies citation management, but hidden failure modes can destroy hours of work. Learn the essential review and backup habits to keep your research safe."
 ---
 

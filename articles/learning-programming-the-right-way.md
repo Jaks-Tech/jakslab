@@ -2,7 +2,7 @@
 title: "How to Start Learning Programming"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Programming & Development"
+category: "Technical Products"
 excerpt: "Most beginners stall by chasing tutorials. Learn how to build real skill by prioritizing debugging, project-based learning, and fast environment setup."
 ---
 

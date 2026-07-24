@@ -2,7 +2,7 @@
 title: "Best Tools for Academic Writing"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "Tool choice shapes both workflow and academic risk. Learn how to match software to your project scale and protect your work from citation and collaboration failures."
 ---
 

@@ -2,7 +2,7 @@
 title: "How to Find Reliable Academic Sources"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Research & Methodology"
+category: "Academic"
 excerpt: "Reliability comes from process, not appearance. Learn how to use lateral reading, avoid AI citation traps, and spot predatory journals."
 ---
 

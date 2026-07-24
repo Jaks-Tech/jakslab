@@ -1,24 +1,195 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import {
+  ArrowRight,
+  BookOpenText,
+  CalendarDays,
+  ClipboardList,
+  Code2,
+  FileCheck2,
+  FileText,
+  GraduationCap,
+  Mail,
+  MessageSquareText,
+} from "lucide-react";
 
-const capabilities = [
-  ["Research and writing", "Essays, research papers, literature reviews, reports and careful editing."],
-  ["Software development", "Web products, APIs, databases and full-stack applications."],
-  ["Programming and data", "Python, Java, C++, machine learning, analysis and technical documentation."],
-  ["Project support", "Clear planning, implementation and delivery for academic and professional work."],
+const serviceAreas = [
+  {
+    number: "01",
+    title: "Content Marketing",
+    description:
+      "We turn product documentation, Confluence pages, reports, interviews and customer questions into useful technical articles.",
+    detail: "Content planning · Technical articles · Blog setup · SEO · AEO",
+    href: "/services#content-marketing",
+    icon: FileText,
+    primary: true,
+  },
+  {
+    number: "02",
+    title: "Technology & Development",
+    description:
+      "We build and improve websites, web applications, internal tools, APIs, integrations and data-backed products.",
+    detail: "Planning · Interfaces · Backend · Data · Deployment",
+    href: "/services#technology-development",
+    icon: Code2,
+    primary: false,
+  },
+  {
+    number: "03",
+    title: "Research & Academic Work",
+    description:
+      "We support research planning, literature reviews, technical reports, editing, referencing and academic presentations.",
+    detail: "Research · Analysis · Writing · Editing · Referencing",
+    href: "/services#research-academic",
+    icon: GraduationCap,
+    primary: false,
+  },
+];
+
+const principles = [
+  {
+    title: "Work from the source",
+    description: "Claims, technical details and recommendations should be traceable to approved material.",
+    icon: BookOpenText,
+  },
+  {
+    title: "Keep specialists involved",
+    description: "The people who know the subject review the substance before work is finalized.",
+    icon: MessageSquareText,
+  },
+  {
+    title: "Deliver something usable",
+    description: "The result should be clear, correctly structured and ready for its intended audience.",
+    icon: FileCheck2,
+  },
 ];
 
 export function AboutExperience() {
-  return <main className="about-page overflow-hidden pb-24 text-white">
-    <section className="mx-auto grid min-h-[650px] max-w-6xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.08fr_.92fr]">
-      <div><p className="mb-5 text-sm tracking-wide text-slate-400">About JaksLab</p><h1 className="text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">Serious work deserves careful thinking.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">JaksLab brings research, writing and software development together for students, researchers, professionals and businesses working on demanding projects.</p><Link href="/order" className="mt-9 inline-block rounded-lg bg-blue-600 px-6 py-3 font-medium hover:bg-blue-500">Start a project</Link></div>
-      <div className="about-orbit-scene relative hidden h-[350px] [perspective:1000px] lg:block" aria-hidden="true"><div className="absolute left-1/2 top-1/2 grid h-36 w-36 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-blue-300/20 bg-[#08172b]/85 text-sm tracking-wider shadow-[0_0_70px_rgba(37,99,235,.24)]">JAKSLAB</div><div className="about-orbit absolute inset-0 [transform-style:preserve-3d]">{["Research", "Build", "Deliver"].map((item, index) => <div key={item} className="about-orbit-card absolute left-1/2 top-1/2 -ml-12 -mt-5 grid h-10 w-24 place-items-center rounded-lg border border-white/10 bg-[#07101f]/90 text-[11px] text-slate-300" style={{ "--about-index": index } as CSSProperties}>{item}</div>)}</div></div>
-    </section>
-    <div className="mx-auto max-w-6xl space-y-24 px-5 sm:px-8">
-      <section className="grid gap-10 border-y border-white/10 py-16 md:grid-cols-[.8fr_1.2fr]"><h2 className="text-3xl font-semibold tracking-tight">Why we exist</h2><div className="space-y-5 text-base leading-8 text-slate-400"><p>Good ideas often stall because the right technical or research support is difficult to find. JaksLab exists to close that gap.</p><p>We work from the actual brief—not a template—so the result reflects the problem, audience and standard expected of it.</p></div></section>
-      <section><div className="mx-auto mb-12 max-w-2xl text-center"><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">What we work on</h2><p className="mt-4 leading-7 text-slate-400">A practical mix of academic, research and technical capability.</p></div><div className="grid gap-4 md:grid-cols-2 [perspective:1200px]">{capabilities.map(([title, text], index) => <article key={title} className="about-depth-card rounded-2xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-md" style={{ transform: `translateZ(${index % 2 ? 8 : 16}px)` }}><p className="text-xs tracking-widest text-slate-600">0{index + 1}</p><h3 className="mt-7 text-xl font-medium">{title}</h3><p className="mt-3 leading-7 text-slate-400">{text}</p></article>)}</div></section>
-      <section><div className="mx-auto mb-12 max-w-2xl text-center"><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">How we work</h2><p className="mt-4 leading-7 text-slate-400">Three principles guide every request.</p></div><div className="grid gap-8 text-center md:grid-cols-3">{[["Confidentiality","Your work and information stay private."],["Reliability","Clear expectations, communication and deadlines."],["Quality","Careful work shaped around the required standard."]].map(([title,text]) => <div key={title} className="border-t border-white/10 px-4 pt-7"><h3 className="font-medium">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{text}</p></div>)}</div></section>
-      <section className="grid grid-cols-2 gap-6 rounded-3xl border border-white/10 bg-white/[0.025] p-7 text-center sm:grid-cols-4 sm:p-10">{[["5+","Years"],["150+","Projects"],["90+","Specialists"],["99%","Satisfaction"]].map(([value,label]) => <div key={label}><p className="text-3xl font-semibold text-blue-300 sm:text-4xl">{value}</p><p className="mt-2 text-xs tracking-wide text-slate-500">{label}</p></div>)}</section>
-    </div>
-  </main>;
+  return (
+    <main className="bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+      <section className="border-b border-slate-300">
+        <div className="grid w-full gap-12 px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:px-12 lg:py-24 xl:px-16 2xl:px-20">
+          <div>
+            <h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+              We make technical knowledge useful outside the team that created it.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-700">
+              JaksLab works across technical content, software development and research. Our main focus is helping companies explain complex products and services through accurate, useful content.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/book-call" className="inline-flex items-center gap-2 rounded-lg bg-[#202733] px-5 py-3 text-sm font-semibold text-[#fff] transition hover:bg-[#111827]">
+                <CalendarDays size={18} aria-hidden="true" />
+                Book a content call
+              </Link>
+              <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-800">
+                <Mail size={18} aria-hidden="true" />
+                Enquire
+              </Link>
+            </div>
+          </div>
+
+          <div className="border border-slate-300 bg-white p-6 sm:p-8">
+            <h2 className="text-xl font-semibold text-slate-950">From source material to usable work.</h2>
+            <div className="mt-7 grid gap-5 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+              <div className="space-y-3">
+                {["Documentation", "Technical people", "Research and data"].map((item) => (
+                  <div key={item} className="border border-slate-300 px-4 py-3 text-sm font-medium text-slate-800">
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <ArrowRight className="mx-auto rotate-90 text-slate-500 sm:rotate-0" size={22} aria-hidden="true" />
+              <div className="border border-slate-500 bg-slate-50 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[.12em] text-slate-600">Useful output</p>
+                <ul className="mt-4 space-y-3 text-sm text-slate-800">
+                  <li>Customer articles</li>
+                  <li>Working digital products</li>
+                  <li>Clear research outputs</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full border-b border-slate-300 px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24 xl:px-16 2xl:px-20">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <article className="border border-slate-300 bg-white p-7 sm:p-9">
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Our mission</h2>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              To help technical companies turn the knowledge inside their documentation, systems and teams into clear content that customers can find, understand and use.
+            </p>
+          </article>
+          <article className="border border-slate-300 bg-white p-7 sm:p-9">
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Our vision</h2>
+            <p className="mt-5 text-base leading-8 text-slate-700">
+              A web where technical information is accurate, readable and genuinely useful. It should work for people, search engines and AI answer tools.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="w-full border-b border-slate-300 px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24 xl:px-16 2xl:px-20">
+        <div className="max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Three connected areas of work.</h2>
+        </div>
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+          {serviceAreas.map(({ number, title, description, detail, href, icon: Icon, primary }) => (
+            <article key={title} className={`border bg-white p-6 sm:p-8 ${primary ? "border-slate-700" : "border-slate-300"}`}>
+              <div className="flex items-center justify-between">
+                <Icon size={22} className="text-slate-700" aria-hidden="true" />
+                <span className="text-xs font-semibold text-slate-500">{number}</span>
+              </div>
+              <h3 className="mt-7 text-xl font-semibold text-slate-950">{title}</h3>
+              <p className="mt-4 text-sm leading-7 text-slate-700">{description}</p>
+              <p className="mt-5 border-t border-slate-300 pt-5 text-xs leading-6 text-slate-600">{detail}</p>
+              {primary ? (
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link href={href} className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:border-slate-800">
+                    View services <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                  <Link href="/book-call" className="inline-flex items-center gap-2 rounded-lg bg-[#202733] px-4 py-2.5 text-sm font-semibold text-[#fff] transition hover:bg-[#111827]">
+                    <CalendarDays size={17} aria-hidden="true" />
+                    Book a call
+                  </Link>
+                </div>
+              ) : (
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href={`/contact?service=${number === "02" ? "technology-development" : "research-academic"}`}
+                    className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:border-slate-800"
+                  >
+                    <Mail size={17} aria-hidden="true" />
+                    Enquire
+                  </Link>
+                  <Link href="/order" className="inline-flex items-center gap-2 rounded-lg bg-[#202733] px-4 py-2.5 text-sm font-semibold text-[#fff] transition hover:bg-[#111827]">
+                    <ClipboardList size={17} aria-hidden="true" />
+                    Request service
+                  </Link>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="w-full border-b border-slate-300 px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24 xl:px-16 2xl:px-20">
+        <div className="grid gap-10 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <h2 className="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Simple working principles.</h2>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-3">
+            {principles.map(({ title, description, icon: Icon }) => (
+              <article key={title} className="border-t border-slate-500 pt-6">
+                <Icon size={20} className="text-slate-700" aria-hidden="true" />
+                <h3 className="mt-5 font-semibold text-slate-950">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-700">{description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+    </main>
+  );
 }

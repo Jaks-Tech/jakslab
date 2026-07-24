@@ -2,7 +2,7 @@
 title: "Best AI Tools for Researchers"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Tools & Productivity"
+category: "Academic"
 excerpt: "AI tools promise to speed up research, but most failures come from overreliance. Learn how to use AI to accelerate grunt work without compromising expert judgment."
 ---
 

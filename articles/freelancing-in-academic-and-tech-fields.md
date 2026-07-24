@@ -2,7 +2,7 @@
 title: "Freelancing in Academic and Tech Fields"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Career & Skill Growth"
+category: "Content Marketing"
 excerpt: "Process discipline beats technical skill in the freelance market. Learn how to manage unstable demand, enforce boundaries, and protect your IP."
 ---
 

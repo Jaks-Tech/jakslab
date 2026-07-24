@@ -2,7 +2,7 @@
 title: "Common Academic Writing Mistakes Students Make"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "Many students lose points from avoidable writing errors. Learn how careful prompt analysis, active voice, and the 'ICE' method can elevate your academic work."
 ---
 

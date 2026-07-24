@@ -2,7 +2,7 @@
 title: "How to Paraphrase Without Changing Meaning"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Academic Writing"
+category: "Academic"
 excerpt: "The core of paraphrasing is changing both the form and the words while preserving the essence. Learn to identify the core message and avoid common synonym traps."
 ---
 

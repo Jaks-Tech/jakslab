@@ -28,15 +28,15 @@ export function DeliveryForm({ orderId }: { orderId: string }) {
   }
 
   return (
-    <form onSubmit={submit} className="rounded-[2rem] border border-white/10 bg-white/[.02] p-7">
-      <p className="text-xs uppercase tracking-[.2em] text-blue-400">Submit solution</p>
-      <h2 className="mt-3 text-2xl font-semibold">Add a client delivery</h2>
+    <form onSubmit={submit} className="rounded-xl border border-slate-200 bg-white p-5 sm:p-7">
+      <p className="text-sm text-slate-600">Client delivery</p>
+      <h2 className="mt-1 text-xl font-semibold text-slate-950">Add files to the client workspace</h2>
       <div className="mt-6 space-y-3">
-        <input name="title" required placeholder="Delivery title" className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none focus:border-blue-400/40" />
-        <textarea name="notes" rows={4} placeholder="Explain what is included and anything the client should know." className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none focus:border-blue-400/40" />
-        <input name="files" type="file" multiple required className="block w-full rounded-xl border border-dashed border-white/15 p-5 text-sm text-slate-400 file:mr-4 file:rounded-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-white" />
-        {message && <p className="text-sm text-slate-300">{message}</p>}
-        <button disabled={loading} className="w-full rounded-xl bg-blue-600 px-5 py-3 font-medium hover:bg-blue-500 disabled:opacity-60">{loading ? "Submitting solution..." : "Deliver to client workspace"}</button>
+        <input name="title" required placeholder="Delivery title" className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none placeholder:text-slate-500 focus:border-slate-700" />
+        <textarea name="notes" rows={4} placeholder="Explain what is included and anything the client should know." className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none placeholder:text-slate-500 focus:border-slate-700" />
+        <input name="files" type="file" multiple required className="block w-full rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600 file:mr-4 file:rounded-md file:border file:border-slate-300 file:bg-white file:px-4 file:py-2 file:text-slate-900" />
+        {message && <p className="text-sm text-slate-700">{message}</p>}
+        <button disabled={loading} className="w-full rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-800 disabled:opacity-60">{loading ? "Uploading..." : "Deliver to client workspace"}</button>
       </div>
     </form>
   );

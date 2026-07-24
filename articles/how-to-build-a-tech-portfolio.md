@@ -2,7 +2,7 @@
 title: "How to Build a Tech Portfolio: Depth Beats Breadth"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Career & Skill Growth"
+category: "Content Marketing"
 excerpt: "A tech portfolio fails when it looks like a code dump. Learn how to select and document projects that signal real skill to hiring managers in 2026."
 ---
 

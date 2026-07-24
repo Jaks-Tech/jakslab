@@ -2,7 +2,7 @@
 title: "How to Conduct a Literature Review"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Research & Methodology"
+category: "Academic"
 excerpt: "A literature review fails when the research question is vague. Learn how to define scope, manage sources with citation tools, and synthesize findings by theme."
 ---
 

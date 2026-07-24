@@ -2,7 +2,7 @@
 title: "VS Code Extensions Every Developer Needs: 2026 Security & Productivity Guide"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Tools & Productivity"
+category: "Technical Products"
 excerpt: "VS Code extensions can boost productivity or open the door to data theft. Learn which 2026 essentials actually work and how to audit your environment against the latest threats."
 ---
 

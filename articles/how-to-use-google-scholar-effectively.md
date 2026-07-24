@@ -2,7 +2,7 @@
 title: "How to Use Google Scholar Effectively"
 date: "2026-02-24"
 author: "JaksLab"
-category: "Research & Methodology"
+category: "Academic"
 excerpt: "Google Scholar is a powerful discovery tool, but it punishes vague queries. Learn how to use keyword lists, Boolean operators, and library links to bypass paywalls."
 ---
 
