@@ -1,8 +1,60 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
 import { getArticleBySlug, getAllArticles } from "@/lib/articles";
 import ShareCard from "@/components/portfolio/ShareCard";
+
+const BASE_URL = "https://www.jakslab.work";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  try {
+    const article = await getArticleBySlug(slug);
+    const description =
+      article.excerpt ||
+      `Read ${article.title}, a ${article.category.toLowerCase()} article from JaksLab.`;
+
+    return {
+      title: article.title,
+      description,
+      keywords: [
+        article.title,
+        article.category,
+        "JaksLab",
+        "technical content marketing",
+        "technology development",
+        "research support",
+      ],
+      alternates: {
+        canonical: `/portfolio/${slug}`,
+      },
+      openGraph: {
+        type: "article",
+        url: `${BASE_URL}/portfolio/${slug}`,
+        title: article.title,
+        description,
+        publishedTime: article.date,
+        authors: [article.author],
+      },
+      twitter: {
+        card: "summary",
+        title: article.title,
+        description,
+      },
+    };
+  } catch {
+    return {
+      title: "Article not found",
+      robots: { index: false, follow: false },
+    };
+  }
+}
 
 export default async function ArticlePage({
   params,
@@ -23,8 +75,37 @@ export default async function ArticlePage({
     .filter((item) => item.slug !== slug)
     .slice(0, 3);
 
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.date,
+    dateModified: article.date,
+    mainEntityOfPage: `${BASE_URL}/portfolio/${article.slug}`,
+    author: {
+      "@type": "Person",
+      name: article.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "JaksLab",
+      url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/jakslab.png`,
+      },
+    },
+    articleSection: article.category,
+    inLanguage: "en",
+  };
+
   return (
     <main className="min-h-screen bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+      />
       <header className="border-b border-slate-300 px-5 pb-14 pt-20 sm:px-8 sm:pb-16 sm:pt-24 lg:px-12 lg:pb-20 lg:pt-24 xl:px-16 2xl:px-20">
         <nav aria-label="Breadcrumb">
           <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-950">

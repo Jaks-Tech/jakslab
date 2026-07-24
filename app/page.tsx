@@ -1,9 +1,25 @@
+import type { Metadata } from "next";
 import { HomepageHero } from "@/components/content-marketing/HomepageHero";
 import { HomepageServices } from "@/components/content-marketing/HomepageServices";
 import { HomepageOverview } from "@/components/content-marketing/HomepageOverview";
 import { HomepagePracticeVisual } from "@/components/content-marketing/HomepagePracticeVisual";
 import { HomepageSelectedWork } from "@/components/content-marketing/HomepageSelectedWork";
 import { getAllArticles } from "@/lib/articles";
+
+export const metadata: Metadata = {
+  title: "Technical Content Marketing, Technology and Research Support",
+  description:
+    "Turn company knowledge into useful technical content. JaksLab also builds websites and software and supports research and academic work.",
+  keywords: [
+    "technical content marketing company",
+    "technical article writing",
+    "B2B blog content",
+    "website and software development",
+    "research and academic support",
+    "JaksLab",
+  ],
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const articles = getAllArticles();

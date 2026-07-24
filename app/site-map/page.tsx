@@ -1,196 +1,105 @@
 import Link from "next/link";
+import { getAllArticles } from "@/lib/articles";
 
 export const metadata = {
   title: "Sitemap | JaksLab",
-  description: "Complete directory of JaksLab pages and services.",
+  description: "Browse JaksLab services, articles, tools and company information.",
 };
 
-// Reusable Bullet Component for the hollow circle look
-const BulletLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
-  <Link href={href} className="flex items-center group mb-2.5 w-fit">
-    <div className="w-[7px] h-[7px] rounded-full border-[1.5px] border-slate-400 group-hover:border-blue-400 shrink-0 mr-3 transition-colors" />
-    <span className="text-sm text-slate-300 group-hover:text-blue-400 transition-colors">
-      {children}
-    </span>
-  </Link>
-);
+const pageGroups = [
+  {
+    title: "Company",
+    links: [
+      { href: "/", label: "Home" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+      { href: "/book-call", label: "Book a 30-minute call" },
+    ],
+  },
+  {
+    title: "Services",
+    links: [
+      { href: "/services#content-marketing", label: "Content Marketing" },
+      { href: "/services#technology-development", label: "Technology & Development" },
+      { href: "/services#research-academic", label: "Research & Academic Work" },
+      { href: "/order", label: "Request a service" },
+    ],
+  },
+  {
+    title: "Tools",
+    links: [
+      { href: "/products", label: "Products" },
+      { href: "/ai-doc-analysis", label: "AI Document Analysis" },
+      { href: "/chat-doc", label: "Chat with a Document" },
+      { href: "/citation-generator", label: "Citation Generator" },
+      { href: "/literature-planner", label: "Literature Planner" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { href: "/terms", label: "Terms & Conditions" },
+      { href: "/privacy", label: "Privacy Policy" },
+    ],
+  },
+];
 
 export default function SitemapPage() {
+  const articles = getAllArticles();
+
   return (
-    <main className="min-h-screen bg-transparent py-24 px-6 lg:px-20">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Page Title */}
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-10 text-center tracking-tight">
-          Sitemap
-        </h1>
+    <main className="min-h-screen bg-transparent px-5 py-16 [font-family:Arial,Helvetica,sans-serif] text-slate-900 sm:px-8 lg:px-12">
+      <div className="mx-auto w-full max-w-6xl">
+        <header className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[.14em] text-slate-600">Directory</p>
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">Sitemap</h1>
+          <p className="mt-4 text-base leading-7 text-slate-700">
+            Public services, tools, company pages and published articles.
+          </p>
+        </header>
 
-        {/* ------------------------------------------------- */}
-        {/* SECTION 1: HOME */}
-        {/* ------------------------------------------------- */}
-        <div className="mb-10 shadow-2xl">
-          {/* Main Dark Header Bar */}
-          <div className="bg-[#0b2742] border border-blue-900 text-white font-bold px-5 py-3 uppercase tracking-wider rounded-t-xl">
-            Home
-          </div>
-          
-          {/* Content Box */}
-          <div className="bg-white/[0.02] border border-white/10 border-t-0 p-6 rounded-b-xl backdrop-blur-md">
-            <div className="flex flex-wrap gap-x-12 gap-y-4">
-              <BulletLink href="/">Home</BulletLink>
-              <BulletLink href="/about">About Us</BulletLink>
-              <BulletLink href="/services">Services</BulletLink>
-              <BulletLink href="/products">Products</BulletLink>
-              <BulletLink href="/portfolio">Blog</BulletLink>
-              <BulletLink href="/order">Create Task (Order)</BulletLink>
-              <BulletLink href="/contact">Contact Us</BulletLink>
-              <BulletLink href="/terms">Terms & Conditions</BulletLink>
-              <BulletLink href="/privacy">Privacy Policy</BulletLink>
-              <BulletLink href="/refund">Refund Policy</BulletLink>
+        <section className="mt-12 grid gap-x-12 gap-y-10 border-y border-slate-300 py-10 sm:grid-cols-2 lg:grid-cols-4">
+          {pageGroups.map((group) => (
+            <div key={group.title}>
+              <h2 className="text-lg font-semibold">{group.title}</h2>
+              <ul className="mt-4 space-y-3">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-slate-700 underline-offset-4 hover:underline">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        </div>
+          ))}
+        </section>
 
-        {/* ------------------------------------------------- */}
-        {/* SECTION 2: SERVICES / QUESTIONS & ANSWERS EQUIVALENT */}
-        {/* ------------------------------------------------- */}
-        <div className="shadow-2xl">
-          {/* Main Dark Header Bar */}
-          <div className="bg-[#0b2742] border border-blue-900 text-white font-bold px-5 py-3 uppercase tracking-wider rounded-t-xl">
-            Our Services & Expertise
-          </div>
-
-          {/* Content Box */}
-          <div className="bg-white/[0.02] border border-white/10 border-t-0 p-6 md:p-8 rounded-b-xl backdrop-blur-md space-y-12">
-
-            {/* --- CATEGORY: ACADEMIC WRITING --- */}
+        <section className="py-12">
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              {/* Light Sub-Category Bar */}
-              <div className="bg-[#1e446a]/40 text-blue-200 font-bold px-5 py-2.5 rounded-lg mb-6 border border-blue-800/50">
-                Academic Services
-              </div>
-
-              {/* 3-Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-2">
-                
-                {/* Column 1 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Essays & Papers</h3>
-                  <BulletLink href="/services">Essay Writing</BulletLink>
-                  <BulletLink href="/services">Term Papers</BulletLink>
-                  <BulletLink href="/services">Coursework Help</BulletLink>
-                  <BulletLink href="/services">Annotated Bibliography</BulletLink>
-                  <BulletLink href="/services">Article Critique</BulletLink>
-                </div>
-
-                {/* Column 2 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Advanced Research</h3>
-                  <BulletLink href="/services">Research Papers</BulletLink>
-                  <BulletLink href="/services">Dissertation & Thesis</BulletLink>
-                  <BulletLink href="/services">Capstone Projects</BulletLink>
-                  <BulletLink href="/services">Research Proposals</BulletLink>
-                  <BulletLink href="/services">Literature Reviews</BulletLink>
-                </div>
-
-                {/* Column 3 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Editing & Admissions</h3>
-                  <BulletLink href="/services">Proofreading & Editing</BulletLink>
-                  <BulletLink href="/services">Admission Essays</BulletLink>
-                  <BulletLink href="/services">Personal Statements</BulletLink>
-                  <BulletLink href="/services">Scholarship Essays</BulletLink>
-                </div>
-
-              </div>
+              <p className="text-sm font-semibold text-slate-600">Blog</p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight">Published articles</h2>
             </div>
-
-            {/* --- CATEGORY: COMPUTER SCIENCE --- */}
-            <div>
-              {/* Light Sub-Category Bar */}
-              <div className="bg-[#1e446a]/40 text-blue-200 font-bold px-5 py-2.5 rounded-lg mb-6 border border-blue-800/50">
-                Computer Science & IT
-              </div>
-
-              {/* 3-Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-2">
-                
-                {/* Column 1 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Programming Languages</h3>
-                  <BulletLink href="/services">Programming In C/C++</BulletLink>
-                  <BulletLink href="/services">Programming In Java</BulletLink>
-                  <BulletLink href="/services">Programming In Python</BulletLink>
-                  <BulletLink href="/services">JavaScript / TypeScript</BulletLink>
-                  <BulletLink href="/services">Assembly Language</BulletLink>
-                </div>
-
-                {/* Column 2 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Web & Software</h3>
-                  <BulletLink href="/services">Web Development</BulletLink>
-                  <BulletLink href="/services">Software Engineering</BulletLink>
-                  <BulletLink href="/services">System Design</BulletLink>
-                  <BulletLink href="/services">Code Debugging</BulletLink>
-                  <BulletLink href="/services">API Integrations</BulletLink>
-                </div>
-
-                {/* Column 3 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Data & Systems</h3>
-                  <BulletLink href="/services">Database Management (SQL)</BulletLink>
-                  <BulletLink href="/services">Data Structures & Algorithms</BulletLink>
-                  <BulletLink href="/services">Machine Learning Models</BulletLink>
-                  <BulletLink href="/services">Operating Systems</BulletLink>
-                  <BulletLink href="/services">Computer Networking</BulletLink>
-                </div>
-
-              </div>
-            </div>
-
-            {/* --- CATEGORY: ENGINEERING & TECHNICAL --- */}
-            <div>
-              {/* Light Sub-Category Bar */}
-              <div className="bg-[#1e446a]/40 text-blue-200 font-bold px-5 py-2.5 rounded-lg mb-6 border border-blue-800/50">
-                Engineering & Business
-              </div>
-
-              {/* 3-Column Layout */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-2">
-                
-                {/* Column 1 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Engineering Projects</h3>
-                  <BulletLink href="/services">Final Year Projects</BulletLink>
-                  <BulletLink href="/services">Technical Reports</BulletLink>
-                  <BulletLink href="/services">Mechanical Engineering Help</BulletLink>
-                  <BulletLink href="/services">Electrical Engineering Help</BulletLink>
-                </div>
-
-                {/* Column 2 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Analytics & Math</h3>
-                  <BulletLink href="/services">Data Science Analysis</BulletLink>
-                  <BulletLink href="/services">Mathematical Modeling</BulletLink>
-                  <BulletLink href="/services">Statistical Analysis</BulletLink>
-                  <BulletLink href="/services">Calculus & Algebra</BulletLink>
-                </div>
-
-                {/* Column 3 */}
-                <div>
-                  <h3 className="text-emerald-400 font-bold mb-3">Business & Professional</h3>
-                  <BulletLink href="/services">Corporate Finance Papers</BulletLink>
-                  <BulletLink href="/services">Business Plans</BulletLink>
-                  <BulletLink href="/services">Market Research</BulletLink>
-                  <BulletLink href="/services">Resume & CV Writing</BulletLink>
-                </div>
-
-              </div>
-            </div>
-
+            <Link href="/portfolio" className="text-sm font-semibold underline underline-offset-4">
+              Browse the blog
+            </Link>
           </div>
-        </div>
-        
+
+          <ul className="mt-8 divide-y divide-slate-300 border-y border-slate-300">
+            {articles.map((article) => (
+              <li key={article.slug}>
+                <Link
+                  href={`/portfolio/${article.slug}`}
+                  className="grid gap-2 py-4 text-slate-900 hover:bg-white/45 sm:grid-cols-[1fr_auto] sm:items-center sm:px-3"
+                >
+                  <span className="font-medium">{article.title}</span>
+                  <span className="text-sm text-slate-600">{article.category}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </main>
   );

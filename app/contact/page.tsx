@@ -1,8 +1,16 @@
+import type { Metadata } from "next";
 import { CompactContactForm } from "@/components/contact/CompactContactForm";
 import { ContactChannels } from "@/components/contact/ContactChannels";
 import { ContactFAQ } from "@/components/contact/ContactFAQ";
 import Link from "next/link";
 import { CalendarDays, ClipboardList, Code2, FileText, GraduationCap } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Contact JaksLab about technical content marketing, a website or software project, or research and academic support.",
+  alternates: { canonical: "/contact" },
+};
 
 export default function ContactPage() {
   return (
