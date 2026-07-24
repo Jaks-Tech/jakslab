@@ -17,7 +17,7 @@ export function HomepagePracticeVisual() {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="flex flex-col gap-4 px-6 pb-2 pt-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.12em] text-slate-600">Our work in view</p>

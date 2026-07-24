@@ -9,15 +9,15 @@ export default function Home() {
   const articles = getAllArticles();
 
   return (
-    <main className="flex-1 bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="w-full flex-1 bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
       <HomepageHero />
-      <section className="mx-auto w-full max-w-[1500px] bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20" aria-label="Services">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Services">
         <HomepageServices />
       </section>
-      <section className="mx-auto w-full max-w-[1500px] bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20" aria-label="Selected work">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Selected work">
         <HomepageSelectedWork />
       </section>
-      <section className="mx-auto w-full max-w-[1500px] bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20" aria-label="Our practices">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Our practices">
         <HomepagePracticeVisual />
       </section>
       <HomepageOverview articles={articles} />

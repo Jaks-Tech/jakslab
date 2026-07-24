@@ -8,8 +8,8 @@ type ArticlePreview = ArticleMeta & { slug: string; readTime: string };
 export function HomepageOverview({ articles }: { articles: ArticlePreview[] }) {
   return (
     <>
-      <section className="bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="relative mx-auto w-full max-w-[1350px] overflow-hidden border border-[#202733] bg-[#202733] px-7 py-9 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[.55fr_1.45fr] lg:gap-14 lg:px-14">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="relative w-full overflow-hidden border border-[#202733] bg-[#202733] px-7 py-9 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[.55fr_1.45fr] lg:gap-14 lg:px-14">
           <div className="relative">
             <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d9bd7a]">Our mission</p>
             <Star className="mt-4 text-[#d9bd7a]" size={22} strokeWidth={1.6} aria-hidden="true" />
@@ -31,8 +31,8 @@ export function HomepageOverview({ articles }: { articles: ArticlePreview[] }) {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="mx-auto flex w-full max-w-[1450px] flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-semibold text-slate-700">From the blog</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Recent articles.</h2>
@@ -41,11 +41,11 @@ export function HomepageOverview({ articles }: { articles: ArticlePreview[] }) {
             Browse all articles <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
-        <div className="mx-auto w-full max-w-[1450px]"><RecentArticlesRotator articles={articles} /></div>
+        <div className="w-full"><RecentArticlesRotator articles={articles} /></div>
       </section>
 
-      <section className="bg-white px-5 py-10 sm:px-8 sm:py-12 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="mx-auto flex w-full max-w-[1250px] flex-col gap-7 bg-white py-6 lg:flex-row lg:items-center lg:justify-between lg:py-8">
+      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
+        <div className="flex w-full flex-col gap-7 bg-transparent py-4 lg:flex-row lg:items-center lg:justify-between lg:py-5">
           <div>
             <p className="text-sm font-semibold text-slate-700">Start a conversation</p>
             <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Tell us what you need to explain, build or research.</h2>

@@ -15,6 +15,12 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const isGhostChat = pathname.startsWith("/ghost-chat");
+  const isServicesPage = pathname.startsWith("/services");
+  const usesPlainBackground =
+    isServicesPage ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/workhub") ||
+    isGhostChat;
 
   return (
     <html
@@ -25,26 +31,57 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="relative flex min-h-screen flex-col bg-white antialiased text-slate-900">
-
-        {/* Content Wrapper */}
-        <div className="relative z-10 flex min-h-screen flex-col">
-
-          {/* Header (always visible) */}
+        <div
+          className={`relative z-10 flex min-h-screen flex-col ${
+            usesPlainBackground ? "bg-white" : "site-knowledge-background"
+          }`}
+          style={
+            usesPlainBackground
+              ? undefined
+              : {
+                  backgroundImage: "url('/homepage-hero-knowledge-flow.png')",
+                  backgroundAttachment: "fixed",
+                  backgroundPosition: "center top",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                }
+          }
+        >
           <Header />
 
-          {/* Main */}
-          <main className="flex-1 pt-20 w-full">
+          <main className={`${isServicesPage ? "" : "site-content-frame"} w-full flex-1 pt-20`}>
             {children}
           </main>
 
-          {/* Footer (hidden only for ghost-chat) */}
           {!isGhostChat && <LightFooter />}
-
         </div>
+
+        <style>{`
+          .site-content-frame > main {
+            width: 100%;
+            max-width: 1500px;
+            margin-right: auto;
+            margin-left: auto;
+          }
+
+          .site-knowledge-background > main > main {
+            background-color: transparent !important;
+          }
+
+          @media (max-width: 640px) {
+            .site-knowledge-background {
+              background-attachment: scroll !important;
+              background-position: center top !important;
+            }
+
+            .site-knowledge-background > main > main {
+              background-color: rgba(255, 255, 255, .18) !important;
+            }
+          }
+        `}</style>
 
         <SpeedInsights />
         <Analytics />
-
       </body>
     </html>
   );
