@@ -254,7 +254,7 @@ export function ServicesCategories() {
         </div>
       </nav>
 
-      <section id="content-marketing" className="scroll-mt-36 border-t-4 border-[#946832] bg-[#f1dfc3]">
+      <section id="content-marketing" className="scroll-mt-36 border-t-4 border-[#946832] bg-[#f1dfc3]/50 backdrop-blur-[2px]">
         <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
           <p className="text-sm text-slate-600">01 / Content Marketing</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">
@@ -386,7 +386,7 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="technology-development" className="scroll-mt-36 border-t-4 border-[#4f7059] bg-[#dce8df]">
+      <section id="technology-development" className="scroll-mt-36 border-t-4 border-[#4f7059] bg-[#dce8df]/50 backdrop-blur-[2px]">
         <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
           <p className="text-sm text-slate-600">02 / Technology &amp; Development</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">
@@ -433,7 +433,7 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="research-academic" className="scroll-mt-36 border-y-4 border-[#526b84] bg-[#dce5ee]">
+      <section id="research-academic" className="scroll-mt-36 border-y-4 border-[#526b84] bg-[#dce5ee]/50 backdrop-blur-[2px]">
         <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
           <p className="text-sm text-slate-600">03 / Research &amp; Academic Work</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">

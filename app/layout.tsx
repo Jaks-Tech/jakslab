@@ -17,7 +17,6 @@ export default function RootLayout({
   const isGhostChat = pathname.startsWith("/ghost-chat");
   const isServicesPage = pathname.startsWith("/services");
   const usesPlainBackground =
-    isServicesPage ||
     pathname.startsWith("/admin") ||
     pathname.startsWith("/workhub") ||
     isGhostChat;
