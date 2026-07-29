@@ -13,25 +13,26 @@ export async function GET() {
 
   const markdown = `# JaksLab
 
-> JaksLab provides technical content marketing, technology development, and research and academic support. We work from documentation, specialist knowledge, customer questions and defined project briefs.
+> JaksLab helps companies generate qualified traffic through SEO, AEO, content optimization and company-specific technical content. We also research projects before development and build digital products.
 
-JaksLab is based in Nairobi, Kenya and works with clients internationally. Content Marketing is a primary practice, supported by technology development and research expertise.
+JaksLab is based in Nairobi, Kenya and works with clients internationally. We turn a company's technical expertise, documentation, services and customer questions into useful content built for search visibility, AI answers and conversion.
 
 ## Main services
 
-- [Content Marketing](${BASE_URL}/services#content-marketing): Technical articles, content planning, documentation-to-article work, blog setup, existing blog improvement, SEO and AEO optimization.
-- [Technology and Development](${BASE_URL}/services#technology-development): Business websites, web applications, internal tools, APIs, integrations, data systems and product improvement.
-- [Research and Academic Support](${BASE_URL}/services#research-academic): Research planning, literature reviews, data analysis, reports, editing, referencing and presentations.
+- [Content Optimization](${BASE_URL}/services#content-marketing): Blog setup and improvement, SEO, AEO, technical articles, content planning and company-specific content developed from internal expertise.
+- [Pre-project Research](${BASE_URL}/services#research-academic): Requirements discovery, critical analysis, feasibility, framework and technology comparison, architecture recommendations, risks and delivery roadmaps.
+- [Product Development](${BASE_URL}/services#technology-development): Business websites, web applications, internal tools, APIs, integrations, data systems and existing product improvement.
+- [Academic Tutoring](${BASE_URL}/services#research-academic): Guided support for research planning, literature reviews, methodology, analysis, academic writing, referencing and presentations.
 
 ## Important pages
 
-- [Home](${BASE_URL}/): Overview of JaksLab and its three connected areas of work.
+- [Home](${BASE_URL}/): JaksLab positioning across content optimization, pre-project research and product development.
 - [Services](${BASE_URL}/services): Detailed descriptions, examples and enquiry routes.
 - [About](${BASE_URL}/about): Mission, working principles and areas of experience.
-- [Blog](${BASE_URL}/portfolio): Articles about content marketing, technical products and academic research.
+- [Our Insights](${BASE_URL}/portfolio): Articles about SEO, AEO, technical content, digital products and research.
 - [Contact](${BASE_URL}/contact): General enquiries.
-- [Book a call](${BASE_URL}/book-call): 30-minute content marketing discussion.
-- [Request a service](${BASE_URL}/order): Technology and research project requests.
+- [Book a call](${BASE_URL}/book-call): 30-minute content optimization discussion.
+- [Request a service](${BASE_URL}/order): Pre-project research and product development requests.
 
 ## Published articles
 

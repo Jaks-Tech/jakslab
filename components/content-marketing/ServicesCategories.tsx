@@ -16,6 +16,9 @@ import {
   ClipboardList,
   Presentation,
 } from "lucide-react";
+import { ContentCraftingCarousel } from "@/components/content-marketing/ContentCraftingCarousel";
+import { TechnologyBuildPath } from "@/components/content-marketing/TechnologyBuildPath";
+import { ResearchServicePath } from "@/components/content-marketing/ResearchServicePath";
 
 const contentServices = [
   {
@@ -107,32 +110,13 @@ const researchServices = [
 ];
 
 const serviceTabs = [
-  { id: "content-marketing", label: "Content Marketing", icon: Megaphone, tone: "bg-[#e8cfaa]" },
-  { id: "technology-development", label: "Technology & Development", icon: Code2, tone: "bg-[#bed3c3]" },
-  { id: "research-academic", label: "Research & Academic", icon: GraduationCap, tone: "bg-[#bfd0df]" },
+  { id: "content-marketing", label: "Content Marketing", icon: Megaphone },
+  { id: "technology-development", label: "Technology & Development", icon: Code2 },
+  { id: "research-academic", label: "Project Research & Tutoring", icon: GraduationCap },
 ];
-
-const changingServiceNotes: Record<string, string[]> = {
-  "content-marketing": [
-    "Turn internal documentation into customer-facing articles.",
-    "Build a useful blog where no publishing section exists.",
-    "Improve older articles for search, AI answers and real readers.",
-  ],
-  "technology-development": [
-    "Take a digital product from a defined need to a working release.",
-    "Connect tools, data and business processes that currently sit apart.",
-    "Improve an existing system without rebuilding what already works.",
-  ],
-  "research-academic": [
-    "Move from a broad topic to a defensible research structure.",
-    "Organize sources around evidence, disagreement and research gaps.",
-    "Present complex findings in a form the intended reader can follow.",
-  ],
-};
 
 export function ServicesCategories() {
   const [activeSection, setActiveSection] = useState("content-marketing");
-  const [changingNote, setChangingNote] = useState(0);
   const [showServiceNav, setShowServiceNav] = useState(true);
   const previousScrollPosition = useRef(0);
   const activeIndex = serviceTabs.findIndex(({ id }) => id === activeSection);
@@ -158,14 +142,6 @@ export function ServicesCategories() {
   }, []);
 
   useEffect(() => {
-    setChangingNote(0);
-    const timer = window.setInterval(() => {
-      setChangingNote((current) => (current + 1) % changingServiceNotes[activeSection].length);
-    }, 4200);
-    return () => window.clearInterval(timer);
-  }, [activeSection]);
-
-  useEffect(() => {
     previousScrollPosition.current = window.scrollY;
 
     const handleScroll = () => {
@@ -188,7 +164,7 @@ export function ServicesCategories() {
   }, []);
 
   return (
-    <main className="pt-8 [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="mx-auto w-full max-w-[1440px] pt-8 [font-family:Arial,Helvetica,sans-serif] text-slate-800">
       <nav
         aria-label="Service categories"
         className={`sticky top-[88px] z-30 mx-auto w-full max-w-2xl px-4 py-3 transition-opacity duration-200 ease-out ${
@@ -203,7 +179,7 @@ export function ServicesCategories() {
             />
           </div>
 
-          {serviceTabs.map(({ id, label, icon: Icon, tone }) => {
+          {serviceTabs.map(({ id, label, icon: Icon }) => {
             const isActive = activeSection === id;
             return (
               <a
@@ -215,7 +191,7 @@ export function ServicesCategories() {
                 style={{ color: "#172033" }}
               >
                 <span
-                  className={`grid size-10 place-items-center rounded-full border shadow-sm transition sm:size-11 ${tone} ${
+                  className={`grid size-10 place-items-center rounded-full border bg-transparent shadow-sm transition sm:size-11 ${
                     isActive
                       ? "border-slate-900 text-slate-950"
                       : "border-slate-400 text-slate-700 hover:border-slate-700"
@@ -230,32 +206,11 @@ export function ServicesCategories() {
             );
           })}
         </div>
-        <div
-          className={`mt-3 overflow-hidden rounded-lg border border-slate-400 px-4 py-3 shadow-sm ${
-            activeSection === "content-marketing"
-              ? "bg-[#ead5b7]"
-              : activeSection === "technology-development"
-                ? "bg-[#c9dbcD]"
-                : "bg-[#c9d7e4]"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[.12em] text-slate-600">
-              In view
-            </span>
-            <span className="h-4 w-px shrink-0 bg-slate-300" aria-hidden="true" />
-            <p key={`${activeSection}-${changingNote}`} className="service-changing-note min-w-0 text-xs leading-5 text-slate-800 sm:text-sm">
-              {changingServiceNotes[activeSection][changingNote]}
-            </p>
-          </div>
-          <div className="mt-2 h-px bg-slate-200" aria-hidden="true">
-            <span key={`${activeSection}-${changingNote}-progress`} className="service-note-progress block h-full bg-slate-800" />
-          </div>
-        </div>
       </nav>
 
-      <section id="content-marketing" className="scroll-mt-36 border-t-4 border-[#946832] bg-[#f1dfc3]/50 backdrop-blur-[2px]">
-        <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
+      <section id="content-marketing" className="scroll-mt-36 border-t-4 border-[#946832] bg-transparent">
+        <ContentCraftingCarousel />
+        <div className="hidden">
           <p className="text-sm text-slate-600">01 / Content Marketing</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">
             <div>
@@ -278,7 +233,7 @@ export function ServicesCategories() {
                 </Link>
                 <Link
                   href="/contact?service=content-marketing"
-                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
                 >
                   <Mail size={18} aria-hidden="true" />
                   Enquire
@@ -291,7 +246,7 @@ export function ServicesCategories() {
               <ul className="mt-5 space-y-3">
                 {sourceMaterials.map(({ label, icon: Icon }) => (
                   <li key={label} className="flex items-start gap-3 text-sm leading-6 text-slate-700">
-                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-md bg-slate-100 text-slate-700">
+                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-md bg-transparent text-slate-700">
                       <Icon size={16} aria-hidden="true" />
                     </span>
                     <span className="pt-1">{label}</span>
@@ -301,7 +256,7 @@ export function ServicesCategories() {
             </aside>
           </div>
 
-          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-white sm:mt-16">
+          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-transparent sm:mt-16">
             <Image
               src="/service-visuals/content-knowledge-pipeline.svg"
               alt="Company documentation, expert interviews and customer questions moving through an editorial system to become useful articles."
@@ -325,7 +280,7 @@ export function ServicesCategories() {
             <ol className="relative mt-10 space-y-0 before:absolute before:bottom-8 before:left-5 before:top-8 before:w-px before:bg-slate-300 sm:before:left-7">
               {contentServices.map((service, index) => (
                 <li key={service.title} className="relative grid grid-cols-[2.5rem_1fr] gap-5 pb-9 last:pb-0 sm:grid-cols-[3.5rem_.55fr_1fr] sm:gap-7 sm:pb-10">
-                  <span className="relative z-10 grid size-10 place-items-center rounded-full border-2 border-slate-700 bg-white text-xs font-bold text-slate-900 sm:size-14">
+                  <span className="relative z-10 grid size-10 place-items-center rounded-full border-2 border-slate-700 bg-transparent text-xs font-bold text-slate-900 sm:size-14">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="border-t border-slate-300 pt-4 sm:pt-5">
@@ -348,7 +303,7 @@ export function ServicesCategories() {
             <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-700">
               We can add a simple articles section, organize it properly and prepare the first topics from your existing company material.
             </p>
-            <figure className="mt-8 overflow-hidden rounded-2xl border border-slate-300 bg-white">
+            <figure className="mt-8 overflow-hidden rounded-2xl border border-slate-300 bg-transparent">
               <Image
                 src="/service-visuals/blog-route-map.svg"
                 alt="Decision map showing separate improvement and build routes for companies with and without an existing blog."
@@ -359,7 +314,7 @@ export function ServicesCategories() {
             </figure>
           </div>
 
-          <div className="mt-12 flex flex-col gap-6 rounded-2xl border border-slate-300 bg-white p-6 sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div className="mt-12 flex flex-col gap-6 rounded-2xl border border-slate-300 bg-transparent p-6 sm:mt-16 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <div>
               <h3 className="text-xl font-semibold text-slate-950">Turn your company knowledge into useful articles.</h3>
               <p className="mt-2 text-sm leading-7 text-slate-700">
@@ -376,7 +331,7 @@ export function ServicesCategories() {
               </Link>
               <Link
                 href="/contact?service=content-marketing"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
+                className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
               >
                 <Mail size={18} aria-hidden="true" />
                 Enquire
@@ -386,8 +341,9 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="technology-development" className="scroll-mt-36 border-t-4 border-[#4f7059] bg-[#dce8df]/50 backdrop-blur-[2px]">
-        <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
+      <section id="technology-development" className="scroll-mt-36 border-t-4 border-[#4f7059] bg-transparent">
+        <TechnologyBuildPath />
+        <div className="hidden">
           <p className="text-sm text-slate-600">02 / Technology &amp; Development</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">We design and build reliable digital products.</h2>
@@ -401,7 +357,7 @@ export function ServicesCategories() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href="/contact?service=technology-development"
-                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
                 >
                   <Mail size={18} aria-hidden="true" />
                   Enquire
@@ -421,7 +377,7 @@ export function ServicesCategories() {
             introduction="Projects can cover a complete product or one defined part of an existing system."
             services={technologyServices}
           />
-          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-white sm:mt-16">
+          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-transparent sm:mt-16">
             <Image
               src="/service-visuals/product-delivery-loop.svg"
               alt="Product delivery loop connecting scope, architecture, build, verification and release."
@@ -433,8 +389,9 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="research-academic" className="scroll-mt-36 border-y-4 border-[#526b84] bg-[#dce5ee]/50 backdrop-blur-[2px]">
-        <div className="w-full px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 xl:px-16 2xl:px-20">
+      <section id="research-academic" className="scroll-mt-36 border-y-4 border-[#526b84] bg-transparent">
+        <ResearchServicePath />
+        <div className="hidden">
           <p className="text-sm text-slate-600">03 / Research &amp; Academic Work</p>
           <div className="mt-5 grid gap-8 md:grid-cols-[.9fr_1.1fr] md:gap-10 lg:gap-16">
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">We research, analyse, write and improve serious academic work.</h2>
@@ -448,7 +405,7 @@ export function ServicesCategories() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href="/contact?service=research-academic"
-                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
+                  className="inline-flex items-center gap-2 rounded-lg border border-slate-400 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-700"
                 >
                   <Mail size={18} aria-hidden="true" />
                   Enquire
@@ -468,7 +425,7 @@ export function ServicesCategories() {
             introduction="Support is shaped around the brief, required standard, available material and stage of the work."
             services={researchServices}
           />
-          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-white sm:mt-16">
+          <figure className="mt-12 overflow-hidden rounded-2xl border border-slate-300 bg-transparent sm:mt-16">
             <Image
               src="/service-visuals/research-evidence-flow.svg"
               alt="Research flow from a defined brief through sources, evidence testing and synthesis to a defensible output."
@@ -513,11 +470,11 @@ function ServiceExamples({
         <h3 className="text-2xl font-semibold text-slate-950 sm:text-3xl">{heading}</h3>
         <p className="mt-3 text-sm leading-7 text-slate-700">{introduction}</p>
       </div>
-      <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-slate-300 bg-slate-300 md:grid-cols-2">
+      <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-slate-300 bg-transparent md:grid-cols-2">
         {services.map((service, index) => (
           <li
             key={service.title}
-            className={`service-example-card grid grid-cols-[2.5rem_1fr] gap-4 bg-white p-5 sm:grid-cols-[3rem_1fr] sm:p-6 ${
+            className={`service-example-card grid grid-cols-[2.5rem_1fr] gap-4 bg-transparent p-5 sm:grid-cols-[3rem_1fr] sm:p-6 ${
               highlightedService === index ? "is-current" : ""
             }`}
           >

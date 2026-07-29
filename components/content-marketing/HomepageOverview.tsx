@@ -1,65 +1,66 @@
 import Link from "next/link";
-import { ArrowRight, CalendarDays, Mail, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import type { ArticleMeta } from "@/lib/articles";
 import { RecentArticlesRotator } from "@/components/content-marketing/RecentArticlesRotator";
+import { ResponsiveSection } from "@/components/layout/ResponsiveLayout";
+import { HomepageFinalCta } from "@/components/content-marketing/HomepageFinalCta";
 
 type ArticlePreview = ArticleMeta & { slug: string; readTime: string };
 
 export function HomepageOverview({ articles }: { articles: ArticlePreview[] }) {
   return (
     <>
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="relative w-full overflow-hidden border border-[#202733] bg-[#202733] px-7 py-9 sm:px-10 sm:py-12 lg:grid lg:grid-cols-[.55fr_1.45fr] lg:gap-14 lg:px-14">
-          <div className="relative">
-            <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#d9bd7a]">Our mission</p>
-            <Star className="mt-4 text-[#d9bd7a]" size={22} strokeWidth={1.6} aria-hidden="true" />
-          </div>
-          <div className="relative mt-6 lg:mt-0">
-            <h2 className="max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-[#fff] sm:text-4xl">
+      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]">
+        <div className="grid overflow-hidden rounded-[clamp(1.5rem,3vw,2.75rem)] border border-[#76533b]/18 bg-white/20 shadow-[0_22px_70px_rgba(72,44,27,.09)] backdrop-blur-sm lg:grid-cols-2">
+          <section className="p-[clamp(1.75rem,4vw,4rem)] lg:border-r lg:border-[#76533b]/15">
+            <div className="flex items-center gap-3">
+              <Star className="text-[#76533b]" size={20} strokeWidth={1.6} aria-hidden="true" />
+              <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#76533b]">Our mission</p>
+            </div>
+            <h2 className="mt-7 max-w-xl text-[clamp(2rem,4vw,4rem)] font-medium leading-[.98] tracking-[-.05em] text-slate-950">
               Make specialist knowledge useful beyond the team that created it.
             </h2>
-            <p className="mt-5 max-w-3xl text-base leading-8 text-[#e5e7eb]">
-              We help technical companies turn knowledge from their documentation, systems and people into work others can understand and use.
+            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600">
+              We help valuable expertise become easier to find, understand and act on.
             </p>
-            <Link href="/about" className="group mt-7 inline-flex items-center gap-3 text-sm font-semibold text-[#d9bd7a]">
-              <span className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-50 after:bg-[#d9bd7a] after:transition-transform after:duration-300 group-hover:after:scale-x-100">Read about us</span>
-              <span className="grid size-8 place-items-center rounded-full border border-[#d9bd7a]/60 transition-transform duration-300 group-hover:translate-x-1">
+          </section>
+
+          <section className="border-t border-[#76533b]/15 p-[clamp(1.75rem,4vw,4rem)] lg:border-t-0">
+            <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#76533b]">About JaksLab</p>
+            <h2 className="mt-7 max-w-xl text-[clamp(1.75rem,3vw,3rem)] font-medium leading-tight tracking-[-.04em] text-slate-950">
+              One partner from visibility and research to product development.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
+              We improve SEO and AEO, create company-specific content from technical expertise, research projects before development and build useful digital products.
+            </p>
+            <Link href="/about" className="group mt-7 inline-flex items-center gap-3 text-sm font-semibold text-[#76533b]">
+              <span className="relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-50 after:bg-[#76533b] after:transition-transform after:duration-300 group-hover:after:scale-x-100">
+                More about JaksLab
+              </span>
+              <span className="grid size-8 place-items-center rounded-full border border-[#76533b]/35 transition-transform duration-300 group-hover:translate-x-1">
                 <ArrowRight size={15} aria-hidden="true" />
               </span>
             </Link>
-          </div>
+          </section>
         </div>
-      </section>
+      </ResponsiveSection>
 
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
+      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]">
         <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-sm font-semibold text-slate-700">From the blog</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Recent articles.</h2>
+            
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Our Insights.</h2>
           </div>
           <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-950">
             Browse all articles <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
         <div className="w-full"><RecentArticlesRotator articles={articles} /></div>
-      </section>
+      </ResponsiveSection>
 
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20">
-        <div className="flex w-full flex-col gap-7 bg-transparent py-4 lg:flex-row lg:items-center lg:justify-between lg:py-5">
-          <div>
-            <p className="text-sm font-semibold text-slate-700">Start a conversation</p>
-            <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">Tell us what you need to explain, build or research.</h2>
-          </div>
-          <div className="flex shrink-0 flex-wrap gap-3">
-            <Link href="/book-call" className="inline-flex items-center gap-2 rounded-lg bg-[#202733] px-5 py-3 text-sm font-semibold text-[#fff]">
-              <CalendarDays size={18} aria-hidden="true" />Book a content call
-            </Link>
-            <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg border border-slate-500 bg-white px-5 py-3 text-sm font-semibold text-slate-950">
-              <Mail size={18} aria-hidden="true" />Send an enquiry
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]">
+        <HomepageFinalCta />
+      </ResponsiveSection>
     </>
   );
 }

@@ -2,15 +2,14 @@ import type { MetadataRoute } from "next";
 
 const BASE_URL = "https://www.jakslab.work";
 const privatePaths = [
-  "/admin/",
-  "/api/",
-  "/ghost-chat/",
-  "/workhub/",
+  "/admin",
+  "/api",
+  "/ghost-chat",
+  "/workhub",
   "/login",
   "/signup",
   "/payment",
-  "/return",
-  "/order/portal/",
+  "/order/",
 ];
 
 export default function robots(): MetadataRoute.Robots {

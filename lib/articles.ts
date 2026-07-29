@@ -21,6 +21,7 @@ export interface ArticleMeta {
   author: string;
   category: Category;
   excerpt?: string;
+  image?: string;
 }
 
 export interface Article extends ArticleMeta {
@@ -77,6 +78,7 @@ export function getAllArticles(): (ArticleMeta & {
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
     const { title, date, author, category, excerpt } = data;
+    const image = data.image || data.coverImage || data.thumbnail || "";
 
     if (!title || !date || !author || !category) {
       throw new Error(`Missing required metadata in article: ${fileName}`);
@@ -91,6 +93,7 @@ export function getAllArticles(): (ArticleMeta & {
       author,
       category: validatedCategory,
       excerpt: excerpt || "", // Fallback
+      image,
       readTime: calculateReadTime(content),
     };
   });
@@ -115,6 +118,7 @@ export async function getArticleBySlug(slug: string): Promise<Article> {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   const { title, date, author, category, excerpt } = data;
+  const image = data.image || data.coverImage || data.thumbnail || "";
 
   if (!title || !date || !author || !category) {
     throw new Error(`Missing required metadata in article: ${slug}`);
@@ -138,6 +142,7 @@ export async function getArticleBySlug(slug: string): Promise<Article> {
     author,
     category: validatedCategory,
     excerpt: excerpt || "",
+    image,
     contentHtml: processedContent.toString(),
     readTime: calculateReadTime(content),
   };

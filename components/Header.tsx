@@ -6,14 +6,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ArrowRight, CalendarDays, ClipboardList, Mail, Menu, MessageSquareText, X, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ResponsiveContainer } from "@/components/layout/ResponsiveLayout";
 
 const navItems = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
 
   { label: "Contact", path: "/contact" },
-  { label: "About", path: "/about" },
-  { label: "Blog", path: "/portfolio" },
+  { label: "Our Insights", path: "/portfolio" },
 ];
 
 export function Header() {
@@ -28,22 +28,19 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Sync state to close mobile menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-    setIsActionPanelOpen(false);
-  }, [pathname]);
-
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setIsActionPanelOpen(false);
     };
+    const handleOpenActionPanel = () => setIsActionPanelOpen(true);
 
     window.addEventListener("keydown", handleEscape);
+    window.addEventListener("jakslab:open-action-panel", handleOpenActionPanel);
     document.body.style.overflow = isActionPanelOpen ? "hidden" : "";
 
     return () => {
       window.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("jakslab:open-action-panel", handleOpenActionPanel);
       document.body.style.overflow = "";
     };
   }, [isActionPanelOpen]);
@@ -51,22 +48,22 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-[100] transition-all duration-500",
-        isScrolled ? "bg-slate-950/90 backdrop-blur-xl border-b border-white/5 py-0" : "bg-transparent py-4"
+        "fixed left-0 right-0 top-0 z-[100] bg-transparent py-4 transition-all duration-500",
+        isScrolled && "backdrop-blur-md"
       )}
     >
-      <div className="max-w-[1400px] mx-auto px-6">
+      <ResponsiveContainer>
         <div className={cn(
-          "flex items-center justify-between h-20 px-4 transition-all duration-500 rounded-2xl",
-          !isScrolled && "bg-slate-900/40 backdrop-blur-md border border-white/5"
+          "site-header-surface flex h-20 items-center justify-between rounded-2xl border border-white/60 bg-transparent px-4 shadow-[0_8px_30px_rgba(15,23,42,.07)] backdrop-blur-md transition-all duration-500",
+          isScrolled && "border-slate-300/70 shadow-[0_10px_35px_rgba(15,23,42,.1)]"
         )}>
           
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 z-[110]">
+          <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 z-[110]">
             <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-700">
               <Image src="/jakslab.png" alt="Logo" fill className="object-cover" />
             </div>
-            <span className="text-white font-bold text-lg tracking-tight">JaksLab</span>
+            <span className="text-lg font-bold tracking-tight text-slate-950">JaksLab</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -78,9 +75,10 @@ export function Header() {
               >
                 <Link
                   href={item.path}
+                  onClick={() => setIsOpen(false)}
                   className={cn(
                     "rounded-full px-4 py-2 text-sm font-medium transition-all",
-                    pathname === item.path ? "bg-white/10 text-white" : "text-slate-400 hover:text-white"
+                    pathname === item.path ? "bg-white/55 text-slate-950" : "text-slate-700 hover:bg-white/35 hover:text-slate-950"
                   )}
                 >
                   {item.label}
@@ -103,13 +101,13 @@ export function Header() {
               type="button"
               onClick={() => setIsActionPanelOpen(true)}
               aria-label="Open booking and enquiry options"
-              className="grid size-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-slate-800 md:hidden"
+              className="grid size-10 place-items-center rounded-xl border border-slate-300/70 bg-white/35 text-slate-800 md:hidden"
             >
               <MessageSquareText size={18} />
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2.5 rounded-xl bg-white/5 text-slate-300 border border-white/10"
+              className="rounded-xl border border-slate-300/70 bg-white/35 p-2.5 text-slate-800 md:hidden"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -138,6 +136,7 @@ export function Header() {
             
             <Link
               href="/order"
+              onClick={() => setIsOpen(false)}
               className="mt-4 flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-bold"
             >
               <Plus size={18} />
@@ -145,7 +144,7 @@ export function Header() {
             </Link>
           </div>
         </div>
-      </div>
+      </ResponsiveContainer>
 
       <div
         className={`fixed inset-0 z-[190] bg-slate-950/35 transition-opacity duration-300 ${
@@ -159,66 +158,68 @@ export function Header() {
         role="dialog"
         aria-modal="true"
         aria-label="Contact and booking options"
-        className={`fixed right-0 top-0 z-[200] flex h-dvh w-full max-w-[470px] flex-col overflow-y-auto border-l border-slate-300 bg-white text-slate-950 shadow-[-24px_0_60px_rgba(15,23,42,.16)] transition-transform duration-300 ease-out ${
-          isActionPanelOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed right-4 top-28 z-[200] max-h-[calc(100dvh-8rem)] w-[calc(100%-2rem)] max-w-[430px] overflow-y-auto rounded-[2rem] border border-white/70 bg-white/90 text-slate-950 shadow-[0_28px_90px_rgba(15,23,42,.22)] backdrop-blur-xl transition-all duration-300 ease-out sm:right-6 ${
+          isActionPanelOpen
+            ? "translate-x-0 scale-100 opacity-100"
+            : "pointer-events-none translate-x-[calc(100%+2rem)] scale-95 opacity-0"
         }`}
       >
-        <div className="flex items-center justify-between px-6 py-6 sm:px-8">
+        <div className="flex items-center justify-between px-5 py-5 sm:px-6">
           <Link href="/" onClick={() => setIsActionPanelOpen(false)} className="flex items-center gap-3">
-            <span className="relative size-11 overflow-hidden rounded-full border border-slate-300 bg-white">
+            <span className="relative size-9 overflow-hidden rounded-full border border-slate-300 bg-white">
               <Image src="/jakslab.png" alt="JaksLab logo" fill className="object-cover" />
             </span>
             <span>
               <span className="block font-semibold text-slate-950">JaksLab</span>
-              <span className="block text-xs text-slate-600">Content, technology and research</span>
+              <span className="block text-[11px] text-slate-600">Traffic, research, products and tutoring</span>
             </span>
           </Link>
           <button
             type="button"
             onClick={() => setIsActionPanelOpen(false)}
             aria-label="Close contact options"
-            className="grid size-11 place-items-center rounded-full border border-slate-300 text-slate-950 hover:bg-slate-100"
+            className="grid size-9 place-items-center rounded-full border border-slate-300 bg-transparent text-slate-950 hover:bg-slate-100"
           >
-            <X size={22} />
+            <X size={18} />
           </button>
         </div>
 
-        <div className="flex flex-1 flex-col px-6 pb-10 pt-5 sm:px-10">
-          <div className="mb-7">
-            <h1 className="text-3xl font-semibold leading-tight text-slate-950">How can we help?</h1>
-            <p className="mt-2 text-sm leading-6 text-slate-700">Choose the closest option. You can provide details on the next page.</p>
+        <div className="px-5 pb-6 pt-1 sm:px-6">
+          <div className="mb-5">
+            <h1 className="text-2xl font-semibold leading-tight text-slate-950">How can we help?</h1>
+            <p className="mt-1 text-sm text-slate-600">Choose one option.</p>
           </div>
 
-          <div className="space-y-7">
-            <section>
+          <div className="grid gap-3">
+            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
               <span className="grid size-11 place-items-center rounded-2xl bg-[#f3f4f2] text-slate-900"><CalendarDays size={20} /></span>
-              <h2 className="mt-4 text-xl font-semibold">Content Marketing</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">Discuss articles, blog work, SEO or AEO in a focused 30-minute call.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/book-call" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#202733] px-5 py-3 text-sm font-semibold text-[#fff]">
+              <h2 className="mt-3 text-base font-semibold">Blog Growth</h2>
+              <p className="mt-1 text-xs text-slate-600">Optimization, content, SEO and AEO.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/book-call" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
                 <CalendarDays size={17} aria-hidden="true" />
                 Book a 30-minute call
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </section>
 
-            <section className="rounded-2xl bg-[#f3f4f2] p-6">
+            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
               <span className="grid size-11 place-items-center rounded-2xl bg-white text-slate-900"><ClipboardList size={20} /></span>
-              <h2 className="mt-4 text-xl font-semibold">Technology or Research</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">Send the brief, expected result, deadline and any useful files.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/order" className="mt-4 inline-flex items-center gap-2 rounded-lg border border-slate-500 bg-white px-5 py-3 text-sm font-semibold text-slate-950">
+              <h2 className="mt-3 text-base font-semibold">Project Research or Product Build</h2>
+              <p className="mt-1 text-xs text-slate-600">Leave the research or complete build to us.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/order" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
                 <ClipboardList size={17} aria-hidden="true" />
                 Request service
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </section>
 
-            <section>
+            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
               <span className="grid size-11 place-items-center rounded-2xl bg-[#f3f4f2] text-slate-900"><Mail size={20} /></span>
-              <h2 className="mt-4 text-xl font-semibold">General enquiry</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">Send a short message if you are unsure which route fits.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/contact" className="mt-4 inline-flex items-center gap-2 rounded-lg border border-slate-500 bg-white px-5 py-3 text-sm font-semibold text-slate-950">
+              <h2 className="mt-3 text-base font-semibold">Academic Tutoring</h2>
+              <p className="mt-1 text-xs text-slate-600">Guidance through research and academic work.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/contact" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
                 <Mail size={17} aria-hidden="true" />
-                Send an enquiry
+                Ask about tutoring
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </section>

@@ -91,7 +91,7 @@ export function InquiryManager({ searchTerm }: InquiryManagerProps) {
               <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-600">
                 <span>{inquiry.name}</span>
                 <a href={`mailto:${inquiry.email}`} className="inline-flex items-center gap-1.5 hover:text-slate-950"><Mail size={14} />{inquiry.email}</a>
-                {inquiry.phone && <span className="inline-flex items-center gap-1.5"><Phone size={14} />+{inquiry.phone}{inquiry.platform ? ` (${inquiry.platform})` : ""}</span>}
+                {inquiry.phone && <span className="inline-flex items-center gap-1.5"><Phone size={14} />{inquiry.phone.startsWith("+") ? inquiry.phone : `+${inquiry.phone}`}{inquiry.platform ? ` (${inquiry.platform})` : ""}</span>}
                 <span className="inline-flex items-center gap-1.5"><Clock size={14} />{new Date(inquiry.created_at).toLocaleDateString()}</span>
               </div>
             </div>

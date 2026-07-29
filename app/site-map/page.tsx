@@ -3,7 +3,7 @@ import { getAllArticles } from "@/lib/articles";
 
 export const metadata = {
   title: "Sitemap | JaksLab",
-  description: "Browse JaksLab services, articles, tools and company information.",
+  description: "Browse JaksLab content optimization, project research, product development, articles, tools and company information.",
 };
 
 const pageGroups = [
@@ -19,9 +19,10 @@ const pageGroups = [
   {
     title: "Services",
     links: [
-      { href: "/services#content-marketing", label: "Content Marketing" },
-      { href: "/services#technology-development", label: "Technology & Development" },
-      { href: "/services#research-academic", label: "Research & Academic Work" },
+      { href: "/services#content-marketing", label: "Content Optimization" },
+      { href: "/services#research-academic", label: "Pre-project Research" },
+      { href: "/services#technology-development", label: "Product Development" },
+      { href: "/services#research-academic", label: "Academic Tutoring" },
       { href: "/order", label: "Request a service" },
     ],
   },
@@ -64,7 +65,7 @@ export default function SitemapPage() {
               <h2 className="text-lg font-semibold">{group.title}</h2>
               <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
-                  <li key={link.href}>
+                  <li key={`${link.label}-${link.href}`}>
                     <Link href={link.href} className="text-sm text-slate-700 underline-offset-4 hover:underline">
                       {link.label}
                     </Link>
@@ -78,11 +79,11 @@ export default function SitemapPage() {
         <section className="py-12">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-slate-600">Blog</p>
+              <p className="text-sm font-semibold text-slate-600">Our Insights</p>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight">Published articles</h2>
             </div>
             <Link href="/portfolio" className="text-sm font-semibold underline underline-offset-4">
-              Browse the blog
+              Browse Our Insights
             </Link>
           </div>
 

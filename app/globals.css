@@ -5,7 +5,34 @@
 :root {
   --background: #ffffff;
   --foreground: #172033;
+  --text-xs: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.84rem + 0.15vw, 0.95rem);
+  --text-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --text-h3: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);
+  --text-h2: clamp(1.875rem, 1.45rem + 1.7vw, 3rem);
+  --text-h1: clamp(2.25rem, 1.55rem + 3vw, 4.25rem);
+  --space-fluid: clamp(1rem, 0.6rem + 1.5vw, 2rem);
+  --grid-gap: clamp(1rem, 0.65rem + 1.4vw, 2rem);
+  --section-gap: clamp(2rem, 1rem + 4vw, 5rem);
+  --section-space: clamp(3rem, 1.8rem + 4.5vw, 7rem);
   color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  text-size-adjust: 100%;
 }
 
 /* Base body styling */
@@ -15,6 +42,43 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+main,
+section,
+article,
+aside,
+header,
+footer,
+nav,
+div {
+  min-width: 0;
+}
+
+.fluid-h1 { font-size: var(--text-h1); }
+.fluid-h2 { font-size: var(--text-h2); }
+.fluid-h3 { font-size: var(--text-h3); }
+.fluid-body { font-size: var(--text-body); }
+.fluid-small { font-size: var(--text-sm); }
 
 /* Optional prose overrides - updated for better contrast on animated backgrounds */
 .prose {
@@ -269,7 +333,7 @@ html .theme-dark-background { display: none !important; }
 }
 
 .service-example-card.is-current {
-  background: #f8fafc;
+  background: transparent;
   box-shadow: inset 0 0 0 1px #94a3b8;
 }
 
@@ -573,36 +637,67 @@ html[data-theme="light"] input::placeholder,
 html[data-theme="light"] textarea::placeholder { color: #8290a5 !important; }
 html[data-theme="light"] option { color: #172033 !important; background: #fff !important; }
 
-.contact-form-light .react-tel-input .form-control {
-  width: 100% !important;
-  height: 48px !important;
+.contact-form-light input,
+.contact-form-light textarea,
+.contact-form-light select {
+  background-color: transparent !important;
+}
+
+.shared-phone-input {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  align-items: center;
+  gap: .625rem;
+  border: 1px solid #cbd5e1;
+  border-radius: .5rem;
+  background: rgba(255, 255, 255, .82);
+  padding-inline: 1rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.shared-phone-input:focus-within {
+  border-color: #334155;
+  box-shadow: 0 0 0 2px rgba(203, 213, 225, .7);
+}
+
+.shared-phone-input .PhoneInputCountry {
+  margin: 0;
+  flex: none;
+}
+
+.shared-phone-input .PhoneInputCountrySelect {
+  cursor: pointer;
+}
+
+.shared-phone-input .PhoneInputInput {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0;
+  padding: 0;
+  outline: none;
+}
+
+.shared-phone-input .PhoneInputInput:focus {
+  box-shadow: none;
+}
+
+.shared-phone-input .PhoneInputInput::placeholder {
+  color: #8290a5 !important;
+  opacity: 1;
+}
+
+.contact-form-light .shared-phone-input,
+.contact-form-light .shared-phone-input .PhoneInputInput {
+  background: transparent !important;
+}
+
+.shared-phone-input .PhoneInputCountrySelect option {
   color: #0f172a !important;
   background: #ffffff !important;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: .5rem !important;
-}
-
-.contact-form-light .react-tel-input .form-control::placeholder {
-  color: #64748b !important;
-  opacity: 1 !important;
-}
-
-.contact-form-light .react-tel-input .flag-dropdown,
-.contact-form-light .react-tel-input .selected-flag {
-  background: #ffffff !important;
-  border-color: #cbd5e1 !important;
-}
-
-.contact-form-light .react-tel-input .country-list,
-.contact-form-light .react-tel-input .search {
-  color: #0f172a !important;
-  background: #ffffff !important;
-}
-
-.contact-form-light .react-tel-input .search-box {
-  color: #0f172a !important;
-  background: #ffffff !important;
-  border-color: #cbd5e1 !important;
 }
 
 html[data-theme="light"] .site-footer {
@@ -611,11 +706,12 @@ html[data-theme="light"] .site-footer {
 }
 html[data-theme="light"] header {
   color: #172033;
+  background: transparent !important;
 }
 
-html[data-theme="light"] header > div > div {
-  background-color: rgba(255, 255, 255, .9) !important;
-  border-color: rgba(100, 116, 139, .18) !important;
+html[data-theme="light"] .site-header-surface {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, .6) !important;
   box-shadow: 0 8px 30px rgba(15, 23, 42, .07);
 }
 

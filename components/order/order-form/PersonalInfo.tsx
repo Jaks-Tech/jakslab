@@ -1,7 +1,7 @@
 "use client";
 
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 import { Dispatch, SetStateAction } from "react";
 import { inputClasses, labelClasses } from "./styles";
@@ -78,19 +78,14 @@ export default function PersonalInfo({
             {/* Phone Input */}
             <div className="flex-1">
               <PhoneInput
-                country={"us"}
+                defaultCountry="US"
+                international
+                countryCallingCodeEditable={false}
+                limitMaxLength
                 value={phone}
-                onChange={(value) => setPhone(value)}
-                placeholder="Phone number"
-                enableSearch
-                enableAreaCodes
-                countryCodeEditable={false}
-
-                containerClass="!w-full"
-                inputClass="!w-full !bg-white !text-slate-950 !border !border-slate-300 !rounded-lg !h-[48px] !pl-14 focus:!border-slate-700"
-                buttonClass="!bg-white !border-slate-300 !rounded-l-lg hover:!bg-slate-100"
-                dropdownClass="!bg-white !text-slate-950"
-                searchClass="!bg-white !text-slate-950"
+                onChange={(value) => setPhone(value ?? "")}
+                placeholder="Phone Number"
+                className="shared-phone-input"
               />
             </div>
           </div>

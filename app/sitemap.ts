@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/articles";
 
 const BASE_URL = "https://www.jakslab.work";
+const SITE_UPDATED_AT = new Date("2026-07-29");
 
 const publicPages = [
   { path: "", changeFrequency: "weekly", priority: 1 },
@@ -22,11 +23,9 @@ const publicPages = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const generatedAt = new Date();
-
   const pages: MetadataRoute.Sitemap = publicPages.map((page) => ({
     url: `${BASE_URL}${page.path}`,
-    lastModified: generatedAt,
+    lastModified: SITE_UPDATED_AT,
     changeFrequency: page.changeFrequency,
     priority: page.priority,
   }));

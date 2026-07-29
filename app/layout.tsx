@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { SiteShell } from "@/components/SiteShell";
+import { AppShell } from "@/components/layout/AppShell";
 
 const BASE_URL = "https://www.jakslab.work";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "JaksLab | Content Marketing, Technology and Research Support",
+    default: "JaksLab | SEO, AEO, Content, Research & Product Development",
     template: "%s | JaksLab",
   },
   description:
-    "Technical content marketing, website and software development, and careful research support for companies, professionals and academic projects.",
+    "JaksLab drives traffic through blog optimization and technical content, researches projects before development, builds digital products and provides academic tutoring.",
   keywords: [
     "technical content marketing",
     "B2B content marketing",
@@ -21,26 +21,29 @@ export const metadata: Metadata = {
     "blog development",
     "SEO content",
     "AEO optimization",
+    "pre-development research",
+    "project requirements research",
+    "technology framework selection",
     "website development",
     "software development",
-    "research support",
-    "academic writing support",
-    "literature review support",
+    "digital product development",
+    "academic tutoring",
+    "research tutoring",
     "JaksLab",
   ],
   openGraph: {
     type: "website",
     url: BASE_URL,
     siteName: "JaksLab",
-    title: "JaksLab | Content Marketing, Technology and Research Support",
+    title: "JaksLab | SEO, AEO, Content, Research & Product Development",
     description:
-      "Technical content marketing, technology development and research support built around clear, useful outcomes.",
+      "A partner for blog traffic growth, pre-project research, digital product building and academic tutoring.",
   },
   twitter: {
     card: "summary",
-    title: "JaksLab | Content Marketing, Technology and Research Support",
+    title: "JaksLab | SEO, AEO, Content, Research & Product Development",
     description:
-      "Technical content marketing, technology development and research support.",
+      "Blog traffic growth, pre-project research, digital product building and academic tutoring.",
   },
   robots: {
     index: true,
@@ -95,7 +98,7 @@ const organizationData = {
               "@type": "Service",
               name: "Technical Content Marketing",
               description:
-                "Technical articles, documentation-to-blog content, blog setup, SEO and AEO optimization.",
+                "Blog setup, optimization and technical content designed to grow qualified traffic through SEO and AEO.",
               url: `${BASE_URL}/services#content-marketing`,
             },
           },
@@ -103,7 +106,17 @@ const organizationData = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Technology and Development",
+              name: "Pre-project Research",
+              description:
+                "Requirements discovery, critical analysis, framework selection, technology recommendations and delivery planning before development.",
+              url: `${BASE_URL}/services#research-academic`,
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Digital Product Building",
               description:
                 "Websites, web applications, internal tools, APIs, integrations and product improvement.",
               url: `${BASE_URL}/services#technology-development`,
@@ -113,9 +126,9 @@ const organizationData = {
             "@type": "Offer",
             itemOffered: {
               "@type": "Service",
-              name: "Research and Academic Support",
+              name: "Academic Tutoring",
               description:
-                "Research planning, literature reviews, data analysis, reports, editing and presentations.",
+                "Guided tutoring for research planning, literature reviews, methodology, analysis, academic writing and presentations.",
               url: `${BASE_URL}/services#research-academic`,
             },
           },
@@ -143,7 +156,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body className="relative flex min-h-screen flex-col bg-white antialiased text-slate-900">
-        <SiteShell>{children}</SiteShell>
+        <AppShell>{children}</AppShell>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationData) }}

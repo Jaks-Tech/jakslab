@@ -65,7 +65,7 @@ const principles = [
 
 export function AboutExperience() {
   return (
-    <main className="bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="mx-auto w-full max-w-[1440px] bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
       <section className="border-b border-slate-300">
         <div className="grid w-full gap-12 px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:grid-cols-[.9fr_1.1fr] lg:items-center lg:px-12 lg:py-24 xl:px-16 2xl:px-20">
           <div>

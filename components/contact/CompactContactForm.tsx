@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import PersonalInfo from "@/components/order/order-form/PersonalInfo";
 
-const fieldClass = "w-full rounded-lg border border-slate-300 bg-white px-4 py-3.5 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-slate-700 focus:ring-2 focus:ring-slate-200";
+const fieldClass = "w-full rounded-lg border border-slate-300 bg-transparent px-4 py-3.5 text-[15px] text-slate-900 outline-none transition placeholder:text-slate-500 focus:border-slate-700 focus:ring-2 focus:ring-slate-200";
 
 export function CompactContactForm() {
   const [step, setStep] = useState(1);
@@ -45,7 +45,7 @@ export function CompactContactForm() {
 
   if (submitted) {
     return (
-      <div className="border border-slate-300 bg-white p-8 text-center">
+      <div className="border border-slate-300 bg-transparent p-8 text-center">
         <h2 className="text-2xl font-semibold text-slate-950">Message sent</h2>
         <p className="mt-2 text-slate-700">We&apos;ll reply shortly.</p>
         <button type="button" onClick={reset} className="mt-6 rounded-lg bg-[#202733] px-6 py-3 text-sm font-semibold text-[#fff] hover:bg-[#111827]">Send another</button>

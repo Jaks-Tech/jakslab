@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="contact-page min-h-[calc(100vh-5rem)] bg-white [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="contact-page mx-auto min-h-[calc(100vh-5rem)] w-full max-w-[1440px] bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
       <section className="w-full border-b border-slate-300 px-5 pb-14 pt-20 sm:px-8 sm:pb-16 sm:pt-24 lg:px-12 lg:pb-16 lg:pt-24 xl:px-16 2xl:px-20">
         <div className="w-full text-center">
           <h1 className="text-4xl font-semibold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
@@ -25,7 +25,7 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="mt-10 w-full border border-slate-300 bg-white p-5 shadow-[0_18px_45px_rgba(15,23,42,.08)] sm:p-8">
+        <div className="mt-10 w-full border border-slate-300 bg-transparent p-5 shadow-[0_18px_45px_rgba(15,23,42,.08)] sm:p-8">
           <h2 className="text-2xl font-semibold text-slate-950">Send an enquiry</h2>
           <p className="mt-2 text-sm leading-7 text-slate-700">Start with a short description. Your contact details come next.</p>
           <div className="mt-7">

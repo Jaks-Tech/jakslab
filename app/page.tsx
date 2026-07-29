@@ -1,21 +1,26 @@
 import type { Metadata } from "next";
-import { HomepageHero } from "@/components/content-marketing/HomepageHero";
-import { HomepageServices } from "@/components/content-marketing/HomepageServices";
+import { HomepageServiceHero } from "@/components/content-marketing/HomepageServiceHero";
 import { HomepageOverview } from "@/components/content-marketing/HomepageOverview";
-import { HomepagePracticeVisual } from "@/components/content-marketing/HomepagePracticeVisual";
-import { HomepageSelectedWork } from "@/components/content-marketing/HomepageSelectedWork";
+import { HomepageAudienceArcs } from "@/components/content-marketing/HomepageAudienceArcs";
+import { HomepageStrategy } from "@/components/content-marketing/HomepageStrategy";
 import { getAllArticles } from "@/lib/articles";
+import { ResponsiveSection } from "@/components/layout/ResponsiveLayout";
 
 export const metadata: Metadata = {
-  title: "Technical Content Marketing, Technology and Research Support",
+  title: {
+    absolute: "JaksLab | SEO, AEO, Content, Research & Product Development",
+  },
   description:
-    "Turn company knowledge into useful technical content. JaksLab also builds websites and software and supports research and academic work.",
+    "Grow qualified traffic with SEO, AEO and company-specific technical content, research a project before development and build a useful digital product with JaksLab.",
   keywords: [
     "technical content marketing company",
     "technical article writing",
     "B2B blog content",
+    "blog traffic growth",
+    "pre-project research",
+    "project requirements research",
     "website and software development",
-    "research and academic support",
+    "digital product builder",
     "JaksLab",
   ],
   alternates: { canonical: "/" },
@@ -26,16 +31,13 @@ export default function Home() {
 
   return (
     <main className="w-full flex-1 bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
-      <HomepageHero />
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Services">
-        <HomepageServices />
-      </section>
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Selected work">
-        <HomepageSelectedWork />
-      </section>
-      <section className="w-full bg-transparent px-5 py-6 sm:px-8 sm:py-8 lg:px-12 xl:px-16 2xl:px-20" aria-label="Our practices">
-        <HomepagePracticeVisual />
-      </section>
+      <HomepageServiceHero />
+      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]" aria-label="Teams we work best with">
+        <HomepageAudienceArcs />
+      </ResponsiveSection>
+      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]" aria-label="Our strategy">
+        <HomepageStrategy />
+      </ResponsiveSection>
       <HomepageOverview articles={articles} />
     </main>
   );

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/Header";
 import { LightFooter } from "@/components/content-marketing/LightFooter";
 
-export function SiteShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isGhostChat = pathname.startsWith("/ghost-chat");
   const isServicesPage = pathname.startsWith("/services");
@@ -15,7 +15,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className={`relative z-10 flex min-h-screen flex-col ${
+      className={`app-shell relative z-10 flex min-h-screen min-w-0 flex-col overflow-x-clip ${
         usesPlainBackground ? "bg-white" : "site-knowledge-background"
       }`}
       style={
@@ -32,20 +32,13 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     >
       <Header />
 
-      <main className={`${isServicesPage ? "" : "site-content-frame"} w-full flex-1 pt-20`}>
+      <main className={`${isServicesPage ? "" : "site-content-frame"} w-full min-w-0 flex-1 pt-20`}>
         {children}
       </main>
 
       {!isGhostChat && <LightFooter />}
 
       <style>{`
-        .site-content-frame > main {
-          width: 100%;
-          max-width: 1500px;
-          margin-right: auto;
-          margin-left: auto;
-        }
-
         .site-knowledge-background > main > main {
           background-color: transparent !important;
         }
