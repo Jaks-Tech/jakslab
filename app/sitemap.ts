@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/articles";
+import { getHomepagePillars } from "@/lib/homepage-pillars";
 
 const BASE_URL = "https://www.jakslab.work";
-const SITE_UPDATED_AT = new Date("2026-07-29");
+const SITE_UPDATED_AT = new Date("2026-07-30");
 
 const publicPages = [
   { path: "", changeFrequency: "weekly", priority: 1 },
@@ -22,7 +23,7 @@ const publicPages = [
   { path: "/site-map", changeFrequency: "monthly", priority: 0.25 },
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pages: MetadataRoute.Sitemap = publicPages.map((page) => ({
     url: `${BASE_URL}${page.path}`,
     lastModified: SITE_UPDATED_AT,
@@ -35,7 +36,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(article.date),
     changeFrequency: "monthly",
     priority: 0.75,
+    ...(article.image ? { images: [new URL(article.image, BASE_URL).toString()] } : {}),
   }));
 
-  return [...pages, ...articles];
+  const insights: MetadataRoute.Sitemap = (await getHomepagePillars()).map((insight) => ({
+    url: `${BASE_URL}/insights/${insight.slug}`,
+    lastModified: new Date(insight.updatedAt),
+    changeFrequency: "monthly",
+    priority: 0.8,
+    images: [`${BASE_URL}${insight.image}`],
+  }));
+
+  return [...pages, ...insights, ...articles];
 }

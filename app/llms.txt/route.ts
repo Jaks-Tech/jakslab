@@ -1,13 +1,21 @@
 import { getAllArticles } from "@/lib/articles";
+import { getHomepagePillars } from "@/lib/homepage-pillars";
 
 const BASE_URL = "https://www.jakslab.work";
 
 export async function GET() {
   const articles = getAllArticles();
+  const insights = await getHomepagePillars();
   const articleLinks = articles
     .map(
       (article) =>
         `- [${article.title}](${BASE_URL}/portfolio/${article.slug}): ${article.excerpt || `${article.category} article by JaksLab.`}`,
+    )
+    .join("\n");
+  const insightLinks = insights
+    .map(
+      (insight) =>
+        `- [${insight.title}](${BASE_URL}/insights/${insight.slug}): ${insight.summary} Author: ${insight.author}. Updated: ${insight.updatedAt}.`,
     )
     .join("\n");
 
@@ -34,9 +42,24 @@ JaksLab is based in Nairobi, Kenya and works with clients internationally. We tu
 - [Book a call](${BASE_URL}/book-call): 30-minute content optimization discussion.
 - [Request a service](${BASE_URL}/order): Pre-project research and product development requests.
 
+## JaksLab research insights
+
+These evidence-led articles explain JaksLab's approach to technical content, SEO, AEO, GEO visibility, qualified traffic and measurement. Each article includes inline source links and an original explanatory illustration.
+
+${insightLinks}
+
 ## Published articles
 
 ${articleLinks}
+
+## Discovery and indexing
+
+- [XML sitemap](${BASE_URL}/sitemap.xml): Canonical public pages, research insights, portfolio articles and their primary images.
+- [Robots policy](${BASE_URL}/robots.txt): Public crawling rules and private application paths.
+- Canonical domain: ${BASE_URL}
+- Content language: English
+- Publisher and author: JaksLab
+- Primary location: Nairobi, Kenya
 
 ## Contact
 

@@ -164,7 +164,7 @@ export function ServicesCategories() {
   }, []);
 
   return (
-    <main className="mx-auto w-full max-w-[1440px] pt-8 [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="services-clean mx-auto w-full max-w-[1440px] pt-8 text-slate-800">
       <nav
         aria-label="Service categories"
         className={`sticky top-[88px] z-30 mx-auto w-full max-w-2xl px-4 py-3 transition-opacity duration-200 ease-out ${
@@ -208,7 +208,7 @@ export function ServicesCategories() {
         </div>
       </nav>
 
-      <section id="content-marketing" className="scroll-mt-36 border-t-4 border-[#946832] bg-transparent">
+      <section id="content-marketing" className="service-section scroll-mt-36 border-t-4 border-[#946832] bg-transparent">
         <ContentCraftingCarousel />
         <div className="hidden">
           <p className="text-sm text-slate-600">01 / Content Marketing</p>
@@ -341,7 +341,7 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="technology-development" className="scroll-mt-36 border-t-4 border-[#4f7059] bg-transparent">
+      <section id="technology-development" className="service-section scroll-mt-36 border-t-4 border-[#4f7059] bg-transparent">
         <TechnologyBuildPath />
         <div className="hidden">
           <p className="text-sm text-slate-600">02 / Technology &amp; Development</p>
@@ -389,7 +389,7 @@ export function ServicesCategories() {
         </div>
       </section>
 
-      <section id="research-academic" className="scroll-mt-36 border-y-4 border-[#526b84] bg-transparent">
+      <section id="research-academic" className="service-section scroll-mt-36 border-y-4 border-[#526b84] bg-transparent">
         <ResearchServicePath />
         <div className="hidden">
           <p className="text-sm text-slate-600">03 / Research &amp; Academic Work</p>

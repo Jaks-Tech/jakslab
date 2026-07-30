@@ -2,14 +2,11 @@ import { ResponsiveSection } from "@/components/layout/ResponsiveLayout";
 
 export default function ArticlesHeroSimple() {
   return (
-    <ResponsiveSection className="border-b border-slate-300 bg-transparent text-center">
+    <ResponsiveSection className="border-b border-slate-300 bg-transparent !py-[clamp(2rem,4vw,3.5rem)] text-center">
       <div className="mx-auto max-w-4xl">
-        <h1 className="fluid-h1 max-w-4xl font-semibold leading-[1.08] tracking-tight text-slate-950">
-          Our Insights.
+        <h1 className="mx-auto max-w-4xl font-serif text-[clamp(2rem,4vw,3.75rem)] font-normal leading-[1.08] tracking-[-.03em] text-slate-950">
+          Our research on technical content, search growth, digital products, and research.
         </h1>
-        <p className="fluid-body mx-auto mt-6 max-w-2xl leading-8 text-slate-700">
-          Articles on technical communication, software, research methods and the practical work behind complex projects.
-        </p>
       </div>
     </ResponsiveSection>
   );

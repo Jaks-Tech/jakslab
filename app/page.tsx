@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { HomepageServiceHero } from "@/components/content-marketing/HomepageServiceHero";
 import { HomepageOverview } from "@/components/content-marketing/HomepageOverview";
-import { HomepageAudienceArcs } from "@/components/content-marketing/HomepageAudienceArcs";
-import { HomepageStrategy } from "@/components/content-marketing/HomepageStrategy";
+import { HomepageAudienceSwitcher } from "@/components/content-marketing/HomepageAudienceSwitcher";
 import { getAllArticles } from "@/lib/articles";
 import { ResponsiveSection } from "@/components/layout/ResponsiveLayout";
+import { HomepagePillars } from "@/components/content-marketing/HomepagePillars";
+import { getHomepagePillars } from "@/lib/homepage-pillars";
 
 export const metadata: Metadata = {
   title: {
@@ -26,17 +27,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function Home() {
+export default async function Home() {
   const articles = getAllArticles();
+  const pillars = await getHomepagePillars();
 
   return (
-    <main className="w-full flex-1 bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="homepage-simple w-full flex-1 bg-[#f7f5ef] text-[#1d1d1a]">
       <HomepageServiceHero />
+      <HomepagePillars pillars={pillars} />
       <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]" aria-label="Teams we work best with">
-        <HomepageAudienceArcs />
-      </ResponsiveSection>
-      <ResponsiveSection className="bg-transparent !py-[clamp(1.5rem,2.5vw,2rem)]" aria-label="Our strategy">
-        <HomepageStrategy />
+        <HomepageAudienceSwitcher />
       </ResponsiveSection>
       <HomepageOverview articles={articles} />
     </main>

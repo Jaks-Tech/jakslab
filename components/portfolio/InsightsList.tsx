@@ -21,55 +21,55 @@ export default function InsightsList({ articles }: { articles: Insight[] }) {
     <div>
       <Link
         href={`/portfolio/${featured.slug}`}
-        className="group grid min-w-0 overflow-hidden bg-white/30 lg:grid-cols-[1.3fr_.7fr]"
+        className="portfolio-feature group grid min-w-0 overflow-hidden bg-[#eee7de] lg:grid-cols-[1.12fr_.88fr]"
       >
-        <span className="relative min-h-[clamp(22rem,46vw,42rem)] min-w-0 overflow-hidden bg-[#f7eee4]/55">
+        <span className="relative min-h-[clamp(20rem,40vw,34rem)] min-w-0 overflow-hidden">
           <Image
             src={featured.image || defaultImage}
             alt=""
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 65vw"
-            className="h-full w-full max-w-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.015]"
+            className="h-full w-full max-w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.015]"
           />
         </span>
         <span className="flex min-w-0 flex-col justify-center p-[clamp(1.5rem,5vw,4.5rem)]">
-          <span className="text-xs font-medium text-slate-500">Featured insight</span>
-          <h2 className="mt-4 text-[clamp(2rem,4vw,4.25rem)] font-medium leading-[.98] tracking-[-.05em] text-slate-950">
+          <span className="text-[11px] uppercase tracking-[.12em] text-[#9e443a]">Latest insight</span>
+          <h2 className="mt-5 font-serif text-[clamp(2rem,4vw,4rem)] font-normal leading-[1.02] tracking-[-.035em] text-slate-950">
             {featured.title}
           </h2>
           {featured.excerpt && <span className="mt-5 text-sm leading-7 text-slate-600">{featured.excerpt}</span>}
-          <span className="mt-7 flex items-center justify-between gap-4 text-xs text-slate-500">
-            <span>{featured.readTime}</span>
+          <span className="mt-8 flex items-center justify-between gap-4 text-xs text-slate-600">
+            <span>{featured.category} · {featured.readTime}</span>
             <ArrowUpRight className="text-slate-900 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" size={19} aria-hidden="true" />
           </span>
         </span>
       </Link>
 
-      <div className="mt-[clamp(1rem,3vw,2rem)]">
-        {remaining.map((article, index) => (
+      <div className="mt-[clamp(2.5rem,5vw,5rem)] grid gap-x-8 gap-y-12 md:grid-cols-2">
+        {remaining.map((article) => (
           <Link
             key={article.slug}
             href={`/portfolio/${article.slug}`}
-            className="group grid min-w-0 border-t border-slate-300 py-[clamp(1.5rem,4vw,3.5rem)] md:grid-cols-2 md:items-stretch"
+            className="portfolio-story group min-w-0"
           >
-            <span className={`relative min-h-[clamp(17rem,34vw,30rem)] min-w-0 overflow-hidden bg-[#f7eee4]/55 ${index % 2 ? "md:order-2" : ""}`}>
+            <span className="portfolio-story-image relative block aspect-[16/10] min-w-0 overflow-hidden bg-[#eee7de]">
               <Image
                 src={article.image || defaultImage}
                 alt=""
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="h-full w-full max-w-full object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                className="h-full w-full max-w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
               />
             </span>
-            <span className={`flex min-w-0 flex-col justify-center px-[clamp(1rem,5vw,4rem)] py-8 ${index % 2 ? "md:order-1" : ""}`}>
-              <span className="text-xs text-slate-500">{article.date}</span>
-              <h2 className="mt-4 text-[clamp(1.75rem,3vw,3.25rem)] font-medium leading-tight tracking-[-.04em] text-slate-950">
+            <span className="block min-w-0 pt-6">
+              <span className="text-[11px] uppercase tracking-[.1em] text-[#9e443a]">{article.category}</span>
+              <h2 className="mt-3 font-serif text-[clamp(1.5rem,2.5vw,2.25rem)] font-normal leading-tight tracking-[-.025em] text-slate-950">
                 {article.title}
               </h2>
-              {article.excerpt && <span className="mt-5 line-clamp-3 text-sm leading-7 text-slate-600">{article.excerpt}</span>}
-              <span className="mt-7 flex items-center gap-3 text-sm font-semibold text-slate-900">
-                Read insight
+              {article.excerpt && <span className="mt-4 block line-clamp-2 text-sm leading-6 text-slate-600">{article.excerpt}</span>}
+              <span className="mt-5 flex items-center justify-between gap-3 border-t border-[#c8c1b9] pt-4 text-xs text-slate-700">
+                <span>{article.date} · {article.readTime}</span>
                 <ArrowUpRight className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" size={17} aria-hidden="true" />
               </span>
             </span>

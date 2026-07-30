@@ -80,6 +80,107 @@ div {
 .fluid-body { font-size: var(--text-body); }
 .fluid-small { font-size: var(--text-sm); }
 
+/* Homepage typography and surfaces: quiet, familiar and intentionally plain. */
+.homepage-simple {
+  background: #ffffff;
+  color: #1d1d1a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.homepage-simple > section {
+  border-color: #cbc7bf !important;
+}
+
+.homepage-simple > section:nth-child(3n + 1) {
+  background-color: #ffffff !important;
+}
+
+.homepage-simple > section:nth-child(3n + 2) {
+  background-color: #ead8c5 !important;
+}
+
+.homepage-simple > section:nth-child(3n) {
+  background-color: #e5e5e2 !important;
+}
+
+.homepage-simple > section :where(section, article, figure, div) {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.homepage-simple :where(h1, h2, h3) {
+  color: #1d1d1a !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.025em !important;
+  text-transform: none !important;
+}
+
+.homepage-simple h1 {
+  font-size: clamp(2.25rem, 4vw, 4rem) !important;
+  line-height: 1.05 !important;
+}
+
+.homepage-simple :where(p, a, button, span) {
+  letter-spacing: normal;
+}
+
+.homepage-simple :where(section, article, figure, div) {
+  backdrop-filter: none !important;
+}
+
+.homepage-simple :where(article, figure, [class*="rounded"], [class*="shadow"]) {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.homepage-simple :where(button, a) {
+  transition: none !important;
+}
+
+.homepage-simple button {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.homepage-simple button:not([role="tab"]) {
+  background: transparent !important;
+  border-width: 0 0 1px !important;
+  color: #1d1d1a !important;
+  padding-inline: 0 !important;
+}
+
+.homepage-simple [role="tab"] {
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid transparent !important;
+  border-radius: 0 !important;
+  padding-inline: 0 !important;
+  margin-right: 1.5rem;
+}
+
+.homepage-simple [role="tab"][aria-selected="true"] {
+  border-bottom-color: #1d1d1a !important;
+}
+
+.homepage-simple :where(.homepage-article-change, .homepage-practice-frame, .homepage-practice-item) {
+  animation: none !important;
+}
+
+.homepage-simple :where(a:hover, button:hover) {
+  transform: none !important;
+}
+
+.homepage-simple .homepage-pillar-overlay {
+  background: rgba(20, 18, 16, .42) !important;
+}
+
+.homepage-simple .homepage-pillar-dialog {
+  background: #f7f5ef !important;
+}
+
 /* Optional prose overrides - updated for better contrast on animated backgrounds */
 .prose {
   --tw-prose-body: var(--foreground);
@@ -578,13 +679,196 @@ html .theme-dark-background { display: none !important; }
 }
 
 html body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -20;
-  pointer-events: none;
+  content: none;
+}
+
+/* Site-wide flat canvas and repeating neutral section palette. */
+.site-neutral-root,
+.site-neutral-background {
   background: #ffffff;
 }
+
+.site-neutral-background img {
+  filter: grayscale(1) sepia(.12) saturate(.35) contrast(.94);
+}
+
+.site-neutral-background img[src*="jakslab.png"] {
+  filter: none !important;
+}
+
+.homepage-pillars-section img {
+  filter: none !important;
+}
+
+.site-neutral-background header img.header-color-logo {
+  filter: none !important;
+}
+
+.site-content-frame > section:nth-of-type(3n + 1),
+.site-content-frame > :where(main, div) > section:nth-of-type(3n + 1) {
+  background-color: #ffffff !important;
+}
+
+.site-content-frame > section:nth-of-type(3n + 2),
+.site-content-frame > :where(main, div) > section:nth-of-type(3n + 2) {
+  background-color: #ead8c5 !important;
+}
+
+.site-content-frame > section:nth-of-type(3n),
+.site-content-frame > :where(main, div) > section:nth-of-type(3n) {
+  background-color: #e5e5e2 !important;
+}
+
+.homepage-pillars-section :where(p, h2, h3, a, svg) {
+  color: #1d1d1a !important;
+}
+
+.site-content-frame > main.homepage-simple > section.homepage-pillars-section {
+  background: #f7f5ef !important;
+}
+
+.homepage-pillars-section .approach-display-title,
+.homepage-pillars-section .approach-item svg {
+  color: #d84b3f !important;
+}
+
+.homepage-simple .process-shape-1 {
+  border-radius: 46% 54% 42% 58% / 55% 38% 62% 45% !important;
+  background: #ebe5dc !important;
+}
+
+.homepage-simple .process-shape-2 {
+  border-radius: 58% 42% 55% 45% / 40% 57% 43% 60% !important;
+  background: #f0dfd3 !important;
+}
+
+.homepage-simple .process-shape-3 {
+  border-radius: 40% 60% 48% 52% / 58% 44% 56% 42% !important;
+  background: #e4e2dc !important;
+}
+
+.homepage-simple .process-shape-4 {
+  border-radius: 55% 45% 38% 62% / 44% 61% 39% 56% !important;
+  background: #eee6d9 !important;
+}
+
+.homepage-simple .audience-image-cloud {
+  border-radius: 12% 28% 14% 24% / 18% 12% 26% 16% !important;
+}
+
+.homepage-simple .homepage-final-action {
+  border: 1px solid #1d1d1a !important;
+  background: #1d1d1a !important;
+  color: #ffffff !important;
+  padding-inline: 1.5rem !important;
+}
+
+.homepage-simple .homepage-final-action:hover {
+  background: #a94318 !important;
+  border-color: #a94318 !important;
+}
+
+.homepage-simple .homepage-final-solution {
+  background: #ffffff !important;
+  box-shadow: 0 22px 70px rgba(45, 39, 34, .10) !important;
+}
+
+.homepage-simple .insight-feature {
+  border-radius: 3rem 6rem 3rem 3rem !important;
+}
+
+.homepage-simple .insight-compact {
+  border-radius: 4rem 2rem 4rem 4rem !important;
+}
+
+.homepage-simple .insight-thumb,
+.homepage-simple .insight-control {
+  border-radius: 999px !important;
+}
+
+.portfolio-feature {
+  border-radius: 1.75rem 4rem 1.75rem 1.75rem;
+}
+
+.portfolio-story-image {
+  border-radius: 1.5rem 3.5rem 1.5rem 1.5rem;
+}
+
+.article-promo {
+  border: 1px solid #c9c1b8;
+  border-radius: 1.5rem 3rem 1.5rem 1.5rem;
+  background: #f7f5ef;
+  padding: 1.25rem;
+}
+
+.article-promo--warm {
+  background: #ead8c5;
+  border-radius: 3rem 1.5rem 1.5rem 1.5rem;
+}
+
+/* Services page: one restrained type scale, clear chapters, and soft edges. */
+.services-clean {
+  color: #1d1d1a;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.services-clean :where(h1, h2, h3, h4) {
+  color: #1d1d1a !important;
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-style: normal;
+  font-weight: 400 !important;
+  letter-spacing: -.025em !important;
+}
+
+.services-clean h2 {
+  font-size: clamp(2rem, 3.4vw, 3.5rem) !important;
+  line-height: 1.08 !important;
+}
+
+.services-clean h3 {
+  font-size: clamp(1.4rem, 2vw, 2.15rem) !important;
+  line-height: 1.15 !important;
+}
+
+.services-clean h4 {
+  font-size: 1.1rem !important;
+  line-height: 1.35 !important;
+}
+
+.services-clean p {
+  line-height: 1.75;
+}
+
+.services-clean > .service-section {
+  border-width: 1px 0 0 !important;
+}
+
+.services-clean > .service-section + .service-section {
+  margin-top: clamp(4rem, 8vw, 8rem);
+}
+
+.services-clean :where(
+  [class*="rounded-2xl"],
+  [class*="rounded-xl"],
+  [class*="rounded-lg"]
+) {
+  border-radius: 1.5rem 3rem 1.5rem 1.5rem !important;
+}
+
+.services-clean figure {
+  border-radius: 2rem 4rem 2rem 2rem !important;
+}
+
+@media (max-width: 640px) {
+  .services-clean > .service-section + .service-section {
+    margin-top: 3.5rem;
+  }
+
+  .services-clean figure {
+    border-radius: 1.5rem 2.5rem 1.5rem 1.5rem !important;
+  }
+}
+
 
 html[data-theme="light"] [class~="text-white"]:not([class*="bg-blue-"]):not([class*="bg-indigo-"]):not([class*="bg-violet-"]):not([class*="bg-emerald-"]):not([class*="bg-cyan-"]):not([class*="bg-teal-"]):not([class*="bg-green-"]):not([class*="bg-red-"]):not([class*="bg-orange-"]):not([class*="bg-gradient-"]) { color: #0f172a !important; }
 html[data-theme="light"] [class*="text-slate-100"],

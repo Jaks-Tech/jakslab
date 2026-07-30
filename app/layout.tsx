@@ -155,7 +155,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       style={{ colorScheme: "light" }}
       suppressHydrationWarning
     >
-      <body className="relative flex min-h-screen flex-col bg-white antialiased text-slate-900">
+      <body className="site-neutral-root relative flex min-h-screen flex-col antialiased text-slate-900">
         <AppShell>{children}</AppShell>
         <script
           type="application/ld+json"

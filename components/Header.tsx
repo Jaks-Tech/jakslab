@@ -61,7 +61,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 z-[110]">
             <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-700">
-              <Image src="/jakslab.png" alt="Logo" fill className="object-cover" />
+              <Image src="/jakslab.png" alt="Logo" fill className="header-color-logo object-cover" />
             </div>
             <span className="text-lg font-bold tracking-tight text-slate-950">JaksLab</span>
           </Link>
@@ -167,11 +167,11 @@ export function Header() {
         <div className="flex items-center justify-between px-5 py-5 sm:px-6">
           <Link href="/" onClick={() => setIsActionPanelOpen(false)} className="flex items-center gap-3">
             <span className="relative size-9 overflow-hidden rounded-full border border-slate-300 bg-white">
-              <Image src="/jakslab.png" alt="JaksLab logo" fill className="object-cover" />
+              <Image src="/jakslab.png" alt="JaksLab logo" fill className="header-color-logo object-cover" />
             </span>
             <span>
               <span className="block font-semibold text-slate-950">JaksLab</span>
-              <span className="block text-[11px] text-slate-600">Traffic, research, products and tutoring</span>
+              <span className="block text-[11px] text-slate-600">Search growth, research and digital products</span>
             </span>
           </Link>
           <button
@@ -185,42 +185,40 @@ export function Header() {
         </div>
 
         <div className="px-5 pb-6 pt-1 sm:px-6">
-          <div className="mb-5">
-            <h1 className="text-2xl font-semibold leading-tight text-slate-950">How can we help?</h1>
-            <p className="mt-1 text-sm text-slate-600">Choose one option.</p>
+          <div className="mb-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#8a5a3b]">Start here</p>
+            <h1 className="mt-2 font-serif text-[2rem] font-normal leading-tight text-slate-950">What would you like to move forward?</h1>
+            <p className="mt-2 max-w-sm text-sm leading-6 text-slate-600">Book a short call to clarify the need, or send the work directly for review.</p>
           </div>
 
-          <div className="grid gap-3">
-            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
-              <span className="grid size-11 place-items-center rounded-2xl bg-[#f3f4f2] text-slate-900"><CalendarDays size={20} /></span>
-              <h2 className="mt-3 text-base font-semibold">Blog Growth</h2>
-              <p className="mt-1 text-xs text-slate-600">Optimization, content, SEO and AEO.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/book-call" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
+          <div className="grid gap-4">
+            <section className="rounded-[2rem_3rem_2rem_2rem] bg-[#ead8c5] p-5">
+              <span className="grid size-10 place-items-center rounded-full bg-white/55 text-[#4a3021]"><CalendarDays size={19} /></span>
+              <h2 className="mt-4 font-serif text-xl font-normal">Content and Search Growth</h2>
+              <p className="mt-2 text-sm leading-6 text-[#604d40]">Improve useful content, organic visibility, SEO and answer-engine reach around your real expertise.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/book-call" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#3f2b20] px-5 py-2.5 text-sm font-semibold text-[#fff] transition hover:bg-[#563b2b]">
                 <CalendarDays size={17} aria-hidden="true" />
-                Book a 30-minute call
-                <ArrowRight size={16} aria-hidden="true" />
+                Book a 30-minute strategy call
               </Link>
             </section>
 
-            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
-              <span className="grid size-11 place-items-center rounded-2xl bg-white text-slate-900"><ClipboardList size={20} /></span>
-              <h2 className="mt-3 text-base font-semibold">Project Research or Product Build</h2>
-              <p className="mt-1 text-xs text-slate-600">Leave the research or complete build to us.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/order" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
+            <section className="rounded-[3rem_2rem_2rem_2rem] bg-[#e2e0da] p-5">
+              <span className="grid size-10 place-items-center rounded-full bg-white/60 text-slate-800"><ClipboardList size={19} /></span>
+              <h2 className="mt-4 font-serif text-xl font-normal">Research or Product Delivery</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Send us the problem, requirements, or existing brief. We can research the direction or deliver the working product.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/order" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-slate-500/40 bg-white/65 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-white">
                 <ClipboardList size={17} aria-hidden="true" />
-                Request service
-                <ArrowRight size={16} aria-hidden="true" />
+                Request a service
               </Link>
             </section>
 
-            <section className="rounded-2xl border border-slate-300 bg-transparent p-4">
-              <span className="grid size-11 place-items-center rounded-2xl bg-[#f3f4f2] text-slate-900"><Mail size={20} /></span>
-              <h2 className="mt-3 text-base font-semibold">Academic Tutoring</h2>
-              <p className="mt-1 text-xs text-slate-600">Guidance through research and academic work.</p>
-              <Link onClick={() => setIsActionPanelOpen(false)} href="/contact" className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-slate-950 underline underline-offset-4">
+            <section className="rounded-[2rem_2rem_3rem_2rem] bg-[#f2eee6] p-5">
+              <span className="grid size-10 place-items-center rounded-full bg-white/70 text-slate-800"><Mail size={19} /></span>
+              <h2 className="mt-4 font-serif text-xl font-normal">Academic Research Tutoring</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-600">Get structured guidance on research questions, literature, methods, analysis, writing and presentation.</p>
+              <Link onClick={() => setIsActionPanelOpen(false)} href="/contact" className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-full px-2 py-2.5 text-sm font-semibold text-[#5a3a27] underline decoration-[#9c6844]/45 underline-offset-8">
                 <Mail size={17} aria-hidden="true" />
                 Ask about tutoring
-                <ArrowRight size={16} aria-hidden="true" />
               </Link>
             </section>
           </div>

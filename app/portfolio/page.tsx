@@ -26,7 +26,7 @@ export default function PortfolioPage() {
     <main className="min-h-screen bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
       <ArticlesHeroSimple />
 
-      <ResponsiveContainer className="py-[var(--section-space)]">
+      <ResponsiveContainer className="pb-[var(--section-space)] pt-[clamp(2rem,4vw,3rem)]">
         <InsightsList articles={articles} />
       </ResponsiveContainer>
     </main>

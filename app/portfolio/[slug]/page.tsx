@@ -147,10 +147,38 @@ export default async function ArticlePage({
       </header>
 
       <ResponsiveContainer className="py-12 sm:py-16 lg:py-20">
+        <div className="mx-auto grid max-w-[82rem] gap-8 lg:grid-cols-[13rem_minmax(0,48rem)_13rem] lg:items-start">
+          <aside className="article-promo lg:sticky lg:top-28" aria-label="JaksLab content optimization service">
+            <p className="text-[10px] uppercase tracking-[.13em] text-[#a94318]">JaksLab service</p>
+            <h2 className="mt-4 font-serif text-2xl font-normal leading-tight text-[#1d1d1a]">
+              Turn expertise into qualified traffic.
+            </h2>
+            <p className="mt-4 text-xs leading-6 text-[#625b54]">
+              Research, technical content, SEO, AEO, and continuous optimization.
+            </p>
+            <Link href="/services#content-marketing" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#1d1d1a] underline underline-offset-4">
+              Explore content growth <ArrowRight size={13} aria-hidden="true" />
+            </Link>
+          </aside>
+
         <article
-          className="article-prose prose prose-lg mx-auto w-full max-w-3xl"
+          className="article-prose prose prose-lg w-full max-w-3xl"
           dangerouslySetInnerHTML={{ __html: article.contentHtml }}
         />
+
+          <aside className="article-promo article-promo--warm lg:sticky lg:top-28" aria-label="JaksLab project research service">
+            <p className="text-[10px] uppercase tracking-[.13em] text-[#a94318]">Before you build</p>
+            <h2 className="mt-4 font-serif text-2xl font-normal leading-tight text-[#1d1d1a]">
+              Test the direction before development.
+            </h2>
+            <p className="mt-4 text-xs leading-6 text-[#625b54]">
+              Clarify requirements, users, frameworks, risks, and the practical delivery path.
+            </p>
+            <Link href="/services#research-academic" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#1d1d1a] underline underline-offset-4">
+              Explore project research <ArrowRight size={13} aria-hidden="true" />
+            </Link>
+          </aside>
+        </div>
       </ResponsiveContainer>
 
       {related.length > 0 && (

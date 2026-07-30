@@ -35,6 +35,16 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: privatePaths,
       },
+      {
+        userAgent: "ClaudeBot",
+        allow: "/",
+        disallow: privatePaths,
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+        disallow: privatePaths,
+      },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,
