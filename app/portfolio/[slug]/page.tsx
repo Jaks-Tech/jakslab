@@ -21,6 +21,8 @@ export async function generateMetadata({
     const description =
       article.excerpt ||
       `Read ${article.title}, a ${article.category.toLowerCase()} article from JaksLab.`;
+    const image = article.image || DEFAULT_IMAGE;
+    const imageAlt = article.imageAlt || `${article.title} article cover`;
 
     return {
       title: article.title,
@@ -43,11 +45,13 @@ export async function generateMetadata({
         description,
         publishedTime: article.date,
         authors: [article.author],
+        images: [{ url: image, alt: imageAlt }],
       },
       twitter: {
-        card: "summary",
+        card: "summary_large_image",
         title: article.title,
         description,
+        images: [image],
       },
     };
   } catch {
@@ -99,6 +103,7 @@ export default async function ArticlePage({
       },
     },
     articleSection: article.category,
+    image: `${BASE_URL}${article.image || DEFAULT_IMAGE}`,
     inLanguage: "en",
   };
 
@@ -135,11 +140,11 @@ export default async function ArticlePage({
             <figure className="relative mt-10 aspect-[16/9] w-full overflow-hidden bg-[#f7eee4]/55">
               <Image
                 src={article.image || DEFAULT_IMAGE}
-                alt=""
+                alt={article.imageAlt || `${article.title} article cover`}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 896px"
-                className="h-full w-full max-w-full object-contain object-center"
+                className="h-full w-full max-w-full object-cover object-center"
               />
             </figure>
           </div>

@@ -26,7 +26,7 @@ export default function InsightsList({ articles }: { articles: Insight[] }) {
         <span className="relative min-h-[clamp(20rem,40vw,34rem)] min-w-0 overflow-hidden">
           <Image
             src={featured.image || defaultImage}
-            alt=""
+            alt={featured.imageAlt || `${featured.title} article cover`}
             fill
             priority
             sizes="(max-width: 1024px) 100vw, 65vw"
@@ -56,7 +56,7 @@ export default function InsightsList({ articles }: { articles: Insight[] }) {
             <span className="portfolio-story-image relative block aspect-[16/10] min-w-0 overflow-hidden bg-[#eee7de]">
               <Image
                 src={article.image || defaultImage}
-                alt=""
+                alt={article.imageAlt || `${article.title} article cover`}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="h-full w-full max-w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
