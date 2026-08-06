@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ServicesCategories } from "@/components/content-marketing/ServicesCategories";
+import { ServicesOverview } from "@/components/services/ServicesOverview";
 
 export const metadata: Metadata = {
   title: "Content Marketing, Technology and Research Services",
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function ServicesPage() {
-  return <ServicesCategories />;
+  return <ServicesOverview />;
 }

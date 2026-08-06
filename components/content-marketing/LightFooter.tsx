@@ -16,7 +16,7 @@ const services = [
   ["Blog Growth & Content", "/services#content-marketing"],
   ["Pre-project Research", "/services#research-academic"],
   ["Digital Product Building", "/services#technology-development"],
-  ["Academic Tutoring", "/services#research-academic"],
+  
 ];
 
 const legal = [

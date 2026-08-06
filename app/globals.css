@@ -416,53 +416,10 @@ html .theme-dark-background { display: none !important; }
   animation: serviceNoteProgress 4.2s linear both;
 }
 
-.service-example-card {
-  position: relative;
-  transition: background-color 350ms ease, box-shadow 350ms ease;
-}
-
-.service-example-card::after {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 3px;
-  background: #111827;
-  content: "";
-  opacity: 0;
-  transform: scaleY(.25);
-  transition: opacity 350ms ease, transform 350ms ease;
-  transform-origin: center;
-}
-
-.service-example-card.is-current {
-  background: transparent;
-  box-shadow: inset 0 0 0 1px #94a3b8;
-}
-
-.service-example-card.is-current::after {
-  opacity: 1;
-  transform: scaleY(1);
-}
-
-.service-example-number {
-  transition: background-color 350ms ease, color 350ms ease, border-color 350ms ease;
-}
-
-.service-example-card.is-current .service-example-number {
-  background: #111827;
-  border-color: #111827;
-  color: #ffffff !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .service-changing-note,
   .service-note-progress {
     animation: none;
-  }
-
-  .service-example-card,
-  .service-example-card::after,
-  .service-example-number {
-    transition: none;
   }
 }
 
@@ -794,6 +751,16 @@ html body::before {
   border-radius: 1.5rem 3.5rem 1.5rem 1.5rem;
 }
 
+/* Editorial images keep their original colour and remain legible at every crop. */
+.site-neutral-background :where(
+  .portfolio-feature,
+  .portfolio-story-image,
+  .portfolio-article-cover,
+  .article-prose
+) img {
+  filter: none !important;
+}
+
 .article-promo {
   border: 1px solid #c9c1b8;
   border-radius: 1.5rem 3rem 1.5rem 1.5rem;
@@ -806,67 +773,207 @@ html body::before {
   border-radius: 3rem 1.5rem 1.5rem 1.5rem;
 }
 
-/* Services page: one restrained type scale, clear chapters, and soft edges. */
+/* Services page: one paper-and-ink base, one accent per service, motion on demand. */
 .services-clean {
   color: #1d1d1a;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.services-clean :where(h1, h2, h3, h4) {
-  color: #1d1d1a !important;
-  font-family: Georgia, "Times New Roman", serif !important;
-  font-style: normal;
-  font-weight: 400 !important;
-  letter-spacing: -.025em !important;
+.services-clean :where(h1, h2) {
+  color: #1d1d1a;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
 }
 
 .services-clean h2 {
-  font-size: clamp(2rem, 3.4vw, 3.5rem) !important;
-  line-height: 1.08 !important;
+  font-size: clamp(1.9rem, 3.2vw, 3.15rem);
 }
 
-.services-clean h3 {
-  font-size: clamp(1.4rem, 2vw, 2.15rem) !important;
-  line-height: 1.15 !important;
+/* Overview bands fade into the page instead of ending as hard cards. */
+.svc-overview-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
-.services-clean h4 {
-  font-size: 1.1rem !important;
-  line-height: 1.35 !important;
+.svc-overview-band::after {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: clamp(2.5rem, 8vw, 8rem);
+  background: linear-gradient(90deg, transparent, var(--svc-bg) 88%);
+  content: "";
+  pointer-events: none;
 }
 
-.services-clean p {
-  line-height: 1.75;
+.svc-visual-fade::after {
+  position: absolute;
+  inset: -8%;
+  background:
+    linear-gradient(90deg, transparent 70%, var(--svc-bg) 100%),
+    linear-gradient(180deg, transparent 74%, var(--svc-bg) 100%);
+  content: "";
+  pointer-events: none;
 }
 
-.services-clean > .service-section {
-  border-width: 1px 0 0 !important;
+.svc-visual-image {
+  -webkit-mask-image: radial-gradient(ellipse 88% 84% at 48% 48%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 88% 84% at 48% 48%, #000 62%, transparent 100%);
 }
 
-.services-clean > .service-section + .service-section {
-  margin-top: clamp(4rem, 8vw, 8rem);
+.svc-scope-list li {
+  position: relative;
 }
 
-.services-clean :where(
-  [class*="rounded-2xl"],
-  [class*="rounded-xl"],
-  [class*="rounded-lg"]
-) {
-  border-radius: 1.5rem 3rem 1.5rem 1.5rem !important;
+.svc-scope-list li::after {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(157, 145, 133, .48), rgba(157, 145, 133, .18) 72%, transparent);
+  content: "";
 }
 
-.services-clean figure {
-  border-radius: 2rem 4rem 2rem 2rem !important;
+.svc-scope-list li:last-child::after {
+  opacity: .45;
+}
+
+/* Each service is its own organic section, rather than one continuous stack. */
+.svc-service-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(117, 103, 89, .13);
+  box-shadow: 0 1.25rem 3.5rem rgba(71, 61, 51, .055);
+}
+
+.svc-service-shell--content {
+  border-radius: 3.5rem 10rem 5rem 7rem / 4rem 6rem 8rem 5rem;
+}
+
+.svc-service-shell--research {
+  border-radius: 8rem 3.5rem 7rem 4rem / 5rem 8rem 4rem 7rem;
+}
+
+.svc-service-shell--development {
+  border-radius: 4rem 8rem 3.5rem 10rem / 7rem 4rem 8rem 5rem;
+}
+
+/* Soft notches keep the outer silhouettes from reading as regular cards. */
+.svc-service-shell::before,
+.svc-service-shell::after {
+  position: absolute;
+  z-index: 2;
+  width: clamp(4rem, 8vw, 8rem);
+  height: clamp(2.2rem, 4vw, 4rem);
+  border-radius: 50%;
+  background: #f7f5ef;
+  content: "";
+  pointer-events: none;
+}
+
+.svc-service-shell::before {
+  top: 17%;
+  right: clamp(-4rem, -3vw, -2rem);
+  transform: rotate(-13deg);
+}
+
+.svc-service-shell::after {
+  bottom: 12%;
+  left: clamp(-4rem, -3vw, -2rem);
+  transform: rotate(11deg);
+}
+
+.svc-service-shell--research::before {
+  top: 58%;
+}
+
+.svc-service-shell--research::after {
+  bottom: 55%;
+}
+
+.svc-service-shell--development::before {
+  top: 34%;
+}
+
+.svc-service-shell--development::after {
+  bottom: 20%;
 }
 
 @media (max-width: 640px) {
-  .services-clean > .service-section + .service-section {
-    margin-top: 3.5rem;
+  .svc-service-shell--content,
+  .svc-service-shell--research,
+  .svc-service-shell--development {
+    border-radius: 2.25rem 4rem 2.75rem 3.5rem / 3rem 2.25rem 4rem 2.5rem;
   }
 
-  .services-clean figure {
-    border-radius: 1.5rem 2.5rem 1.5rem 1.5rem !important;
+  .svc-service-shell::before,
+  .svc-service-shell::after {
+    display: none;
   }
+}
+
+/* Cycle nodes: lift and colour on hover, connectors settle in on load. */
+.svc-node {
+  transition: border-color 320ms ease, box-shadow 320ms ease, transform 320ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.svc-chip {
+  transition: border-color 260ms ease, color 260ms ease, transform 260ms ease;
+}
+
+.svc-chip:hover {
+  border-color: var(--svc-accent, #1d1d1a);
+  color: #1d1d1a;
+  transform: translateY(-2px);
+}
+
+.svc-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 620ms ease, transform 620ms cubic-bezier(.22, .61, .36, 1);
+}
+
+.svc-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Detail overlay: the page behind stays visible but blurred back. */
+@keyframes svcBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes svcPanelIn {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: none; }
+}
+
+.svc-modal-backdrop {
+  animation: svcBackdropIn 220ms ease-out both;
+}
+
+.svc-modal-panel {
+  animation: svcPanelIn 340ms cubic-bezier(.22, .61, .36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-node,
+  .svc-chip,
+  .svc-reveal {
+    transition: none;
+  }
+
+  .svc-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .svc-modal-backdrop,
+  .svc-modal-panel {
+    animation: none;
+  }
+
 }
 
 

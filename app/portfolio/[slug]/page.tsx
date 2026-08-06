@@ -1,51 +1,95 @@
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { getArticleBySlug, getAllArticles } from "@/lib/articles";
-import { ResponsiveContainer } from "@/components/layout/ResponsiveLayout";
+import { notFound } from "next/navigation";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Clock3,
+} from "lucide-react";
+
+import {
+  ResponsiveContainer,
+} from "@/components/layout/ResponsiveLayout";
+import {
+  getAllArticles,
+  getArticleBySlug,
+} from "@/lib/articles";
 
 const BASE_URL = "https://www.jakslab.work";
-const DEFAULT_IMAGE = "/homepage-service-images/jakslab-integrated-services-landing.png";
+
+const DEFAULT_IMAGE =
+  "/homepage-service-images/jakslab-integrated-services-landing.png";
+
+type ArticlePageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+function getAbsoluteImageUrl(image?: string) {
+  const source = image || DEFAULT_IMAGE;
+
+  if (source.startsWith("http://") || source.startsWith("https://")) {
+    return source;
+  }
+
+  return `${BASE_URL}${source.startsWith("/") ? source : `/${source}`}`;
+}
+
+export function generateStaticParams() {
+  return getAllArticles().map((article) => ({
+    slug: article.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+}: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
 
   try {
     const article = await getArticleBySlug(slug);
+
     const description =
       article.excerpt ||
-      `Read ${article.title}, a ${article.category.toLowerCase()} article from JaksLab.`;
-    const image = article.image || DEFAULT_IMAGE;
-    const imageAlt = article.imageAlt || `${article.title} article cover`;
+      `Read ${article.title}, an insight from JaksLab.`;
+
+    const image = getAbsoluteImageUrl(article.image);
+    const canonical = `${BASE_URL}/portfolio/${article.slug}`;
 
     return {
       title: article.title,
       description,
       keywords: [
         article.title,
-        article.category,
+        ...(article.category ? [article.category] : []),
         "JaksLab",
-        "technical content marketing",
-        "technology development",
-        "research support",
+        "technical content",
+        "search growth",
+        "digital products",
+        "project research",
       ],
       alternates: {
-        canonical: `/portfolio/${slug}`,
+        canonical,
       },
       openGraph: {
         type: "article",
-        url: `${BASE_URL}/portfolio/${slug}`,
+        url: canonical,
+        siteName: "JaksLab",
         title: article.title,
         description,
         publishedTime: article.date,
         authors: [article.author],
-        images: [{ url: image, alt: imageAlt }],
+        section: article.category,
+        images: [
+          {
+            url: image,
+            alt:
+              article.imageAlt ||
+              `${article.title} article cover`,
+          },
+        ],
       },
       twitter: {
         card: "summary_large_image",
@@ -57,29 +101,115 @@ export async function generateMetadata({
   } catch {
     return {
       title: "Article not found",
-      robots: { index: false, follow: false },
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 }
 
+type PromoCardProps = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  linkLabel: string;
+  accent: string;
+};
+
+function PromoCard({
+  eyebrow,
+  title,
+  description,
+  href,
+  linkLabel,
+  accent,
+}: PromoCardProps) {
+  return (
+    <aside className="border-t border-[#d9d2c8] pt-5 lg:border-t-0 lg:pt-0">
+      <div className="lg:sticky lg:top-28">
+        <div className="flex items-center gap-3">
+          <span
+            className="h-px w-8"
+            style={{ backgroundColor: accent }}
+          />
+
+          <p
+            className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+            style={{ color: accent }}
+          >
+            {eyebrow}
+          </p>
+        </div>
+
+        <h2 className="mt-5 max-w-[12ch] font-serif text-[1.65rem] font-normal leading-[1.08] tracking-[-0.025em] text-[#1d1d1a]">
+          {title}
+        </h2>
+
+        <p className="mt-4 max-w-[17rem] text-sm leading-6 text-[#625950]">
+          {description}
+        </p>
+
+        <Link
+          href={href}
+          className="group mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#2c251f]"
+        >
+          <span className="border-b border-[#2c251f]/40 pb-1 transition group-hover:border-[#2c251f]">
+            {linkLabel}
+          </span>
+
+          <ArrowRight
+            size={13}
+            aria-hidden="true"
+            className="transition-transform group-hover:translate-x-1"
+          />
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
 export default async function ArticlePage({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: ArticlePageProps) {
   const { slug } = await params;
-  if (!slug) notFound();
+
+  if (!slug) {
+    notFound();
+  }
 
   let article;
+
   try {
     article = await getArticleBySlug(slug);
   } catch {
     notFound();
   }
 
-  const related = getAllArticles()
-    .filter((item) => item.slug !== slug)
-    .slice(0, 3);
+  const allArticles = getAllArticles();
+
+  const sameCategoryArticles = allArticles.filter(
+    (item) =>
+      item.slug !== article.slug &&
+      item.category === article.category,
+  );
+
+  const otherArticles = allArticles.filter(
+    (item) =>
+      item.slug !== article.slug &&
+      item.category !== article.category,
+  );
+
+  const related = [
+    ...sameCategoryArticles,
+    ...otherArticles,
+  ].slice(0, 3);
+
+  const canonicalUrl =
+    `${BASE_URL}/portfolio/${article.slug}`;
+
+  const articleImage = getAbsoluteImageUrl(article.image);
 
   const articleStructuredData = {
     "@context": "https://schema.org",
@@ -88,7 +218,10 @@ export default async function ArticlePage({
     description: article.excerpt,
     datePublished: article.date,
     dateModified: article.date,
-    mainEntityOfPage: `${BASE_URL}/portfolio/${article.slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
     author: {
       "@type": "Person",
       name: article.author,
@@ -102,112 +235,293 @@ export default async function ArticlePage({
         url: `${BASE_URL}/jakslab.png`,
       },
     },
-    articleSection: article.category,
-    image: `${BASE_URL}${article.image || DEFAULT_IMAGE}`,
+    image: articleImage,
+    ...(article.category
+      ? { articleSection: article.category }
+      : {}),
     inLanguage: "en",
   };
 
   return (
-    <main className="min-h-screen bg-transparent [font-family:Arial,Helvetica,sans-serif] text-slate-800">
+    <main className="min-h-screen overflow-x-hidden bg-[#f7f5ef] text-[#1d1d1a]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            articleStructuredData,
+          ).replace(/</g, "\\u003c"),
+        }}
       />
-      <header className="pb-12 pt-20 sm:pb-16 sm:pt-24">
-        <ResponsiveContainer>
-          <div className="mx-auto max-w-4xl">
-            <nav aria-label="Breadcrumb">
-              <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-950">
-                <ArrowLeft size={16} aria-hidden="true" />
-                Back to Our Insights
-              </Link>
-            </nav>
 
-            <div className="mt-10 text-center">
-              <h1 className="text-[clamp(2.5rem,6vw,5.75rem)] font-medium leading-[1.02] tracking-[-.055em] text-slate-950">
+      {/* Article header */}
+      <header className="border-b border-[#d9d2c8]">
+        <ResponsiveContainer className="py-[clamp(2rem,5vw,4rem)]">
+          <nav aria-label="Breadcrumb">
+            <Link
+              href="/portfolio"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[#625950] transition hover:text-[#1d1d1a]"
+            >
+              <ArrowLeft
+                size={15}
+                aria-hidden="true"
+                className="transition-transform group-hover:-translate-x-1"
+              />
+
+              Back to insights
+            </Link>
+          </nav>
+
+          <div className="mt-[clamp(3rem,7vw,6rem)] grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.6fr)] lg:items-end lg:gap-16">
+            <div>
+              {article.category && (
+                <div className="flex items-center gap-3">
+                  <span className="h-px w-10 bg-[#9e443a]" />
+
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9e443a]">
+                    {article.category}
+                  </p>
+                </div>
+              )}
+
+              <h1 className="mt-6 max-w-[16ch] text-balance font-serif text-[clamp(2.75rem,6.5vw,6.75rem)] font-normal leading-[0.94] tracking-[-0.05em] text-[#1d1d1a]">
                 {article.title}
               </h1>
-              {article.excerpt && (
-                <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-700">{article.excerpt}</p>
-              )}
-              <div className="mt-7 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-slate-600">
-                <span>By {article.author}</span>
-                <span>{article.date}</span>
-                <span>{article.readTime}</span>
-              </div>
             </div>
 
-            <figure className="relative mt-10 aspect-[16/9] w-full overflow-hidden bg-[#f7eee4]/55">
-              <Image
-                src={article.image || DEFAULT_IMAGE}
-                alt={article.imageAlt || `${article.title} article cover`}
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 896px"
-                className="h-full w-full max-w-full object-cover object-center"
-              />
-            </figure>
+            <div className="lg:pb-2">
+              {article.excerpt && (
+                <p className="max-w-xl text-base leading-8 text-[#625950] sm:text-lg">
+                  {article.excerpt}
+                </p>
+              )}
+
+              <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-[#d9d2c8] pt-5 text-xs text-[#766d64]">
+                <span className="font-semibold text-[#2c251f]">
+                  By {article.author}
+                </span>
+
+                <span>{article.date}</span>
+
+                {article.readTime && (
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock3
+                      size={13}
+                      aria-hidden="true"
+                    />
+                    {article.readTime}
+                  </span>
+                )}
+              </div>
+            </div>
           </div>
+
+          <figure className="relative mt-[clamp(3rem,6vw,5rem)] aspect-[16/8.5] w-full overflow-hidden rounded-[clamp(1.25rem,3vw,2.5rem)] border border-[#d9d2c8] bg-[#eee6dc]">
+            <Image
+              src={article.image || DEFAULT_IMAGE}
+              alt={
+                article.imageAlt ||
+                `${article.title} article cover`
+              }
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 1280px"
+              className="object-cover object-center"
+            />
+          </figure>
         </ResponsiveContainer>
       </header>
 
-      <ResponsiveContainer className="py-12 sm:py-16 lg:py-20">
-        <div className="mx-auto grid max-w-[82rem] gap-8 lg:grid-cols-[13rem_minmax(0,48rem)_13rem] lg:items-start">
-          <aside className="article-promo lg:sticky lg:top-28" aria-label="JaksLab content optimization service">
-            <p className="text-[10px] uppercase tracking-[.13em] text-[#a94318]">JaksLab service</p>
-            <h2 className="mt-4 font-serif text-2xl font-normal leading-tight text-[#1d1d1a]">
-              Turn expertise into qualified traffic.
-            </h2>
-            <p className="mt-4 text-xs leading-6 text-[#625b54]">
-              Research, technical content, SEO, AEO, and continuous optimization.
-            </p>
-            <Link href="/services#content-marketing" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#1d1d1a] underline underline-offset-4">
-              Explore content growth <ArrowRight size={13} aria-hidden="true" />
-            </Link>
-          </aside>
+      {/* Article body */}
+      <ResponsiveContainer className="py-[clamp(3.5rem,7vw,7rem)]">
+        <div className="mx-auto grid max-w-[88rem] gap-12 lg:grid-cols-[12rem_minmax(0,46rem)_12rem] lg:items-start lg:gap-10 xl:grid-cols-[14rem_minmax(0,48rem)_14rem] xl:gap-14">
+          <PromoCard
+            eyebrow="Content growth"
+            title="Turn expertise into qualified traffic."
+            description="Research, technical content, SEO, AEO and continuous content improvement."
+            href="/services/content"
+            linkLabel="Explore content growth"
+            accent="#9e443a"
+          />
 
-        <article
-          className="article-prose prose prose-lg w-full max-w-3xl"
-          dangerouslySetInnerHTML={{ __html: article.contentHtml }}
-        />
+          <article
+            className="
+              article-prose
+              prose
+              prose-lg
+              min-w-0
+              max-w-none
+              text-[#302c28]
 
-          <aside className="article-promo article-promo--warm lg:sticky lg:top-28" aria-label="JaksLab project research service">
-            <p className="text-[10px] uppercase tracking-[.13em] text-[#a94318]">Before you build</p>
-            <h2 className="mt-4 font-serif text-2xl font-normal leading-tight text-[#1d1d1a]">
-              Test the direction before development.
-            </h2>
-            <p className="mt-4 text-xs leading-6 text-[#625b54]">
-              Clarify requirements, users, frameworks, risks, and the practical delivery path.
-            </p>
-            <Link href="/services#research-academic" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold text-[#1d1d1a] underline underline-offset-4">
-              Explore project research <ArrowRight size={13} aria-hidden="true" />
-            </Link>
-          </aside>
+              prose-headings:font-serif
+              prose-headings:font-normal
+              prose-headings:tracking-[-0.03em]
+              prose-headings:text-[#1d1d1a]
+
+              prose-h2:mb-5
+              prose-h2:mt-14
+              prose-h2:text-[clamp(2rem,4vw,3rem)]
+              prose-h2:leading-[1.05]
+
+              prose-h3:mb-4
+              prose-h3:mt-10
+              prose-h3:text-2xl
+              prose-h3:leading-tight
+
+              prose-p:my-6
+              prose-p:text-[1.05rem]
+              prose-p:leading-[1.9]
+              prose-p:text-[#4f4943]
+
+              prose-a:font-semibold
+              prose-a:text-[#844038]
+              prose-a:decoration-[#844038]/35
+              prose-a:underline-offset-4
+              hover:prose-a:decoration-[#844038]
+
+              prose-strong:font-semibold
+              prose-strong:text-[#24211e]
+
+              prose-blockquote:my-10
+              prose-blockquote:border-l-[#9e443a]
+              prose-blockquote:bg-[#eee5da]/55
+              prose-blockquote:px-7
+              prose-blockquote:py-5
+              prose-blockquote:font-serif
+              prose-blockquote:text-xl
+              prose-blockquote:font-normal
+              prose-blockquote:leading-8
+              prose-blockquote:text-[#332e29]
+
+              prose-li:my-2
+              prose-li:text-[#4f4943]
+              prose-li:marker:text-[#9e443a]
+
+              prose-hr:my-14
+              prose-hr:border-[#d9d2c8]
+
+              prose-img:my-10
+              prose-img:rounded-2xl
+              prose-img:border
+              prose-img:border-[#d9d2c8]
+
+              prose-figcaption:text-center
+              prose-figcaption:text-sm
+              prose-figcaption:text-[#766d64]
+
+              prose-code:rounded
+              prose-code:bg-[#e9e3da]
+              prose-code:px-1.5
+              prose-code:py-0.5
+              prose-code:text-[#743b33]
+              prose-code:before:content-none
+              prose-code:after:content-none
+
+              prose-pre:overflow-x-auto
+              prose-pre:rounded-2xl
+              prose-pre:border
+              prose-pre:border-[#3d3833]
+              prose-pre:bg-[#24211e]
+            "
+            dangerouslySetInnerHTML={{
+              __html: article.contentHtml,
+            }}
+          />
+
+          <PromoCard
+            eyebrow="Before you build"
+            title="Test the direction before development."
+            description="Clarify requirements, users, technologies, risks and the practical delivery path."
+            href="/services/research"
+            linkLabel="Explore project research"
+            accent="#526b84"
+          />
         </div>
       </ResponsiveContainer>
 
+      {/* Related articles */}
       {related.length > 0 && (
-        <ResponsiveContainer className="border-t border-slate-300 py-14 sm:py-16 lg:py-20">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-950">Continue reading</h2>
-            <Link href="/portfolio" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
-              All articles <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
+        <section className="border-t border-[#d9d2c8] bg-[#eeeae3]">
+          <ResponsiveContainer className="py-[clamp(3.5rem,7vw,6rem)]">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#8a8076]">
+                  More from JaksLab
+                </p>
 
-          <div className="mt-9 grid gap-4 md:grid-cols-3">
-            {related.map((item) => (
-              <Link key={item.slug} href={`/portfolio/${item.slug}`} className="group bg-transparent py-6">
-                <h3 className="mt-4 text-lg font-semibold leading-snug text-slate-950">{item.title}</h3>
-                {item.excerpt && <p className="mt-3 line-clamp-3 text-sm leading-7 text-slate-700">{item.excerpt}</p>}
-                <div className="mt-6 flex items-center justify-between border-t border-slate-300 pt-4 text-xs text-slate-600">
-                  <span>{item.date}</span>
-                  <span>{item.readTime}</span>
-                </div>
+                <h2 className="mt-3 font-serif text-[clamp(2.25rem,4vw,3.75rem)] font-normal leading-none tracking-[-0.04em] text-[#1d1d1a]">
+                  Continue reading.
+                </h2>
+              </div>
+
+              <Link
+                href="/portfolio"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-[#2c251f]"
+              >
+                All articles
+
+                <ArrowRight
+                  size={15}
+                  aria-hidden="true"
+                  className="transition-transform group-hover:translate-x-1"
+                />
               </Link>
-            ))}
-          </div>
-        </ResponsiveContainer>
+            </div>
+
+            <div className="mt-10 grid border-y border-[#cfc7bd] md:grid-cols-3">
+              {related.map((item, index) => (
+                <Link
+                  key={item.slug}
+                  href={`/portfolio/${item.slug}`}
+                  className={`
+                    group flex min-w-0 flex-col py-8
+                    md:px-7
+                    ${index > 0
+                      ? "border-t border-[#cfc7bd] md:border-l md:border-t-0"
+                      : ""
+                    }
+                  `}
+                >
+                  <div className="flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#8a8076]">
+                    <span>
+                      {item.category || "Insight"}
+                    </span>
+
+                    <span>
+                      0{index + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-7 text-balance font-serif text-[1.75rem] font-normal leading-[1.08] tracking-[-0.025em] text-[#1d1d1a]">
+                    {item.title}
+                  </h3>
+
+                  {item.excerpt && (
+                    <p className="mt-5 line-clamp-3 text-sm leading-7 text-[#625950]">
+                      {item.excerpt}
+                    </p>
+                  )}
+
+                  <div className="mt-auto flex items-center justify-between gap-4 pt-8 text-xs text-[#766d64]">
+                    <div className="flex flex-wrap gap-x-4 gap-y-2">
+                      <span>{item.date}</span>
+
+                      {item.readTime && (
+                        <span>{item.readTime}</span>
+                      )}
+                    </div>
+
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[#bdb3a8] transition group-hover:border-[#2c251f] group-hover:bg-[#2c251f] group-hover:text-white">
+                      <ArrowRight
+                        size={14}
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </ResponsiveContainer>
+        </section>
       )}
     </main>
   );

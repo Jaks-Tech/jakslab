@@ -26,7 +26,7 @@ const processShapes = [
 export function HomepagePillars({ pillars }: { pillars: HomepagePillar[] }) {
   return (
     <section id="our-approach" className="homepage-pillars-section px-4 py-[clamp(4rem,8vw,7rem)] text-[#1d1d1a] sm:px-6 md:px-8 lg:px-16">
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-20">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:gap-16">
         <div>
           <p className="text-xs uppercase tracking-[.15em]">How we work</p>
           <h2 className="approach-display-title mt-5 max-w-[8ch] text-[clamp(3.5rem,8vw,7.5rem)] uppercase italic leading-[.78] tracking-[-.07em]">Our Approach</h2>
@@ -36,7 +36,7 @@ export function HomepagePillars({ pillars }: { pillars: HomepagePillar[] }) {
           </p>
         </div>
 
-        <div className="grid gap-7 sm:grid-cols-2 lg:gap-10 lg:pb-14">
+        <div className="grid gap-8 sm:grid-cols-2 lg:gap-x-8 lg:gap-y-12 lg:pb-14">
           {pillars.map((pillar, index) => {
             const Icon = pillarIcons[pillar.legacySlug] ?? CircleAlert;
 
@@ -44,7 +44,7 @@ export function HomepagePillars({ pillars }: { pillars: HomepagePillar[] }) {
               <Link
                 key={pillar.slug}
                 href={`/insights/${pillar.slug}`}
-                className={`approach-item group relative flex min-h-60 flex-col justify-center px-8 py-10 sm:min-h-64 sm:px-10 ${processShapes[index]}`}
+                className={`approach-item group relative flex min-h-[20rem] min-w-0 flex-col justify-center overflow-hidden px-7 py-12 sm:min-h-[21rem] sm:px-8 ${processShapes[index]}`}
               >
                 <span className="flex items-center gap-3">
                   <Icon size={27} strokeWidth={1.45} aria-hidden="true" />
@@ -52,10 +52,10 @@ export function HomepagePillars({ pillars }: { pillars: HomepagePillar[] }) {
                     {pillar.sectionLabel} {String(pillar.order).padStart(2, "0")}
                   </span>
                 </span>
-                <span className="mt-5 block font-serif text-[clamp(1.35rem,2.4vw,1.8rem)] leading-tight">{pillar.label}</span>
-                <span className="mt-3 block max-w-xs text-xs leading-5 text-[#625a53]">{pillar.brief}</span>
-                <span className="mt-6 inline-flex w-fit items-center gap-2 border-b border-[#9e443a] pb-1 text-xs font-semibold text-[#9e443a]">
-                  {pillar.ctaLabel}
+                <span className="mt-5 block max-w-full break-words font-serif text-[clamp(1.2rem,2vw,1.55rem)] leading-tight">{pillar.label}</span>
+                <span className="mt-3 block max-w-full text-xs leading-5 text-[#625a53]">{pillar.brief}</span>
+                <span className="mt-6 inline-flex max-w-full items-end gap-2 self-start border-b border-[#9e443a] pb-1 text-xs font-semibold leading-4 text-[#9e443a]">
+                  <span>{pillar.ctaLabel}</span>
                   <ArrowRight size={13} aria-hidden="true" />
                 </span>
               </Link>

@@ -9,7 +9,6 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeStringify from "rehype-stringify";
 
 import { calculateReadTime } from "@/lib/readTime";
-import { CATEGORIES, Category } from "@/lib/categories";
 
 /* =====================================
    TYPES
@@ -19,7 +18,7 @@ export interface ArticleMeta {
   title: string;
   date: string;
   author: string;
-  category: Category;
+  category?: string;
   excerpt?: string;
   image?: string;
   imageAlt?: string;
@@ -40,19 +39,6 @@ const articlesDirectory = path.join(process.cwd(), "articles");
 /* =====================================
    VALIDATE CATEGORY
 ===================================== */
-
-function validateCategory(category: string, fileName: string): Category {
-  const validCategory = CATEGORIES.find((c) => c.name === category);
-
-  if (!validCategory) {
-    const allowed = CATEGORIES.map((c) => c.name).join(", ");
-    throw new Error(
-      `Invalid category "${category}" in article: ${fileName}.\nAllowed categories: ${allowed}`
-    );
-  }
-
-  return validCategory.name;
-}
 
 /* =====================================
    GET ALL ARTICLES (LIST PAGE)
@@ -82,18 +68,16 @@ export function getAllArticles(): (ArticleMeta & {
     const image = data.image || data.coverImage || data.thumbnail || "";
     const imageAlt = data.imageAlt || data.coverImageAlt || "";
 
-    if (!title || !date || !author || !category) {
+    if (!title || !date || !author) {
       throw new Error(`Missing required metadata in article: ${fileName}`);
     }
-
-    const validatedCategory = validateCategory(category, fileName);
 
     return {
       slug,
       title,
       date,
       author,
-      category: validatedCategory,
+      category: category ? String(category) : undefined,
       excerpt: excerpt || "", // Fallback
       image,
       imageAlt,
@@ -124,11 +108,9 @@ export async function getArticleBySlug(slug: string): Promise<Article> {
   const image = data.image || data.coverImage || data.thumbnail || "";
   const imageAlt = data.imageAlt || data.coverImageAlt || "";
 
-  if (!title || !date || !author || !category) {
+  if (!title || !date || !author) {
     throw new Error(`Missing required metadata in article: ${slug}`);
   }
-
-  const validatedCategory = validateCategory(category, slug);
 
   /* ✅ Modern Markdown → HTML pipeline */
   const processedContent = await remark()
@@ -144,7 +126,7 @@ export async function getArticleBySlug(slug: string): Promise<Article> {
     title,
     date,
     author,
-    category: validatedCategory,
+    category: category ? String(category) : undefined,
     excerpt: excerpt || "",
     image,
     imageAlt,
@@ -161,19 +143,20 @@ export function groupArticlesByCategory(
   articles: ReturnType<typeof getAllArticles>
 ) {
   return articles.reduce((acc, article) => {
-    if (!acc[article.category]) {
-      acc[article.category] = [];
+    const category = article.category || "Insight";
+    if (!acc[category]) {
+      acc[category] = [];
     }
-    acc[article.category].push(article);
+    acc[category].push(article);
     return acc;
-  }, {} as Record<Category, typeof articles>);
+  }, {} as Record<string, typeof articles>);
 }
 
 /* =====================================
    GET ARTICLES BY CATEGORY
 ===================================== */
 
-export function getArticlesByCategory(category: Category) {
+export function getArticlesByCategory(category: string) {
   const articles = getAllArticles();
   return articles.filter((article) => article.category === category);
 }

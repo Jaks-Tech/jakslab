@@ -95,7 +95,7 @@ export function Header() {
               className="hidden items-center gap-2 rounded-full bg-blue-600 px-5 py-2 text-sm font-bold text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-500 md:flex"
             >
               <MessageSquareText size={17} aria-hidden="true" />
-              Book or Request
+              Start a project
             </button>
             <button
               type="button"

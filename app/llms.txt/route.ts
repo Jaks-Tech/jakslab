@@ -9,7 +9,7 @@ export async function GET() {
   const articleLinks = articles
     .map(
       (article) =>
-        `- [${article.title}](${BASE_URL}/portfolio/${article.slug}): ${article.excerpt || `${article.category} article by JaksLab.`}`,
+        `- [${article.title}](${BASE_URL}/portfolio/${article.slug}): ${article.excerpt || `${article.category || "Insight"} article by JaksLab.`}`,
     )
     .join("\n");
   const insightLinks = insights

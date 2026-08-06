@@ -8,6 +8,9 @@ const SITE_UPDATED_AT = new Date("2026-07-30");
 const publicPages = [
   { path: "", changeFrequency: "weekly", priority: 1 },
   { path: "/services", changeFrequency: "monthly", priority: 0.95 },
+  { path: "/services/research", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/development", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/services/content", changeFrequency: "monthly", priority: 0.85 },
   { path: "/portfolio", changeFrequency: "weekly", priority: 0.9 },
   { path: "/about", changeFrequency: "monthly", priority: 0.75 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.75 },

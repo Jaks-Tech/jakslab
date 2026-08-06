@@ -26,37 +26,37 @@ export function RecentArticlesRotator({ articles }: { articles: ArticlePreview[]
 
   return (
     <div className="mt-10">
-      <div key={start} className="homepage-article-change grid gap-6 lg:grid-cols-[1.15fr_.85fr]">
+      <div key={start} className={`homepage-article-change grid gap-6 ${visible.length > 1 ? "lg:grid-cols-[1.15fr_.85fr]" : "grid-cols-1"}`}>
         {visible[0] && (
-          <Link href={`/portfolio/${visible[0].slug}`} className="insight-feature group grid min-h-[28rem] min-w-0 overflow-hidden bg-[#eee7de] sm:grid-cols-[.92fr_1.08fr]">
-            <span className="relative min-h-64 min-w-0 overflow-hidden">
-              <Image src={visible[0].image || fallbackImage} alt="" fill sizes="(max-width: 640px) 100vw, 42vw" className="h-full w-full max-w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.025]" />
+          <Link href={`/portfolio/${visible[0].slug}`} className="insight-feature group grid min-h-[22rem] min-w-0 overflow-hidden rounded-[2rem_5rem_2.5rem_3rem] border border-[#ddd4c9] bg-[#eee7de] sm:grid-cols-[.95fr_1.05fr]">
+            <span className="relative min-h-56 min-w-0 overflow-hidden bg-[#f5f2ed]">
+              <Image src={visible[0].image || fallbackImage} alt="" fill sizes="(max-width: 640px) 100vw, 48vw" className="h-full w-full max-w-full object-contain object-center p-4 transition-transform duration-500 group-hover:scale-[1.015]" />
             </span>
-            <span className="flex min-w-0 flex-col justify-center p-7 sm:p-10">
+            <span className="flex min-w-0 flex-col justify-center p-7 sm:p-9 lg:p-12">
               <span className="text-[11px] uppercase tracking-[.12em] text-[#9e443a]">{visible[0].category}</span>
-              <span className="mt-5 max-w-xl font-serif text-[clamp(1.8rem,3vw,3rem)] leading-[1.06] text-[#1d1d1a]">{visible[0].title}</span>
+              <span className="mt-4 max-w-[22ch] font-serif text-[clamp(1.65rem,2.5vw,2.4rem)] leading-[1.08] text-[#1d1d1a]">{visible[0].title}</span>
               {visible[0].excerpt && <span className="mt-5 max-w-xl text-sm leading-7 text-[#5e5750]">{visible[0].excerpt}</span>}
               <span className="mt-8 inline-flex items-center gap-3 text-xs text-[#4c4641]">
                 {visible[0].readTime}
-                <span aria-hidden="true">→</span>
+                <span>Read insight</span>
               </span>
             </span>
           </Link>
         )}
-        <div className="flex flex-col gap-5">
+        {visible.length > 1 && <div className="flex flex-col gap-5">
         {visible.slice(1).map((article) => (
           <Link key={article.slug} href={`/portfolio/${article.slug}`} className="insight-compact group grid min-h-[13.25rem] min-w-0 grid-cols-[6rem_minmax(0,1fr)] items-center gap-5 overflow-hidden bg-[#f7f5ef] p-5 sm:grid-cols-[8rem_minmax(0,1fr)]">
             <span className="insight-thumb relative aspect-square min-w-0 overflow-hidden bg-[#e7dfd5]">
               <Image src={article.image || fallbackImage} alt="" fill sizes="128px" className="h-full w-full max-w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.025]" />
             </span>
             <span className="min-w-0 py-2">
-              <span className="text-[10px] uppercase tracking-[.1em] text-[#9e443a]">{article.category}</span>
+              <span className="text-[10px] uppercase tracking-[.1em] text-[#9e443a]">{article.category || "Insight"}</span>
               <span className="mt-3 block font-serif text-[clamp(1.2rem,2vw,1.65rem)] leading-tight text-[#1d1d1a]">{article.title}</span>
               <span className="mt-4 block text-xs text-[#625b54]">{article.readTime} · Read article</span>
             </span>
           </Link>
         ))}
-        </div>
+        </div>}
       </div>
       {articles.length > visibleCount && (
         <div className="mt-6 flex justify-end gap-3">

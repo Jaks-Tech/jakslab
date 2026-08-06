@@ -95,7 +95,7 @@ export default function SitemapPage() {
                   className="grid gap-2 py-4 text-slate-900 hover:bg-white/45 sm:grid-cols-[1fr_auto] sm:items-center sm:px-3"
                 >
                   <span className="font-medium">{article.title}</span>
-                  <span className="text-sm text-slate-600">{article.category}</span>
+                  <span className="text-sm text-slate-600">{article.category || "Insight"}</span>
                 </Link>
               </li>
             ))}
