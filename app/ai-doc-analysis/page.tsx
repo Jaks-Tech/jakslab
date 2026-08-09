@@ -111,7 +111,7 @@ export default function ResearchPlannerPage() {
             </div>
 
             {/* SaaS Trust Footer */}
-            <div className="mt-24 flex flex-wrap justify-center gap-8 opacity-30 grayscale contrast-125">
+            <div className="mt-24 flex flex-wrap justify-center gap-8 opacity-30 contrast-125">
               <div className="flex items-center gap-2 font-bold uppercase tracking-tighter"><LineChart size={16}/> Real-time Analytics</div>
               <div className="flex items-center gap-2 font-bold uppercase tracking-tighter"><BrainCircuit size={16}/> Vector Processing</div>
               <div className="flex items-center gap-2 font-bold uppercase tracking-tighter"><ShieldAlert size={16}/> ISO 27001 Secure</div>

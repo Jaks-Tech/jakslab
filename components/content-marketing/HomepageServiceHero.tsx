@@ -49,23 +49,23 @@ export function HomepageServiceHero() {
         fill
         priority
         sizes="100vw"
-        className="-z-30 object-cover object-[74%_center] sm:object-[76%_center] lg:object-[82%_center] xl:object-center"
+        className="-z-30 object-cover object-[72%_center] [filter:none!important] sm:object-[76%_center] lg:object-[82%_center] xl:object-center"
       />
 
       {/* Transparent reading gradient */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(180deg,rgba(250,247,243,0.97)_0%,rgba(250,247,243,0.84)_52%,rgba(250,247,243,0.5)_100%)] sm:bg-[linear-gradient(90deg,rgba(250,247,243,0.97)_0%,rgba(250,247,243,0.9)_45%,rgba(250,247,243,0.48)_72%,transparent_100%)] lg:bg-[linear-gradient(90deg,rgba(250,247,243,0.96)_0%,rgba(250,247,243,0.86)_34%,rgba(250,247,243,0.34)_54%,rgba(250,247,243,0.05)_67%,transparent_78%)]"
+        className="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(180deg,rgba(250,247,243,0.94)_0%,rgba(250,247,243,0.78)_48%,rgba(250,247,243,0.28)_78%,rgba(250,247,243,0.12)_100%)] sm:bg-[linear-gradient(90deg,rgba(250,247,243,0.97)_0%,rgba(250,247,243,0.9)_45%,rgba(250,247,243,0.48)_72%,transparent_100%)] lg:bg-[linear-gradient(90deg,rgba(250,247,243,0.96)_0%,rgba(250,247,243,0.86)_34%,rgba(250,247,243,0.34)_54%,rgba(250,247,243,0.05)_67%,transparent_78%)]"
       />
 
-      {/* Mobile bottom fade */}
+      {/* Keep mobile copy readable while preserving the full-bleed background. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[38%] bg-[linear-gradient(180deg,transparent_0%,rgba(250,247,243,0.2)_45%,rgba(250,247,243,0.76)_100%)] md:hidden"
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[28%] bg-[linear-gradient(180deg,transparent_0%,rgba(250,247,243,0.18)_100%)] sm:hidden"
       />
 
       <ResponsiveContainer>
-        <div className="relative flex min-h-[100svh] items-center px-4 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 lg:px-0 lg:pb-16 lg:pt-32">
+        <div className="relative flex min-h-[100svh] items-center px-0 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-36 lg:px-0 lg:pb-16 lg:pt-32">
           {/* Restrict content to left side on laptops */}
           <div className="w-full max-w-[680px] lg:w-[48%] lg:max-w-[590px] xl:w-[46%] xl:max-w-[640px]">
             <h1 className="max-w-[12ch] font-serif text-[clamp(2.8rem,10vw,5.6rem)] font-normal leading-[0.95] tracking-[-0.045em] text-zinc-950 sm:text-[clamp(3.6rem,7vw,5.6rem)] lg:text-[clamp(3.7rem,5vw,5.15rem)]">

@@ -39,7 +39,7 @@ export default function InsightsList({ articles }: { articles: Insight[] }) {
             fill
             priority
             sizes={FEATURED_IMAGE_SIZES}
-            className="h-full w-full max-w-full object-contain object-center p-3 transition-transform duration-700 group-hover:scale-[1.01] sm:p-5"
+            className="h-full w-full max-w-full object-contain object-center p-3 [filter:none!important] transition-transform duration-700 group-hover:scale-[1.01] sm:p-5"
           />
         </span>
         <span className="flex min-w-0 flex-col justify-center p-[clamp(1.5rem,5vw,4.5rem)]">
@@ -68,7 +68,7 @@ export default function InsightsList({ articles }: { articles: Insight[] }) {
                 alt={article.imageAlt || `${article.title} article cover`}
                 fill
                 sizes={STORY_IMAGE_SIZES}
-                className="h-full w-full max-w-full object-contain object-center p-3 transition-transform duration-700 group-hover:scale-[1.025] sm:p-4"
+                className="h-full w-full max-w-full object-contain object-center p-3 [filter:none!important] transition-transform duration-700 group-hover:scale-[1.025] sm:p-4"
               />
             </span>
             <span className="block min-w-0 pt-6">

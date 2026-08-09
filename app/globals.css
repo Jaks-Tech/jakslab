@@ -645,10 +645,6 @@ html body::before {
   background: #ffffff;
 }
 
-.site-neutral-background img {
-  filter: grayscale(1) sepia(.12) saturate(.35) contrast(.94);
-}
-
 .site-neutral-background img[src*="jakslab.png"] {
   filter: none !important;
 }
@@ -738,7 +734,10 @@ html body::before {
   border-radius: 4rem 2rem 4rem 4rem !important;
 }
 
-.homepage-simple .insight-thumb,
+.homepage-simple .insight-thumb {
+  border-radius: 1.25rem !important;
+}
+
 .homepage-simple .insight-control {
   border-radius: 999px !important;
 }

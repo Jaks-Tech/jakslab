@@ -45,9 +45,9 @@ export function RecentArticlesRotator({ articles }: { articles: ArticlePreview[]
         )}
         {visible.length > 1 && <div className="flex flex-col gap-5">
         {visible.slice(1).map((article) => (
-          <Link key={article.slug} href={`/portfolio/${article.slug}`} className="insight-compact group grid min-h-[13.25rem] min-w-0 grid-cols-[6rem_minmax(0,1fr)] items-center gap-5 overflow-hidden bg-[#f7f5ef] p-5 sm:grid-cols-[8rem_minmax(0,1fr)]">
-            <span className="insight-thumb relative aspect-square min-w-0 overflow-hidden bg-[#e7dfd5]">
-              <Image src={article.image || fallbackImage} alt="" fill sizes="128px" className="h-full w-full max-w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.025]" />
+          <Link key={article.slug} href={`/portfolio/${article.slug}`} className="insight-compact group grid min-h-[13.25rem] min-w-0 grid-cols-[7rem_minmax(0,1fr)] items-center gap-4 overflow-hidden bg-[#f7f5ef] p-4 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-5 sm:p-5">
+            <span className="insight-thumb relative aspect-[16/10] min-w-0 overflow-hidden bg-[#e7dfd5]">
+              <Image src={article.image || fallbackImage} alt="" fill sizes="(max-width: 640px) 112px, 160px" className="h-full w-full max-w-full object-contain object-center p-1 [filter:none!important] transition-transform duration-500 group-hover:scale-[1.015]" />
             </span>
             <span className="min-w-0 py-2">
               <span className="text-[10px] uppercase tracking-[.1em] text-[#9e443a]">{article.category || "Insight"}</span>
